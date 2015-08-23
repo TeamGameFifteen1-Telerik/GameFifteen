@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace GameFifteenProject
+﻿namespace GameFifteen.Models
 {
-    class Player : IComparable
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+
+    public class Player : IComparable
     {
         private string name;
         private int moves;

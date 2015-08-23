@@ -1,55 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace GameFifteenProject
+﻿namespace GameFifteen.Logic
 {
-    static class Gameplay
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+
+    using GameFifteen.Common;
+    using GameFifteen.Models;
+
+    public class Engine
     {
-
-        private const int HORIZONTAL_NEIGHBOUR_TILE = 1;
-        private const int VERTICAL_NEIGHBOUR_TILE = 4;
-        private const int MATRIX_SIZE = 4;
-
-        public static void PrintMatrix(List<Tile> sourceMatrix)
-        {
-            Console.WriteLine("  ------------");
-            Console.Write("| ");
-            int rowCounter = 0;
-            for (int index = 0; index < 16; index++)
-            {
-                Tile currentElement = sourceMatrix.ElementAt(index);
-                
-                if (currentElement.Label == String.Empty)
-                {
-                    Console.Write("   ");
-                }
-                else if (Int32.Parse(currentElement.Label) < 10)
-                {
-                    Console.Write(' ' + currentElement.Label + ' ');
-                }
-                else
-                {
-                    Console.Write(currentElement.Label + ' ');
-                }
-
-                rowCounter++;
-                if (rowCounter == 4)
-                {
-                    Console.Write(" |");
-                    Console.WriteLine();
-                    if (index < 12)
-                    {
-                        Console.Write("| ");
-                    }
-                    rowCounter = 0;
-                }
-            }
-
-            Console.WriteLine("  ------------");
-        }
-
         public static List<Tile> MoveTiles(List<Tile> tiles, int tileValue)
         {
             if (tileValue < 0 || tileValue > 15)
@@ -128,8 +88,8 @@ namespace GameFifteenProject
             int tilesDistance = freeTile.Position - tile.Position;
             int tilesAbsoluteDistance = Math.Abs(tilesDistance);
             bool isValidHorizontalNeighbour =
-                (tilesAbsoluteDistance == HORIZONTAL_NEIGHBOUR_TILE && !(((tile.Position + 1) % MATRIX_SIZE == 1 && tilesDistance == -1) || ((tile.Position + 1) % MATRIX_SIZE == 0 && tilesDistance == 1)));
-            bool isValidVerticalNeighbour = (tilesAbsoluteDistance == VERTICAL_NEIGHBOUR_TILE);
+                (tilesAbsoluteDistance == GlobalConstants.HORIZONTAL_NEIGHBOUR_TILE && !(((tile.Position + 1) % GlobalConstants.MATRIX_SIZE == 1 && tilesDistance == -1) || ((tile.Position + 1) % GlobalConstants.MATRIX_SIZE == 0 && tilesDistance == 1)));
+            bool isValidVerticalNeighbour = (tilesAbsoluteDistance == GlobalConstants.VERTICAL_NEIGHBOUR_TILE);
             bool validNeigbour = isValidHorizontalNeighbour || isValidVerticalNeighbour;
 
             return validNeigbour;
@@ -148,6 +108,23 @@ namespace GameFifteenProject
             return result;
         }
 
+        public static string ProcessCommand(string input)
+        {
+            string inputToLower = input.ToLower();
+            string output;
 
+            if (inputToLower == Command.Exit.ToString().ToLower() ||
+                inputToLower == Command.Restart.ToString().ToLower() || 
+                inputToLower == Command.Top.ToString())
+            {
+                output = inputToLower;
+            }
+            else
+            {
+                throw new ArgumentException("Invalid Command!");
+            }
+
+            return output;
+        }
     }
 }

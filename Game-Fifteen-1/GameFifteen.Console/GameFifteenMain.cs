@@ -1,17 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace GameFifteenProject
+﻿namespace GameFifteen.Console
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+
+    using GameFifteen.Logic;
+    using GameFifteen.Models;
 
 	// mnogo sym dobyr programist, u4astvam v TopCoder i sam purvi ot Sliven i regiona
 
-    class Program
-    {
+    public class GameFifteenMain
+    {      
         private static void Menu()
         {
+            var scoreBoard = new Scoreboard();
+            var players = scoreBoard.Players;
+            var grid = new Grid();
+            var renderer = new ConsoleRenderer();
+            var engine = new Engine();
+
             List<Tile> tiles = new List<Tile>();
             int cnt = 0;
             string s = "restart";
@@ -30,15 +38,15 @@ namespace GameFifteenProject
                                 welcomeMessage = welcomeMessage + " \nto quit the game.";
                                 Console.WriteLine();
                                 Console.WriteLine(welcomeMessage);
-                                tiles = MatrixGenerator.GenerateMatrix();
-                                tiles = MatrixGenerator.ShuffleMatrix(tiles);
-                                flag = Gameplay.IsMatrixSolved(tiles);
-                                Gameplay.PrintMatrix(tiles);
+                                tiles = grid.GenerateMatrix();
+                                tiles = grid.ShuffleMatrix(tiles);
+                                flag = Engine.IsMatrixSolved(tiles);
+                                renderer.PrintMatrix(tiles);
                                 break;
                             }
                         case "top":
                             {
-                                Scoreboard.PrintScoreboard();
+                                renderer.PrintScoreboard(players);
                                 break;
                             }
                     }
@@ -55,10 +63,10 @@ namespace GameFifteenProject
                         {
                             try
                             {
-                                Gameplay.MoveTiles(tiles, destinationTileValue);
+                                Engine.MoveTiles(tiles, destinationTileValue);
                                 cnt++;
-                                Gameplay.PrintMatrix(tiles);
-                                flag = Gameplay.IsMatrixSolved(tiles);
+                                renderer.PrintMatrix(tiles);
+                                flag = Engine.IsMatrixSolved(tiles);
                             }
                             catch (Exception exception)
                             {
@@ -69,7 +77,7 @@ namespace GameFifteenProject
                         {
                             try
                             {
-                                s = Command.CommandType(s);
+                                s = Engine.ProcessCommand(s);
                             }
                             catch (ArgumentException exception)
                             {
@@ -93,8 +101,8 @@ namespace GameFifteenProject
                         Console.Write("Please enter your name for the top scoreboard: ");
                         string playerName = Console.ReadLine();
                         Player player = new Player(playerName, cnt);
-                        Scoreboard.AddPlayer(player);
-                        Scoreboard.PrintScoreboard();
+                        scoreBoard.AddPlayer(player);
+                        renderer.PrintScoreboard(players);
                     }
                     s = "restart";
                     flag = false;

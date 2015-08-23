@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace GameFifteenProject
+﻿namespace GameFifteen.Models
 {
-    class Tile : IComparable
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+
+    public class Tile : IComparable
     {
         private string label;
         private int position;

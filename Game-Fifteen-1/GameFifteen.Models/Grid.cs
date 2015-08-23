@@ -1,19 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace GameFifteenProject
+﻿namespace GameFifteen.Models
 {
-    static class MatrixGenerator
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+
+    using GameFifteen.Common;
+    using GameFifteen.Models;
+
+    public class Grid
     {
-        private const int HORIZONTAL_NEIGHBOUR_TILE = 1;
-        private const int VERTICAL_NEIGHBOUR_TILE = 4;
-        private const int MATRIX_SIZE = 4;
+        //private const int HORIZONTAL_NEIGHBOUR_TILE = 1;
+        //private const int VERTICAL_NEIGHBOUR_TILE = 4;
+        //private const int MATRIX_SIZE = 4;
         private const int MINIMUM_CYCLES = 20;
         private const int MAXIMUM_CYCLES = 50;
         private static Random random;
-        public static List<Tile> GenerateMatrix()
+
+        public List<Tile> GenerateMatrix()
         {
             List<Tile> tiles = new List<Tile>();
 
@@ -32,7 +36,7 @@ namespace GameFifteenProject
 
             return tiles;
         }
-        public static List<Tile> ShuffleMatrix(List<Tile> startingMatrix)
+        public List<Tile> ShuffleMatrix(List<Tile> startingMatrix)
         {
             random = new Random();
             int cycleCount = random.Next(MINIMUM_CYCLES, MAXIMUM_CYCLES);
@@ -49,7 +53,7 @@ namespace GameFifteenProject
 
 
         }
-        private static List<Tile> MoveFreeTile(List<Tile> resultMatrix)
+        private List<Tile> MoveFreeTile(List<Tile> resultMatrix)
         {
             Tile freeTile = DetermineFreeTile(resultMatrix);
 
@@ -72,7 +76,7 @@ namespace GameFifteenProject
 
             return resultMatrix;
         }
-        private static Tile DetermineFreeTile(List<Tile> resultMatrix)
+        private Tile DetermineFreeTile(List<Tile> resultMatrix)
         {
 
 
@@ -89,7 +93,7 @@ namespace GameFifteenProject
             return freeTile;
         }
 
-        private static List<Tile> GenerateNeighbourTilesList(Tile freeTile, Tile tile, List<Tile> neighbourTiles)
+        private List<Tile> GenerateNeighbourTilesList(Tile freeTile, Tile tile, List<Tile> neighbourTiles)
         {
             bool areValidNeighbourTiles = AreValidNeighbourTiles(freeTile, tile);
             if (areValidNeighbourTiles)
@@ -100,19 +104,16 @@ namespace GameFifteenProject
             }
             return neighbourTiles;
         }
-        private static bool AreValidNeighbourTiles(Tile freeTile, Tile tile)
+        private bool AreValidNeighbourTiles(Tile freeTile, Tile tile)
         {
             int tilesDistance = freeTile.Position - tile.Position;
             int tilesAbsoluteDistance = Math.Abs(tilesDistance);
             bool isValidHorizontalNeighbour =
-                ((tilesAbsoluteDistance == HORIZONTAL_NEIGHBOUR_TILE) && !(((tile.Position + 1) % MATRIX_SIZE == 1 && tilesDistance == -1) || ((tile.Position + 1) % MATRIX_SIZE == 0 && tilesDistance == 1)));
-            bool isValidVerticalNeighbour = (tilesAbsoluteDistance == VERTICAL_NEIGHBOUR_TILE);
+                ((tilesAbsoluteDistance == GlobalConstants.HORIZONTAL_NEIGHBOUR_TILE) && !(((tile.Position + 1) % GlobalConstants.MATRIX_SIZE == 1 && tilesDistance == -1) || ((tile.Position + 1) % GlobalConstants.MATRIX_SIZE == 0 && tilesDistance == 1)));
+            bool isValidVerticalNeighbour = (tilesAbsoluteDistance == GlobalConstants.VERTICAL_NEIGHBOUR_TILE);
             bool validNeigbour = isValidHorizontalNeighbour || isValidVerticalNeighbour;
 
             return validNeigbour;
         }
-
-
-
     }
 }
