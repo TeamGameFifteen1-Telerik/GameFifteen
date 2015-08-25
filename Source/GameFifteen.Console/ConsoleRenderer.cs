@@ -6,9 +6,10 @@
     using System.Text;
     using System.Threading.Tasks;
 
+    using GameFifteen.Logic.Contracts;
     using GameFifteen.Models;
 
-    public class ConsoleRenderer
+    public class ConsoleRenderer : IRenderer
     {
         public void PrintScoreboard(List<Player> players)
         {
@@ -20,14 +21,14 @@
             }
         }
 
-        public void PrintMatrix(List<Tile> sourceMatrix)
+        public void PrintMatrix(Grid sourceMatrix)
         {
             Console.WriteLine("  ------------");
             Console.Write("| ");
             int rowCounter = 0;
             for (int index = 0; index < 16; index++)
             {
-                Tile currentElement = sourceMatrix.ElementAt(index);
+                Tile currentElement = sourceMatrix.GetTileAtPosition(index);
 
                 if (currentElement.Label == String.Empty)
                 {
