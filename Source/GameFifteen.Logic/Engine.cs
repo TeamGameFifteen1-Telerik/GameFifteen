@@ -43,29 +43,24 @@
                     switch (s)
                     {
                         case "restart":
-                            {
-                                string welcomeMessage = "Welcome to the game “15”. Please try to arrange the numbers sequentially. ";
-                                welcomeMessage = welcomeMessage + "\nUse 'top' to view the top scoreboard, 'restart' to start a new game and 'exit'";
-                                welcomeMessage = welcomeMessage + " \nto quit the game.";
-                                Console.WriteLine();
-                                Console.WriteLine(welcomeMessage);
+                            string welcomeMessage = "Welcome to the game “15”. Please try to arrange the numbers sequentially. ";
+                            welcomeMessage = welcomeMessage + "\nUse 'top' to view the top scoreboard, 'restart' to start a new game and 'exit'";
+                            welcomeMessage = welcomeMessage + " \nto quit the game.";
+                            Console.WriteLine();
+                            Console.WriteLine(welcomeMessage);
 
-                                //// TODO
-                                grid.Clear();
-                                grid.Initialize();
+                            //// TODO
+                            grid.Clear();
+                            grid.Initialize();
 
-                                //// tiles = new Grid(); //grid.InitializeGrid();
-                                //// tiles = grid.ShuffleMatrix(tiles);
-                                isSolved = Engine.IsMatrixSolved(grid);
-                                this.renderer.PrintMatrix(grid);
-                                break;
-                            }
-
+                            //// tiles = new Grid(); //grid.InitializeGrid();
+                            //// tiles = grid.ShuffleMatrix(tiles);
+                            isSolved = Engine.IsMatrixSolved(grid);
+                            this.renderer.PrintMatrix(grid);
+                            break;
                         case "top":
-                            {
-                                this.renderer.PrintScoreboard(players);
-                                break;
-                            }
+                            this.renderer.PrintScoreboard(players);
+                            break;
                     }
 
                     if (!isSolved)

@@ -18,12 +18,18 @@
 
         public string Name
         {
-            get { return this.name; }
+            get 
+            {
+                return this.name;
+            }
         }
 
         public int Moves
         {
-            get { return this.moves; }
+            get
+            {
+                return this.moves; 
+            }
         }
 
         public int CompareTo(object player)

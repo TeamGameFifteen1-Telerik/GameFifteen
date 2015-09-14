@@ -22,13 +22,23 @@
 
         public string Label
         {
-            get { return this.label; }
+            get 
+            {
+                return this.label;
+            }
         }
 
         public int Position
         {
-            get { return this.position; }
-            set { this.position = value; }
+            get
+            {
+                return this.position; 
+            }
+
+            set
+            { 
+                this.position = value; 
+            }
         }
 
         public int CompareTo(object tile)
