@@ -15,34 +15,36 @@
         {
             get
             {
-                return players;
+                return this.players;
             }
         }
 
         public void AddPlayer(Player player)
         {
-            players.Add(player);
-            players.Sort();
-            DeleteAllExceptTopPlayers();
+            this.players.Add(player);
+            this.players.Sort();
+            this.DeleteAllExceptTopPlayers();
         }
-     
-        //public void PrintScoreboard()
-        //{
-        //    Console.WriteLine("Scoreboard:");
-        //    foreach (Player player in players)
-        //    {
-        //        string scoreboardLine = (players.IndexOf(player) + 1).ToString() + ". " + player.Name + " --> " + player.Moves.ToString() + " moves";
-        //        Console.WriteLine(scoreboardLine);
-        //    }
-        //}
+
+        /*
+        public void PrintScoreboard()
+        {
+            Console.WriteLine("Scoreboard:");
+            foreach (Player player in players)
+            {
+                string scoreboardLine = (players.IndexOf(player) + 1).ToString() + ". " + player.Name + " --> " + player.Moves.ToString() + " moves";
+                Console.WriteLine(scoreboardLine);
+            }
+        }
+        */
 
         private void DeleteAllExceptTopPlayers()
         {
-            for (int index = 0; index < players.Count(); index++)
+            for (int index = 0; index < this.players.Count(); index++)
             {
                 if (index > 4)
                 {
-                    players.Remove(players[index]);
+                    this.players.Remove(this.players[index]);
                 }
             }
         }

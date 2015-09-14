@@ -30,11 +30,11 @@
             {
                 Tile currentElement = sourceMatrix.GetTileAtPosition(index);
 
-                if (currentElement.Label == String.Empty)
+                if (currentElement.Label == string.Empty)
                 {
                     Console.Write("   ");
                 }
-                else if (Int32.Parse(currentElement.Label) < 10)
+                else if (int.Parse(currentElement.Label) < 10)
                 {
                     Console.Write(' ' + currentElement.Label + ' ');
                 }
@@ -52,6 +52,7 @@
                     {
                         Console.Write("| ");
                     }
+
                     rowCounter = 0;
                 }
             }

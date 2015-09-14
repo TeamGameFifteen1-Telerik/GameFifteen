@@ -28,7 +28,7 @@
         {
             this.tiles = new List<Tile>();
             
-            //this.Initialize();
+            //// this.Initialize();
         }
 
         public Tile EmptyTile
@@ -63,7 +63,7 @@
 
             // TODO: move?
             var emptyTile = new Tile(string.Empty, GlobalConstants.TotalTilesCount - 1);       
-            tiles.Add(emptyTile);
+            this.tiles.Add(emptyTile);
             this.EmptyTile = emptyTile;
             this.Shuffle();
         }
@@ -73,7 +73,7 @@
             this.tiles.Clear();
         }
 
-        //TODO refactor method; move to engine???
+        //// TODO refactor method; move to engine???
         public void MoveTile(int tileLable)
         {
             if (tileLable < 0 || GlobalConstants.TotalTilesCount - 1 < tileLable)
@@ -94,6 +94,7 @@
                 throw new Exception("Invalid move!");
             }
         }
+        
         public Tile GetTileAtPosition(int position)
         {
             var tile = this.tiles.ElementAt(position);
@@ -106,15 +107,17 @@
             return tile;
         }
 
-        //private int GetTilePosition(string tileLabel)
-        //{
-        //    Tile tile = this.tiles.FirstOrDefault(t => t.Label == tileLabel);
-        //    return this.tiles.IndexOf(tile);
-        //}
+        /*
+        private int GetTilePosition(string tileLabel)
+        {
+            Tile tile = this.tiles.FirstOrDefault(t => t.Label == tileLabel);
+            return this.tiles.IndexOf(tile);
+        }
+        */
 
         private void Shuffle()
         {
-            // TODO: better name
+            //// TODO: better name
             int cycleCount = random.Next(MinimumCycles, MaximumCycles);
 
             for (int i = 0; i < cycleCount; i++)
@@ -132,14 +135,14 @@
             this.SwapTiles(targetTile);
         }
 
-        // gets the empty tile neighbours
+        //// gets the empty tile neighbours
         private List<Tile> GetNeighbours()
         {
             List<Tile> neighbourTiles = new List<Tile>();
 
             foreach (Tile tile in this.tiles)
             {
-                bool isValidNeighbour = ValidateNeighbour(tile);
+                bool isValidNeighbour = this.ValidateNeighbour(tile);
 
                 if (isValidNeighbour)
                 {

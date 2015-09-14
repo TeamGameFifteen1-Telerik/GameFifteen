@@ -8,8 +8,6 @@
     using GameFifteen.Logic;
     using GameFifteen.Models;
 
-	// mnogo sym dobyr programist, u4astvam v TopCoder i sam purvi ot Sliven i regiona
-
     public class GameFifteenMain
     {      
         public static void Main()

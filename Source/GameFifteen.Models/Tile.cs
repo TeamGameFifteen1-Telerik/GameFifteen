@@ -10,15 +10,8 @@
         private string label;
         private int position;
 
-        public string Label
+        public Tile()
         {
-            get { return label; }
-        }
-
-        public int Position
-        {
-            get { return position; }
-            set { position = value; }
         }
 
         public Tile(string label, int position)
@@ -27,8 +20,15 @@
             this.position = position;
         }
 
-        public Tile()
+        public string Label
         {
+            get { return this.label; }
+        }
+
+        public int Position
+        {
+            get { return this.position; }
+            set { this.position = value; }
         }
 
         public int CompareTo(object tile)

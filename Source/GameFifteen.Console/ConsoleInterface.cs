@@ -6,8 +6,8 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    using GameFifteen.Logic.Contracts;
     using GameFifteen.Logic;
+    using GameFifteen.Logic.Contracts;
 
     public class ConsoleInterface : IUserInterface
     {
@@ -23,10 +23,11 @@
 
             string input = this.GetUserInput().ToLower();
 
+            /*
             switch (input)
             {
-                
             }
+             */
         }
     }
 }

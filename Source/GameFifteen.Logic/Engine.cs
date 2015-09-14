@@ -6,8 +6,8 @@
     using System.Text;
 
     using GameFifteen.Common;
-    using GameFifteen.Models;
     using GameFifteen.Logic.Contracts;
+    using GameFifteen.Models;
 
     public class Engine
     {
@@ -27,14 +27,13 @@
             var scoreBoard = new Scoreboard();
             var players = scoreBoard.Players;
             var grid = new Grid();
-            //var renderer = new ConsoleRenderer();
-            
+            //// var renderer = new ConsoleRenderer();
 
-            //Grid tiles = new Grid();
+            //// Grid tiles = new Grid();
             int cnt = 0;
             string s = "restart";
 
-            //renamed flag
+            //// renamed flag
             bool isSolved = false;
 
             while (s != "exit")
@@ -50,19 +49,21 @@
                                 welcomeMessage = welcomeMessage + " \nto quit the game.";
                                 Console.WriteLine();
                                 Console.WriteLine(welcomeMessage);
-                                //TODO
+
+                                //// TODO
                                 grid.Clear();
                                 grid.Initialize();
 
-                                //tiles = new Grid(); //grid.InitializeGrid();
-                                //tiles = grid.ShuffleMatrix(tiles);
+                                //// tiles = new Grid(); //grid.InitializeGrid();
+                                //// tiles = grid.ShuffleMatrix(tiles);
                                 isSolved = Engine.IsMatrixSolved(grid);
-                                renderer.PrintMatrix(grid);
+                                this.renderer.PrintMatrix(grid);
                                 break;
                             }
+
                         case "top":
                             {
-                                renderer.PrintScoreboard(players);
+                                this.renderer.PrintScoreboard(players);
                                 break;
                             }
                     }
@@ -74,16 +75,17 @@
 
                         int destinationTileValue;
 
-                        bool isSuccessfulParsing = Int32.TryParse(s, out destinationTileValue);
+                        bool isSuccessfulParsing = int.TryParse(s, out destinationTileValue);
 
                         if (isSuccessfulParsing)
                         {
                             try
                             {
                                 grid.MoveTile(destinationTileValue);
-                                //Engine.MoveTiles(grid, destinationTileValue);
+
+                                //// Engine.MoveTiles(grid, destinationTileValue);
                                 cnt++;
-                                renderer.PrintMatrix(grid);
+                                this.renderer.PrintMatrix(grid);
                                 isSolved = Engine.IsMatrixSolved(grid);
                             }
                             catch (Exception exception)
@@ -103,9 +105,6 @@
                             }
                         }
                     }
-
-
-
                 }
                 else
                 {
@@ -120,16 +119,13 @@
                         string playerName = Console.ReadLine();
                         Player player = new Player(playerName, cnt);
                         scoreBoard.AddPlayer(player);
-                        renderer.PrintScoreboard(players);
+                        this.renderer.PrintScoreboard(players);
                     }
+
                     s = "restart";
                     isSolved = false;
                     cnt = 0;
-
-
-
                 }
-
             }
         }
 
@@ -144,7 +140,7 @@
             string output;
 
             if (inputToLower == Command.Exit.ToString().ToLower() ||
-                inputToLower == Command.Restart.ToString().ToLower() || 
+                inputToLower == Command.Restart.ToString().ToLower() ||
                 inputToLower == Command.Top.ToString())
             {
                 output = inputToLower;
@@ -157,38 +153,39 @@
             return output;
         }
 
-        // should this get back here?
-        //public static void MoveTiles(Grid grid, int tileValue)
-        //{
-        //    if (tileValue < 0 || tileValue > 15)
-        //    {
-        //        throw new ArgumentException("Invalid move!");
-        //    }
+        /*
+         should this get back here?
+        public static void MoveTiles(Grid grid, int tileValue)
+        {
+            if (tileValue < 0 || tileValue > 15)
+            {
+                throw new ArgumentException("Invalid move!");
+            }
 
-        //    //List<Tile> resultMatrix = tiles;
-        //    //Tile freeTile = tiles[GetFreeTilePosition(tiles)];
-        //    //var destinationTilePosition = GetDestinationTilePosition(grid, tileValue);
-        //    //Tile tile = grid.GetTileAtPosition(destinationTilePosition);
-        //    int destinationTilePosition = grid.GetTilePosition(tileValue.ToString());
-        //    Tile tile = grid.GetTileAtPosition(destinationTilePosition);
+            //List<Tile> resultMatrix = tiles;
+            //Tile freeTile = tiles[GetFreeTilePosition(tiles)];
+            //var destinationTilePosition = GetDestinationTilePosition(grid, tileValue);
+            //Tile tile = grid.GetTileAtPosition(destinationTilePosition);
+            int destinationTilePosition = grid.GetTilePosition(tileValue.ToString());
+            Tile tile = grid.GetTileAtPosition(destinationTilePosition);
 
-        //    bool areValidNeighbourTiles = grid.ValidateNeighbour(tile); //TilePositionValidation(grid.EmptyTile, tile);
+            bool areValidNeighbourTiles = grid.ValidateNeighbour(tile); //TilePositionValidation(grid.EmptyTile, tile);
 
-        //    if (areValidNeighbourTiles)
-        //    {
-        //        grid.SwapTiles(tile);
-        //        //swap tiles
-        //        //int targetTilePosition = tile.Position;
-        //        //resultMatrix[targetTilePosition].Position = freeTile.Position;
-        //        //resultMatrix[freeTile.Position].Position = targetTilePosition;
-        //        //resultMatrix.Sort();
-        //    }
-        //    else
-        //    {
-        //        throw new Exception("Invalid move!");
-        //    }
+            if (areValidNeighbourTiles)
+            {
+                grid.SwapTiles(tile);
+                //swap tiles
+                //int targetTilePosition = tile.Position;
+                //resultMatrix[targetTilePosition].Position = freeTile.Position;
+                //resultMatrix[freeTile.Position].Position = targetTilePosition;
+                //resultMatrix.Sort();
+            }
+            else
+            {
+                throw new Exception("Invalid move!");
+            }
 
-        //   // return resultMatrix;
-        //}
+           // return resultMatrix;
+        }*/
     }
 }

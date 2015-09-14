@@ -5,5 +5,5 @@
         Restart,
         Top,
         Exit
-    };
+    }
 }
