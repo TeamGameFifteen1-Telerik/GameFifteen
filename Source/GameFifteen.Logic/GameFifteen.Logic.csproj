@@ -40,7 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Command.cs" />
-    <Compile Include="Contracts\IInterface.cs" />
+    <Compile Include="Contracts\IUserInterface.cs" />
     <Compile Include="Contracts\IRenderer.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
