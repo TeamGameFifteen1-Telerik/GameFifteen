@@ -10,5 +10,7 @@
         void PrintScoreboard(List<Player> players);
 
         void PrintMatrix(Grid sourceMatrix);
+
+        void PrintMessage(string message);
     }
 }

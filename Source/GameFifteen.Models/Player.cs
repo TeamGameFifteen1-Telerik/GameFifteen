@@ -30,6 +30,11 @@
             {
                 return this.moves; 
             }
+
+            set
+            {
+                this.moves = value;
+            }
         }
 
         public int CompareTo(object player)

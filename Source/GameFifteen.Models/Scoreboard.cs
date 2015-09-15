@@ -7,6 +7,7 @@
 
     using GameFifteen.Models;
 
+    // TODO : singleton
     public class Scoreboard
     {
         private List<Player> players = new List<Player>();

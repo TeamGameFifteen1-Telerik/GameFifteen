@@ -4,6 +4,9 @@
     {
         Restart,
         Top,
-        Exit
+        Exit,
+        Agree,
+        Move,
+        Invalid
     }
 }

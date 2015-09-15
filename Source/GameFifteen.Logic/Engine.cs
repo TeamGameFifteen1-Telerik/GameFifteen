@@ -13,139 +13,155 @@
     {
         private IRenderer renderer;
         private IUserInterface userInterface;
+        private IGameInitializater gameInitializer;
         private Grid grid;
+        private Scoreboard scoreBoard;
+        private Player player;
+        private bool isGameOver;
 
-        public Engine(IRenderer renderer, IUserInterface userInterface)
+        public Engine(IRenderer renderer, IUserInterface userInterface, IGameInitializater gameInitializer)
         {
             this.renderer = renderer;
             this.userInterface = userInterface;
+            this.gameInitializer = gameInitializer;
             this.grid = new Grid();
+            this.scoreBoard = new Scoreboard();
+            //TODO: initialize player correctly using the initilizer and userInterface for name
+            this.player = new Player("Pesho", 0);
         }
 
         public void Run()
         {
-            var scoreBoard = new Scoreboard();
             var players = scoreBoard.Players;
-            var grid = new Grid();
             //// var renderer = new ConsoleRenderer();
 
             //// Grid tiles = new Grid();
-            int countPlayerMoves = 0;
-            string command = "restart";
-
+            //int countPlayerMoves = 0;
+            //string line = "restart";
             //// renamed flag
-            bool isSolved = false;
+            // this.isGameOver = false;
+            Command command;
+            this.StartNewGame();
 
-            while (command != "exit")
+            while (true)
             {
-                if (!isSolved)
+                if (isGameOver)
                 {
-                    switch (command)
-                    {
-                        case "restart":
-                            string welcomeMessage = "Welcome to the game “15”. Please try to arrange the numbers sequentially. ";
-                            welcomeMessage = welcomeMessage + "\nUse 'top' to view the top scoreboard, 'restart' to start a new game and 'exit'";
-                            welcomeMessage = welcomeMessage + " \nto quit the game.";
-                            Console.WriteLine();
-                            Console.WriteLine(welcomeMessage);
-
-                            //// TODO
-                            grid.Clear();
-                            grid.Initialize();
-
-                            //// tiles = new Grid(); //grid.InitializeGrid();
-                            //// tiles = grid.ShuffleMatrix(tiles);
-                            isSolved = Engine.IsMatrixSolved(grid);
-                            this.renderer.PrintMatrix(grid);
-                            break;
-                        case "top":
-                            this.renderer.PrintScoreboard(players);
-                            break;
-                    }
-
-                    if (!isSolved)
-                    {
-                        Console.Write("Enter a number to move: ");
-                        command = Console.ReadLine();
-
-                        int destinationTileValue;
-
-                        bool isSuccessfulParsing = int.TryParse(command, out destinationTileValue);
-
-                        if (isSuccessfulParsing)
-                        {
-                            try
-                            {
-                                grid.MoveTile(destinationTileValue);
-
-                                //// Engine.MoveTiles(grid, destinationTileValue);
-                                countPlayerMoves++;
-                                this.renderer.PrintMatrix(grid);
-                                isSolved = Engine.IsMatrixSolved(grid);
-                            }
-                            catch (Exception exception)
-                            {
-                                Console.WriteLine(exception.Message);
-                            }
-                        }
-                        else
-                        {
-                            try
-                            {
-                                command = Engine.ProcessCommand(command);
-                            }
-                            catch (ArgumentException exception)
-                            {
-                                Console.WriteLine(exception.Message);
-                            }
-                        }
-                    }
+                    this.GameOver();
                 }
-                else
-                {
-                    if (countPlayerMoves == 0)
-                    {
-                        Console.WriteLine("Your matrix was solved by default :) Come on - NEXT try");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Congratulations! You won the game in {0} moves.", countPlayerMoves);
-                        Console.Write("Please enter your name for the top scoreboard: ");
-                        string playerName = Console.ReadLine();
-                        Player player = new Player(playerName, countPlayerMoves);
-                        scoreBoard.AddPlayer(player);
-                        this.renderer.PrintScoreboard(players);
-                    }
 
-                    command = "restart";
-                    isSolved = false;
-                    countPlayerMoves = 0;
+                this.renderer.PrintMessage(GameMessages.EnterNumberMessage);
+                command = this.userInterface.GetCommandFromInput();
+
+                try
+                {
+                    this.ProcessCommand(command);
+                }
+                catch (Exception ex)
+                {
+                    this.renderer.PrintMessage(ex.Message);
                 }
             }
         }
 
-        public static bool IsMatrixSolved(Grid grid)
+        public void ProcessCommand(Command command)
         {
-            return grid.IsSorted;
+            switch (command)
+            {
+                case Command.Restart:
+                    this.StartNewGame();
+                    break;
+                case Command.Top:
+                    this.renderer.PrintScoreboard(this.scoreBoard.Players);
+                    break;
+                case Command.Exit:
+                    this.ProcessExitCommand();
+                    break;
+                case Command.Move:
+                    this.ProcessMoveCommand();
+                    break;
+                case Command.Invalid:
+                default:
+                    throw new ArgumentException("Invalid Command!");
+            }
         }
 
-        public static string ProcessCommand(string input)
+        private bool IsGameOver()
         {
-            string inputToLower = input.ToLower();
-            string output;
+            return this.grid.IsSorted;
+        }
 
-            if (inputToLower == Command.Exit.ToString().ToLower() ||
-                inputToLower == Command.Restart.ToString().ToLower() ||
-                inputToLower == Command.Top.ToString())
+        //TODO : refactor
+        private void GameOver()
+        {  
+            if (this.player.Moves == 0)
             {
-                output = inputToLower;
+                Console.WriteLine("Your matrix was solved by default :) Come on - NEXT try");
             }
             else
             {
-                throw new ArgumentException("Invalid Command!");
+                Console.WriteLine("Congratulations! You won the game in {0} moves.", this.player.Moves);
+                Console.Write("Please enter your name for the top scoreboard: ");
+                string playerName = Console.ReadLine();
+                Player player = new Player(playerName, this.player.Moves);
+                scoreBoard.AddPlayer(player);
+                this.renderer.PrintScoreboard(this.scoreBoard.Players);
             }
 
-            return output;
+            //TODO
+            this.renderer.PrintMessage("New game? Press y for yes.");
+            var command = this.userInterface.GetCommandFromInput();
+            if (command == Command.Agree)
+            {
+                this.StartNewGame();
+            }
+            //command = Command.Restart;
+            //line = "restart";
+
+            //isGameOver = false;
+            //this.player.Moves = 0;
+        }
+
+        private void StartNewGame()
+        {
+            this.renderer.PrintMessage(GameMessages.WelcomeMessage);
+            this.gameInitializer.Initialize(this.grid);
+
+            //isSolved = this.IsGameOver(grid);
+            this.renderer.PrintMatrix(grid);
+        }
+
+        private void ProcessMoveCommand()
+        {
+            //TODO: refactor
+            try
+            {
+                grid.MoveTile(this.userInterface.GetDestinationTileValue());
+                //// Engine.MoveTiles(grid, destinationTileValue);
+                this.player.Moves++;
+                this.renderer.PrintMatrix(grid);
+                this.isGameOver = this.IsGameOver();
+            }
+            catch (Exception exception)
+            {
+                this.renderer.PrintMessage(exception.Message);
+                //throw new InvalidOperationException(exception.Message);
+            }
+        }
+
+        private void ProcessExitCommand()
+        {
+            this.renderer.PrintMessage(string.Format(GameMessages.ExitMessage, GlobalConstants.AgreeCommand));
+            Command command = this.userInterface.GetCommandFromInput();
+
+            if (command == Command.Agree)
+            {
+                this.userInterface.ExitGame();
+            }
+            //else
+            //{
+            //    this.renderer.PrintMessage(GameMessages.EnterNumberMessage);
+            //}
         }
 
         /*

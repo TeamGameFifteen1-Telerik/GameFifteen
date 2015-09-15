@@ -5,5 +5,9 @@
         string GetUserInput();
 
         Command GetCommandFromInput();
+
+        void ExitGame();
+
+        int GetDestinationTileValue();
     }
 }

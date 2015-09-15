@@ -14,7 +14,8 @@
         {
             var renderer = new ConsoleRenderer();
             var userInterface = new ConsoleInterface();
-            var engine = new Engine(renderer, userInterface);
+            var gameInitializer = new GameInitializer();
+            var engine = new Engine(renderer, userInterface, gameInitializer);
             engine.Run();
         }
     }
