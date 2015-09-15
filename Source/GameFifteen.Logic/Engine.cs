@@ -30,17 +30,17 @@
             //// var renderer = new ConsoleRenderer();
 
             //// Grid tiles = new Grid();
-            int cnt = 0;
-            string s = "restart";
+            int countPlayerMoves = 0;
+            string command = "restart";
 
             //// renamed flag
             bool isSolved = false;
 
-            while (s != "exit")
+            while (command != "exit")
             {
                 if (!isSolved)
                 {
-                    switch (s)
+                    switch (command)
                     {
                         case "restart":
                             string welcomeMessage = "Welcome to the game “15”. Please try to arrange the numbers sequentially. ";
@@ -66,11 +66,11 @@
                     if (!isSolved)
                     {
                         Console.Write("Enter a number to move: ");
-                        s = Console.ReadLine();
+                        command = Console.ReadLine();
 
                         int destinationTileValue;
 
-                        bool isSuccessfulParsing = int.TryParse(s, out destinationTileValue);
+                        bool isSuccessfulParsing = int.TryParse(command, out destinationTileValue);
 
                         if (isSuccessfulParsing)
                         {
@@ -79,7 +79,7 @@
                                 grid.MoveTile(destinationTileValue);
 
                                 //// Engine.MoveTiles(grid, destinationTileValue);
-                                cnt++;
+                                countPlayerMoves++;
                                 this.renderer.PrintMatrix(grid);
                                 isSolved = Engine.IsMatrixSolved(grid);
                             }
@@ -92,7 +92,7 @@
                         {
                             try
                             {
-                                s = Engine.ProcessCommand(s);
+                                command = Engine.ProcessCommand(command);
                             }
                             catch (ArgumentException exception)
                             {
@@ -103,23 +103,23 @@
                 }
                 else
                 {
-                    if (cnt == 0)
+                    if (countPlayerMoves == 0)
                     {
                         Console.WriteLine("Your matrix was solved by default :) Come on - NEXT try");
                     }
                     else
                     {
-                        Console.WriteLine("Congratulations! You won the game in {0} moves.", cnt);
+                        Console.WriteLine("Congratulations! You won the game in {0} moves.", countPlayerMoves);
                         Console.Write("Please enter your name for the top scoreboard: ");
                         string playerName = Console.ReadLine();
-                        Player player = new Player(playerName, cnt);
+                        Player player = new Player(playerName, countPlayerMoves);
                         scoreBoard.AddPlayer(player);
                         this.renderer.PrintScoreboard(players);
                     }
 
-                    s = "restart";
+                    command = "restart";
                     isSolved = false;
-                    cnt = 0;
+                    countPlayerMoves = 0;
                 }
             }
         }

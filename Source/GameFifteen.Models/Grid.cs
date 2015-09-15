@@ -171,6 +171,10 @@
                 }
             }
 
+            /*
+            var emptyTile = this.tiles.Where(t => t.Label == string.Empty).Select(t => t);
+            return (Tile)emptyTile;
+             */
             return null;
         }
 
