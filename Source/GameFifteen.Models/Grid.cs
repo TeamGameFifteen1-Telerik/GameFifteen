@@ -11,8 +11,8 @@
     public class Grid
     {
         // TODO : do something about these
-        private const int MinimumCycles = 20;
-        private const int MaximumCycles = 50;
+        private const int MINIMUM_CYCLES = 20;
+        private const int MAXIMUM_CYCLES = 50;
 
         private static Random random;
 
@@ -54,15 +54,15 @@
 
         public void Initialize()
         {
-            for (int i = 0; i < GlobalConstants.TotalTilesCount - 1; i++)
+            for (int i = 0; i < GlobalConstants.TOTAL_TILES_COUNT - 1; i++)
             {
                 string tileLabel = (i + 1).ToString();
                 Tile tile = new Tile(tileLabel, i);
                 this.tiles.Add(tile);
             }
 
-            // TODO: move?
-            var emptyTile = new Tile(string.Empty, GlobalConstants.TotalTilesCount - 1);       
+            // TODO: move?cal
+            var emptyTile = new Tile(string.Empty, GlobalConstants.TOTAL_TILES_COUNT - 1);       
             this.tiles.Add(emptyTile);
             this.EmptyTile = emptyTile;
             this.Shuffle();
@@ -76,7 +76,7 @@
         //// TODO refactor method; move to engine???
         public void MoveTile(int tileLable)
         {
-            if (tileLable < 0 || GlobalConstants.TotalTilesCount - 1 < tileLable)
+            if (tileLable < 0 || GlobalConstants.TOTAL_TILES_COUNT - 1 < tileLable)
             {
                 throw new ArgumentException("Invalid move!");
             }
@@ -118,7 +118,7 @@
         private void Shuffle()
         {
             //// TODO: better name
-            int cycleCount = random.Next(MinimumCycles, MaximumCycles);
+            int cycleCount = random.Next(MINIMUM_CYCLES, MAXIMUM_CYCLES);
 
             for (int i = 0; i < cycleCount; i++)
             {
@@ -191,15 +191,15 @@
         {
             int tilesDistance = this.EmptyTile.Position - tile.Position;
 
-            bool isTileAtFirstColumn = (tile.Position + 1) % GlobalConstants.GridSize == 1;
-            bool isTileAtLastColumn = (tile.Position + 1) % GlobalConstants.GridSize == 0;
+            bool isTileAtFirstColumn = (tile.Position + 1) % GlobalConstants.GRID_SIZE == 1;
+            bool isTileAtLastColumn = (tile.Position + 1) % GlobalConstants.GRID_SIZE == 0;
             bool shouldMoveLeft = tilesDistance == -1;
             bool shouldMoveRight = tilesDistance == 1;
             
             bool isHorizontalNeigbour = Math.Abs(tilesDistance) == 1;
             bool isValidHorizontalNeighbour = isHorizontalNeigbour && !((isTileAtFirstColumn && shouldMoveLeft) || (isTileAtLastColumn && shouldMoveRight));
 
-            bool isValidVerticalNeighbour = Math.Abs(tilesDistance) == GlobalConstants.GridSize;
+            bool isValidVerticalNeighbour = Math.Abs(tilesDistance) == GlobalConstants.GRID_SIZE;
             
             return isValidHorizontalNeighbour || isValidVerticalNeighbour;
         }
