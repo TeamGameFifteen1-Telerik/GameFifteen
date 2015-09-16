@@ -11,12 +11,12 @@
 
     public class ConsoleRenderer : IRenderer
     {
-        public void PrintScoreboard(List<Player> players)
+        public void PrintScoreboard(Scoreboard scoreboard)
         {
             Console.WriteLine("Scoreboard:");
-            foreach (Player player in players)
+            foreach (Player player in scoreboard.Players)
             {
-                string scoreboardLine = (players.IndexOf(player) + 1).ToString() + ". " + player.Name + " --> " + player.Moves.ToString() + " moves";
+                string scoreboardLine = (scoreboard.Players.IndexOf(player) + 1).ToString() + ". " + player.Name + " --> " + player.Moves.ToString() + " moves";
                 Console.WriteLine(scoreboardLine);
             }
         }

@@ -7,7 +7,7 @@
     public interface IRenderer
     {
         //// TODO: refactor
-        void PrintScoreboard(List<Player> players);
+        void PrintScoreboard(Scoreboard scoreboard);
 
         void PrintMatrix(Grid sourceMatrix);
 

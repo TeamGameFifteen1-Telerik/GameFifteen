@@ -1,4 +1,5 @@
-﻿using GameFifteen.Logic.Contracts;
+﻿using GameFifteen.Common;
+using GameFifteen.Logic.Contracts;
 using GameFifteen.Models;
 using System;
 using System.Collections.Generic;
@@ -14,13 +15,27 @@ namespace GameFifteen.Logic
         {
             //// TODO
             grid.Clear();
-            grid.Initialize();
+            this.InitializeGrid(grid);
 
             //// tiles = new Grid(); //grid.InitializeGrid();
             //// tiles = grid.ShuffleMatrix(tiles);
-            //TODO
-            Console.Write("Enter a number to move: ");
 
+        }
+
+        public void InitializeGrid(Grid grid)
+        {
+            for (int i = 0; i < GlobalConstants.TOTAL_TILES_COUNT - 1; i++)
+            {
+                string tileLabel = (i + 1).ToString();
+                Tile tile = new Tile(tileLabel, i);
+                grid.AddTile(tile);
+            }
+
+            // TODO: move?cal
+            var emptyTile = new Tile(string.Empty, GlobalConstants.TOTAL_TILES_COUNT - 1);
+            grid.AddTile(emptyTile);
+            grid.EmptyTile = emptyTile;
+            grid.Shuffle();
         }
     }
 }

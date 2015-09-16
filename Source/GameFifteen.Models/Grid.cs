@@ -11,8 +11,8 @@
     public class Grid
     {
         // TODO : do something about these
-        private const int MINIMUM_CYCLES = 20;
-        private const int MAXIMUM_CYCLES = 50;
+        private const int MinRoundsCount = 20;
+        private const int MaxRoundsCount = 50;
 
         private static Random random;
 
@@ -38,10 +38,15 @@
                 return this.GetEmptyTile();
             }
 
-            private set
+            set
             {
                 this.emptyTile = value;
             }
+        }
+
+        public void AddTile(Tile tile)
+        {
+            this.tiles.Add(tile);          
         }
 
         public bool IsSorted
@@ -51,26 +56,40 @@
                 return this.CheckIfSorted();
             }
         }
-
-        public void Initialize()
-        {
-            for (int i = 0; i < GlobalConstants.TOTAL_TILES_COUNT - 1; i++)
-            {
-                string tileLabel = (i + 1).ToString();
-                Tile tile = new Tile(tileLabel, i);
-                this.tiles.Add(tile);
-            }
-
-            // TODO: move?cal
-            var emptyTile = new Tile(string.Empty, GlobalConstants.TOTAL_TILES_COUNT - 1);       
-            this.tiles.Add(emptyTile);
-            this.EmptyTile = emptyTile;
-            this.Shuffle();
-        }
-
+      
         public void Clear()
         {
             this.tiles.Clear();
+        }
+
+        public Tile GetTileAtPosition(int position)
+        {
+            var tile = this.tiles.ElementAt(position);
+            return tile;
+        }
+
+        private Tile GetTileFromLabel(string tileLabel)
+        {
+            Tile tile = this.tiles.FirstOrDefault(t => t.Label == tileLabel);
+            return tile;
+        }
+
+        /*
+        private int GetTilePosition(string tileLabel)
+        {
+            Tile tile = this.tiles.FirstOrDefault(t => t.Label == tileLabel);
+            return this.tiles.IndexOf(tile);
+        }
+        */
+
+        public void Shuffle()
+        {
+            int rounds = random.Next(MinRoundsCount, MaxRoundsCount);
+
+            for (int i = 0; i < rounds; i++)
+            {
+                this.MoveEmptyTileRandomly();
+            }
         }
 
         //// TODO refactor method; move to engine???
@@ -92,37 +111,6 @@
             else
             {
                 throw new Exception("Invalid move!");
-            }
-        }
-        
-        public Tile GetTileAtPosition(int position)
-        {
-            var tile = this.tiles.ElementAt(position);
-            return tile;
-        }
-
-        private Tile GetTileFromLabel(string tileLabel)
-        {
-            Tile tile = this.tiles.FirstOrDefault(t => t.Label == tileLabel);
-            return tile;
-        }
-
-        /*
-        private int GetTilePosition(string tileLabel)
-        {
-            Tile tile = this.tiles.FirstOrDefault(t => t.Label == tileLabel);
-            return this.tiles.IndexOf(tile);
-        }
-        */
-
-        private void Shuffle()
-        {
-            //// TODO: better name
-            int cycleCount = random.Next(MINIMUM_CYCLES, MAXIMUM_CYCLES);
-
-            for (int i = 0; i < cycleCount; i++)
-            {
-                this.MoveEmptyTileRandomly();
             }
         }
 
@@ -151,6 +139,23 @@
             }
 
             return neighbourTiles;
+        }
+
+        private bool ValidateNeighbour(Tile tile)
+        {
+            int tilesDistance = this.EmptyTile.Position - tile.Position;
+
+            bool isTileAtFirstColumn = (tile.Position + 1) % GlobalConstants.GRID_SIZE == 1;
+            bool isTileAtLastColumn = (tile.Position + 1) % GlobalConstants.GRID_SIZE == 0;
+            bool shouldMoveLeft = tilesDistance == -1;
+            bool shouldMoveRight = tilesDistance == 1;
+            
+            bool isHorizontalNeigbour = Math.Abs(tilesDistance) == 1;
+            bool isValidHorizontalNeighbour = isHorizontalNeigbour && !((isTileAtFirstColumn && shouldMoveLeft) || (isTileAtLastColumn && shouldMoveRight));
+
+            bool isValidVerticalNeighbour = Math.Abs(tilesDistance) == GlobalConstants.GRID_SIZE;
+            
+            return isValidHorizontalNeighbour || isValidVerticalNeighbour;
         }
 
         private void SwapTiles(Tile targetTile)
@@ -185,23 +190,6 @@
             }
 
             return true;
-        }
-
-        private bool ValidateNeighbour(Tile tile)
-        {
-            int tilesDistance = this.EmptyTile.Position - tile.Position;
-
-            bool isTileAtFirstColumn = (tile.Position + 1) % GlobalConstants.GRID_SIZE == 1;
-            bool isTileAtLastColumn = (tile.Position + 1) % GlobalConstants.GRID_SIZE == 0;
-            bool shouldMoveLeft = tilesDistance == -1;
-            bool shouldMoveRight = tilesDistance == 1;
-            
-            bool isHorizontalNeigbour = Math.Abs(tilesDistance) == 1;
-            bool isValidHorizontalNeighbour = isHorizontalNeigbour && !((isTileAtFirstColumn && shouldMoveLeft) || (isTileAtLastColumn && shouldMoveRight));
-
-            bool isValidVerticalNeighbour = Math.Abs(tilesDistance) == GlobalConstants.GRID_SIZE;
-            
-            return isValidHorizontalNeighbour || isValidVerticalNeighbour;
         }
     }
 }

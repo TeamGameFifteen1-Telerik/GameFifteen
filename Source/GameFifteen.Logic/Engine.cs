@@ -26,13 +26,11 @@
             this.gameInitializer = gameInitializer;
             this.grid = new Grid();
             this.scoreBoard = new Scoreboard();
-            //TODO: initialize player correctly using the initilizer and userInterface for name
-            this.player = new Player("Pesho", 0);
+            this.player = new Player();
         }
 
         public void Run()
         {
-            var players = scoreBoard.Players;
             //// var renderer = new ConsoleRenderer();
 
             //// Grid tiles = new Grid();
@@ -72,7 +70,7 @@
                     this.StartNewGame();
                     break;
                 case Command.Top:
-                    this.renderer.PrintScoreboard(this.scoreBoard.Players);
+                    this.renderer.PrintScoreboard(this.scoreBoard);
                     break;
                 case Command.Exit:
                     this.ProcessExitCommand();
@@ -96,25 +94,24 @@
         {  
             if (this.player.Moves == 0)
             {
-                Console.WriteLine("Your matrix was solved by default :) Come on - NEXT try");
+                this.renderer.PrintMessage(GameMessages.SolvedByDefaultMessage);
             }
             else
             {
-                Console.WriteLine("Congratulations! You won the game in {0} moves.", this.player.Moves);
-                Console.Write("Please enter your name for the top scoreboard: ");
-                string playerName = Console.ReadLine();
-                Player player = new Player(playerName, this.player.Moves);
-                scoreBoard.AddPlayer(player);
-                this.renderer.PrintScoreboard(this.scoreBoard.Players);
+                this.renderer.PrintMessage(string.Format(GameMessages.WinMessage, this.player.Moves));
+                this.SaveScore();
+                this.renderer.PrintScoreboard(this.scoreBoard);
             }
 
-            //TODO
-            this.renderer.PrintMessage("New game? Press y for yes.");
-            var command = this.userInterface.GetCommandFromInput();
-            if (command == Command.Agree)
+            if (this.UserAgrees(GameMessages.NewGameQuestion))
             {
                 this.StartNewGame();
             }
+            else
+            {
+                this.ProcessExitCommand();
+            }
+            
             //command = Command.Restart;
             //line = "restart";
 
@@ -122,13 +119,20 @@
             //this.player.Moves = 0;
         }
 
+        private void SaveScore()
+        {
+            this.renderer.PrintMessage(GameMessages.EnterYourNameMessage);
+            string playerName = this.userInterface.GetUserInput();
+            this.player.Name = playerName;
+            scoreBoard.AddPlayer(player);
+        }
+
         private void StartNewGame()
         {
             this.renderer.PrintMessage(GameMessages.WelcomeMessage);
             this.gameInitializer.Initialize(this.grid);
-
-            //isSolved = this.IsGameOver(grid);
             this.renderer.PrintMatrix(grid);
+            this.renderer.PrintMessage(GameMessages.EnterNumberMessage);
         }
 
         private void ProcessMoveCommand()
@@ -137,7 +141,6 @@
             try
             {
                 grid.MoveTile(this.userInterface.GetDestinationTileValue());
-                //// Engine.MoveTiles(grid, destinationTileValue);
                 this.player.Moves++;
                 this.renderer.PrintMatrix(grid);
                 this.isGameOver = this.IsGameOver();
@@ -149,54 +152,20 @@
             }
         }
 
-        private void ProcessExitCommand()
+        private bool UserAgrees(string message)
         {
-            this.renderer.PrintMessage(string.Format(GameMessages.ExitMessage, GlobalConstants.AgreeCommand));
+            this.renderer.PrintMessage(string.Format(message, GlobalConstants.AgreeCommand));
             Command command = this.userInterface.GetCommandFromInput();
 
-            if (command == Command.Agree)
-            {
-                this.userInterface.ExitGame();
-            }
-            //else
-            //{
-            //    this.renderer.PrintMessage(GameMessages.EnterNumberMessage);
-            //}
+            return command == Command.Agree;
         }
 
-        /*
-         should this get back here?
-        public static void MoveTiles(Grid grid, int tileValue)
+        private void ProcessExitCommand()
         {
-            if (tileValue < 0 || tileValue > 15)
+            if (this.UserAgrees(GameMessages.ExitMessage))
             {
-                throw new ArgumentException("Invalid move!");
+                this.userInterface.ExitGame();             
             }
-
-            //List<Tile> resultMatrix = tiles;
-            //Tile freeTile = tiles[GetFreeTilePosition(tiles)];
-            //var destinationTilePosition = GetDestinationTilePosition(grid, tileValue);
-            //Tile tile = grid.GetTileAtPosition(destinationTilePosition);
-            int destinationTilePosition = grid.GetTilePosition(tileValue.ToString());
-            Tile tile = grid.GetTileAtPosition(destinationTilePosition);
-
-            bool areValidNeighbourTiles = grid.ValidateNeighbour(tile); //TilePositionValidation(grid.EmptyTile, tile);
-
-            if (areValidNeighbourTiles)
-            {
-                grid.SwapTiles(tile);
-                //swap tiles
-                //int targetTilePosition = tile.Position;
-                //resultMatrix[targetTilePosition].Position = freeTile.Position;
-                //resultMatrix[freeTile.Position].Position = targetTilePosition;
-                //resultMatrix.Sort();
-            }
-            else
-            {
-                throw new Exception("Invalid move!");
-            }
-
-           // return resultMatrix;
-        }*/
+        }
     }
 }

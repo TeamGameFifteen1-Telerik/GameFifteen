@@ -10,10 +10,16 @@
         private string name;
         private int moves;
 
-        public Player(string name, int moves)
+        public Player()
         {
-            this.name = name;
-            this.moves = moves;
+            this.Name = "Guest";
+            this.Moves = 0;
+        }
+
+        public Player(string name)
+            : this()
+        {
+            this.Name = name;
         }
 
         public string Name
@@ -21,6 +27,11 @@
             get 
             {
                 return this.name;
+            }
+
+            set
+            {
+                this.name = value;
             }
         }
 
