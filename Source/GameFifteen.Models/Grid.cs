@@ -31,6 +31,12 @@
             //// this.Initialize();
         }
 
+        public int GetTilesCount()
+        {
+            var result = this.tiles.Count;
+            return result;
+        }
+
         public Tile EmptyTile
         {
             get
