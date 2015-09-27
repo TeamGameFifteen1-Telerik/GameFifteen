@@ -15,6 +15,13 @@
         {
         }
 
+        //Some of the tests rely on constructor with two arguments
+        public Tile(string label, int position)
+        {
+            this.Label = label;
+            this.Position = position;
+        }
+
         public Tile(string label, int position, TileType type)
         {
             this.Label = label;
@@ -24,7 +31,7 @@
 
         public string Label
         {
-            get 
+            get
             {
                 return this.label;
             }
@@ -39,12 +46,12 @@
         {
             get
             {
-                return this.position; 
+                return this.position;
             }
 
             set
-            { 
-                this.position = value; 
+            {
+                this.position = value;
             }
         }
 
