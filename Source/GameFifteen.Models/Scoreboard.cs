@@ -7,10 +7,31 @@
 
     using GameFifteen.Models;
 
-    // TODO : singleton
     public class Scoreboard
     {
         private List<Player> players = new List<Player>();
+        private volatile static Scoreboard scoreBoard;  
+        //singleton
+        public static Scoreboard Init()
+        {
+            object lockingObject = new Object();
+            if (scoreBoard == null)
+            {
+                lock(lockingObject)
+                {
+                    if (scoreBoard == null)
+                    {
+                        scoreBoard = new Scoreboard();
+                    }
+                }
+            }
+            return scoreBoard;
+        }
+
+        private Scoreboard()
+        {
+
+        }
 
         public List<Player> Players
         {

@@ -25,7 +25,7 @@
             this.userInterface = userInterface;
             this.gameInitializer = gameInitializer;
             this.grid = new Grid();
-            this.scoreBoard = new Scoreboard();
+            this.scoreBoard = Scoreboard.Init();
             this.player = new Player();
         }
 
