@@ -48,7 +48,7 @@
                     this.GameOver();
                 }
 
-                this.renderer.PrintMessage(GameMessages.EnterNumberMessage);
+                //this.renderer.PrintMessage(GameMessages.EnterNumberMessage);
                 command = this.userInterface.GetCommandFromInput();
 
                 try
