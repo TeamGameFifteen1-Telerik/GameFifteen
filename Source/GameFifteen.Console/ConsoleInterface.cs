@@ -34,6 +34,10 @@
                     return Command.Exit;
                 case GlobalConstants.AgreeCommand:
                     return Command.Agree;
+                case GlobalConstants.SaveCommand:
+                    return Command.Save;
+                case GlobalConstants.LoadCommand:
+                    return Command.Load;
                 default:
                     if (int.TryParse(input, out this.destinationTileValue))
                     {

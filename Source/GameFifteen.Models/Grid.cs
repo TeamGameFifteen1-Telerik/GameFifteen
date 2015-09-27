@@ -191,5 +191,19 @@
 
             return true;
         }
+
+        public Memento SaveMemento()
+        {
+            Tile emptyTile = (Tile)this.EmptyTile.Clone();
+            var tiles = this.tiles.Clone<Tile>().ToList();
+
+            return new Memento(tiles, emptyTile);
+        }
+
+        public void RestoreMemento(Memento memento)
+        {
+            this.tiles = memento.Tiles.Clone<Tile>().ToList();
+            this.EmptyTile =  memento.EmptyTile;
+        }
     }
 }

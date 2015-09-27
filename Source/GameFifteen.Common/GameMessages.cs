@@ -17,5 +17,7 @@ namespace GameFifteen.Common
         public const string WinMessage = "Congratulations! You won the game in {0} moves.";
         public const string EnterYourNameMessage = "Please enter your name for the top scoreboard: ";
         public const string NewGameQuestion = "New game? Press {0} for yes, any other key to exit.";
+        public const string LoadGameQuestion = "Are you sure you want to load your last saved game? Press {0} for yes, any other key to continue.";
+        public const string GameSaved = "Game saved.";
     }
 }

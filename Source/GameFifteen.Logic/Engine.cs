@@ -18,6 +18,7 @@
         private Scoreboard scoreBoard;
         private Player player;
         private bool isGameOver;
+        private GridMemory gridMemory;
 
         public Engine(IRenderer renderer, IUserInterface userInterface, IGameInitializater gameInitializer)
         {
@@ -27,17 +28,11 @@
             this.grid = new Grid();
             this.scoreBoard = new Scoreboard();
             this.player = new Player();
+            this.gridMemory = new GridMemory();
         }
 
         public void Run()
         {
-            //// var renderer = new ConsoleRenderer();
-
-            //// Grid tiles = new Grid();
-            //int countPlayerMoves = 0;
-            //string line = "restart";
-            //// renamed flag
-            // this.isGameOver = false;
             Command command;
             this.StartNewGame();
 
@@ -75,9 +70,15 @@
                 case Command.Exit:
                     this.ProcessExitCommand();
                     break;
+                case Command.Save:
+                    this.ProcessSaveCommand();
+                    break;
+                case Command.Load:
+                    this.ProcessLoadCommand();                 
+                    break;
                 case Command.Move:
                     this.ProcessMoveCommand();
-                    break;
+                    break;           
                 case Command.Invalid:
                 default:
                     throw new ArgumentException("Invalid Command!");
@@ -132,7 +133,7 @@
             this.renderer.PrintMessage(GameMessages.WelcomeMessage);
             this.gameInitializer.Initialize(this.grid);
             this.renderer.PrintMatrix(grid);
-            this.renderer.PrintMessage(GameMessages.EnterNumberMessage);
+            //this.renderer.PrintMessage(GameMessages.EnterNumberMessage);
         }
 
         private void ProcessMoveCommand()
@@ -152,12 +153,19 @@
             }
         }
 
-        private bool UserAgrees(string message)
+        private void ProcessSaveCommand()
         {
-            this.renderer.PrintMessage(string.Format(message, GlobalConstants.AgreeCommand));
-            Command command = this.userInterface.GetCommandFromInput();
+            this.gridMemory.Memento = this.grid.SaveMemento();
+            this.renderer.PrintMessage(GameMessages.GameSaved);
+        }
 
-            return command == Command.Agree;
+        private void ProcessLoadCommand()
+        {
+            if (this.UserAgrees(GameMessages.LoadGameQuestion))
+            {
+                this.grid.RestoreMemento(this.gridMemory.Memento);
+                this.renderer.PrintMatrix(this.grid);
+            } 
         }
 
         private void ProcessExitCommand()
@@ -166,6 +174,14 @@
             {
                 this.userInterface.ExitGame();             
             }
+        }
+
+        private bool UserAgrees(string message)
+        {
+            this.renderer.PrintMessage(string.Format(message, GlobalConstants.AgreeCommand));
+            Command command = this.userInterface.GetCommandFromInput();
+
+            return command == Command.Agree;
         }
     }
 }

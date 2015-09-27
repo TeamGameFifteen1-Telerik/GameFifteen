@@ -11,6 +11,7 @@
         public const string TopCommand = "top";
         public const string ExitCommand = "exit";
         public const string AgreeCommand = "y";
-
+        public const string SaveCommand = "save";
+        public const string LoadCommand = "load";
     }
 }

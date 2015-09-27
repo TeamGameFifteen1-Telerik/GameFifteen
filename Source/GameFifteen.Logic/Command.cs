@@ -7,6 +7,8 @@
         Exit,
         Agree,
         Move,
-        Invalid
+        Invalid,
+        Save,
+        Load
     }
 }
