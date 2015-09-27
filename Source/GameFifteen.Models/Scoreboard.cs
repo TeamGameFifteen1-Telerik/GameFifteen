@@ -7,10 +7,25 @@
 
     using GameFifteen.Models;
 
-    // TODO : singleton
-    public class Scoreboard
+    public sealed class Scoreboard
     {
         private List<Player> players = new List<Player>();
+        //lazy signleton
+        private static readonly Lazy<Scoreboard> scoreBoard =
+            new Lazy<Scoreboard>( () => new Scoreboard());
+
+        public static Scoreboard Instance
+        {
+            get
+            {
+                return scoreBoard.Value;
+            }
+        }
+
+        private Scoreboard()
+        {
+
+        }
 
         public List<Player> Players
         {
