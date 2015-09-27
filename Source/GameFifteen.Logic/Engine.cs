@@ -48,7 +48,7 @@
                     this.GameOver();
                 }
 
-                //this.renderer.PrintMessage(GameMessages.EnterNumberMessage);
+                this.renderer.PrintMessage(GameMessages.EnterNumberMessage);
                 command = this.userInterface.GetCommandFromInput();
 
                 try
@@ -132,7 +132,7 @@
             this.renderer.PrintMessage(GameMessages.WelcomeMessage);
             this.gameInitializer.Initialize(this.grid);
             this.renderer.PrintMatrix(grid);
-            this.renderer.PrintMessage(GameMessages.EnterNumberMessage);
+            //this.renderer.PrintMessage(GameMessages.EnterNumberMessage);
         }
 
         private void ProcessMoveCommand()
