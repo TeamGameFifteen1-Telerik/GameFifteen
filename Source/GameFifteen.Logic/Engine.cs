@@ -2,8 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
 
     using GameFifteen.Common;
     using GameFifteen.Logic.Contracts;
@@ -27,15 +25,16 @@
             this.userInterface = userInterface;
             this.gameInitializer = gameInitializer;
             this.grid = new Grid();
-            this.scoreBoard = Scoreboard.Instance;
-            this.player = new Player();
-            this.gridMemory = new GridMemory();
+            gridMemory = new GridMemory();
+            player = new Player();
+            scoreBoard = Scoreboard.Instance;
             this.commands = FillCommands();
         }
 
         public void Run()
         {
             Command command;
+            this.renderer.PrintMessage(GameMessages.WelcomeMessage);
             this.StartNewGame();
 
             while (true)
@@ -43,6 +42,7 @@
                 if (isGameOver)
                 {
                     this.GameOver();
+                    this.AskForAnotherGame();
                 }
 
                 this.renderer.PrintMessage(GameMessages.EnterNumberMessage);
@@ -65,27 +65,35 @@
             {
                 commands[command]();
             }
-            
         }
 
-        private IDictionary<Command,Action> FillCommands()
+        // TODO: Fix: Invalid command doesn't throw an exception
+        private IDictionary<Command, Action> FillCommands()
         {
-            this.commands = new Dictionary<Command,Action>();
-            Action startNewGame = this.StartNewGame;
-            Action printScoreBoard = this.PrintScoreBoard;
+            this.commands = new Dictionary<Command, Action>();
+            Action processRestartCommand = this.ProcessRestartCommand;
+            Action processTopCommand = this.ProcessTopCommand;
             Action processExitCommand = this.ProcessExitCommand;
             Action processLoadCommand = this.ProcessLoadCommand;
             Action processMoveCommand = this.ProcessMoveCommand;
             Action processSaveCommand = this.ProcessSaveCommand;
             Action processInvalidCommand = () => new ArgumentException("Invalid Command!");
-            commands.Add(Command.Restart, startNewGame);
-            commands.Add(Command.Top, printScoreBoard);
+
+            commands.Add(Command.Restart, processRestartCommand);
+            commands.Add(Command.Top, processTopCommand);
             commands.Add(Command.Exit, processExitCommand);
             commands.Add(Command.Save, processSaveCommand);
             commands.Add(Command.Load, processLoadCommand);
             commands.Add(Command.Move, processMoveCommand);
             commands.Add(Command.Invalid, processInvalidCommand);
+
             return this.commands;
+        }
+
+        private void StartNewGame()
+        {
+            this.gameInitializer.Initialize(this.grid);
+            this.renderer.PrintMatrix(grid);
         }
 
         private bool IsGameOver()
@@ -93,14 +101,8 @@
             return this.grid.IsSorted;
         }
 
-        private void PrintScoreBoard()
-        {
-            this.renderer.PrintScoreboard(this.scoreBoard);
-        }
-
-        //TODO : refactor
         private void GameOver()
-        {  
+        {
             if (this.player.Moves == 0)
             {
                 this.renderer.PrintMessage(GameMessages.SolvedByDefaultMessage);
@@ -111,7 +113,10 @@
                 this.SaveScore();
                 this.renderer.PrintScoreboard(this.scoreBoard);
             }
+        }
 
+        private void AskForAnotherGame()
+        {
             if (this.UserAgrees(GameMessages.NewGameQuestion))
             {
                 this.StartNewGame();
@@ -120,12 +125,6 @@
             {
                 this.ProcessExitCommand();
             }
-            
-            //command = Command.Restart;
-            //line = "restart";
-
-            //isGameOver = false;
-            //this.player.Moves = 0;
         }
 
         private void SaveScore()
@@ -136,29 +135,55 @@
             scoreBoard.AddPlayer(player);
         }
 
-        private void StartNewGame()
+        private void ProcessRestartCommand()
         {
-            this.renderer.PrintMessage(GameMessages.WelcomeMessage);
-            this.gameInitializer.Initialize(this.grid);
-            this.renderer.PrintMatrix(grid);
-            //this.renderer.PrintMessage(GameMessages.EnterNumberMessage);
+            if (this.UserAgrees(GameMessages.RestartGameQuestion))
+            {
+                this.StartNewGame();
+            }
+        }
+
+        private void ProcessTopCommand()
+        {
+            this.renderer.PrintScoreboard(this.scoreBoard);
         }
 
         private void ProcessMoveCommand()
         {
-            //TODO: refactor
-            try
+            var tileLable = this.userInterface.GetDestinationTileValue();
+            Tile tile = this.grid.GetTileFromLabel(tileLable.ToString());
+
+            if (this.IsValidMove(tile))
             {
-                grid.MoveTile(this.userInterface.GetDestinationTileValue());
+                this.grid.SwapTiles(tile);
                 this.player.Moves++;
                 this.renderer.PrintMatrix(grid);
                 this.isGameOver = this.IsGameOver();
             }
-            catch (Exception exception)
+            else
             {
-                this.renderer.PrintMessage(exception.Message);
-                //throw new InvalidOperationException(exception.Message);
+                this.renderer.PrintMessage(GameMessages.InvalidMove);
             }
+        }
+
+        private bool IsValidMove(Tile tile)
+        {
+            if (!IsValidTileLabel(int.Parse(tile.Label)))
+            {
+                return false;
+            }
+
+            return this.grid.CanSwap(tile);
+        }
+
+        private bool IsValidTileLabel(int tileLabel)
+        {
+            if (0 < tileLabel && tileLabel < GlobalConstants.TotalTilesCount)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private void ProcessSaveCommand()
@@ -169,24 +194,31 @@
 
         private void ProcessLoadCommand()
         {
-            if (this.UserAgrees(GameMessages.LoadGameQuestion))
+            if (this.gridMemory.Memento != null)
             {
-                this.grid.RestoreMemento(this.gridMemory.Memento);
-                this.renderer.PrintMatrix(this.grid);
-            } 
+                if (this.UserAgrees(GameMessages.LoadGameQuestion))
+                {
+                    this.grid.RestoreMemento(this.gridMemory.Memento);
+                    this.renderer.PrintMatrix(this.grid);
+                }
+            }
+            else
+            {
+                this.renderer.PrintMessage(GameMessages.NoGameToLoad);
+            }
         }
 
         private void ProcessExitCommand()
         {
             if (this.UserAgrees(GameMessages.ExitMessage))
             {
-                this.userInterface.ExitGame();             
+                this.userInterface.ExitGame();
             }
         }
 
         private bool UserAgrees(string message)
         {
-            this.renderer.PrintMessage(string.Format(message, GlobalConstants.AgreeCommand));
+            this.renderer.PrintMessage(string.Format(message + " " + GameMessages.PressKeyToExit, GlobalConstants.AgreeCommand));
             Command command = this.userInterface.GetCommandFromInput();
 
             return command == Command.Agree;

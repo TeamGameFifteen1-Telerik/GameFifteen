@@ -14,9 +14,9 @@
         public void PrintScoreboard(Scoreboard scoreboard)
         {
             Console.WriteLine("Scoreboard:");
-            foreach (Player player in scoreboard.Players)
+            foreach (Player player in scoreboard.TopPlayers)
             {
-                string scoreboardLine = (scoreboard.Players.IndexOf(player) + 1).ToString() + ". " + player.Name + " --> " + player.Moves.ToString() + " moves";
+                string scoreboardLine = (scoreboard.TopPlayers.IndexOf(player) + 1).ToString() + ". " + player.Name + " --> " + player.Moves.ToString() + " moves";
                 Console.WriteLine(scoreboardLine);
             }
         }

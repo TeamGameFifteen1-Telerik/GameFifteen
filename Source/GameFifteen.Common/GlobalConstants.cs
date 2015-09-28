@@ -4,8 +4,8 @@
     {
         public const int HORIZONTAL_NEIGHBOUR_TILE = 1;
         public const int VERTICAL_NEIGHBOUR_TILE = 4;
-        public const int GRID_SIZE = 4;
-        public const int TOTAL_TILES_COUNT = 16;
+        public const int GridSize = 4;
+        public const int TotalTilesCount = 16;
 
         public const string RestartCommand = "restart";
         public const string TopCommand = "top";

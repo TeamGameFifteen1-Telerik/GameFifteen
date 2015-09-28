@@ -11,17 +11,6 @@
         private int position;
         private TileType type;
 
-        public Tile()
-        {
-        }
-
-        //Some of the tests rely on constructor with two arguments
-        public Tile(string label, int position)
-        {
-            this.Label = label;
-            this.Position = position;
-        }
-
         public Tile(string label, int position, TileType type)
         {
             this.Label = label;

@@ -17,7 +17,7 @@
         [TestMethod]
         public void TestingScoreBoardDefaultFunctionality()
         {
-            var actual = Scoreboard.Instance.Players.Count;
+            var actual = Scoreboard.Instance.TopPlayers.Count;
             var expected = 0;
             Assert.AreEqual(expected, actual);
         }
@@ -30,7 +30,7 @@
             var anotherPlayer = new Player();
             score.AddPlayer(player);
             score.AddPlayer(anotherPlayer);
-            var actual = score.Players.Count;
+            var actual = score.TopPlayers.Count;
             var expected = 2;
             Assert.AreEqual(expected, actual);
         }

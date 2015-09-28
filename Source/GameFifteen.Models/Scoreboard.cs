@@ -2,17 +2,16 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-
-    using GameFifteen.Models;
 
     public sealed class Scoreboard
     {
-        private List<Player> players = new List<Player>();
+        private const int TopPlayersCount = 4;
+
+        private List<Player> players;
+
         //lazy signleton
         private static readonly Lazy<Scoreboard> scoreBoard =
-            new Lazy<Scoreboard>( () => new Scoreboard());
+            new Lazy<Scoreboard>(() => new Scoreboard());
 
         public static Scoreboard Instance
         {
@@ -24,45 +23,36 @@
 
         private Scoreboard()
         {
-
+            this.players = new List<Player>();
         }
 
-        public List<Player> Players
+        public List<Player> TopPlayers
         {
             get
             {
-                return this.players;
+                return new List<Player>(this.GetTopPlayers(TopPlayersCount));
             }
         }
 
         public void AddPlayer(Player player)
         {
             this.players.Add(player);
+        }
+
+        private List<Player> GetTopPlayers(int count)
+        {
             this.players.Sort();
-            this.DeleteAllExceptTopPlayers();
-        }
+            this.players.Reverse();
 
-        /*
-        public void PrintScoreboard()
-        {
-            Console.WriteLine("Scoreboard:");
-            foreach (Player player in players)
-            {
-                string scoreboardLine = (players.IndexOf(player) + 1).ToString() + ". " + player.Name + " --> " + player.Moves.ToString() + " moves";
-                Console.WriteLine(scoreboardLine);
-            }
-        }
-        */
+            int topCount = this.players.Count < count ? this.players.Count : count;
+            var topPlayers = new List<Player>();
 
-        private void DeleteAllExceptTopPlayers()
-        {
-            for (int index = 0; index < this.players.Count(); index++)
+            for (int i = 0; i < topCount; i++)
             {
-                if (index > 4)
-                {
-                    this.players.Remove(this.players[index]);
-                }
+                topPlayers.Add(this.players[i]);
             }
+
+            return topPlayers;
         }
     }
 }

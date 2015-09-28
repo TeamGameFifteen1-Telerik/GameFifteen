@@ -18,9 +18,9 @@
         public void TestGridAddingTileWheatherReturnsCorrectValues()
         {
             var actual = new Grid();
-            var tile = new Tile("1", 1);
+            var tile = new Tile("1", 1, TileType.Number);
             actual.AddTile(tile);
-            Assert.AreEqual(actual.GetTileAtPosition(0),tile);
+            Assert.AreEqual(actual.GetTileAtPosition(0), tile);
         }
 
         [TestMethod]
@@ -29,12 +29,12 @@
             var grid = new Grid();
             for (int i = 0; i < 5; i++)
             {
-                var tile = new Tile(""+ i +"",i);
+                var tile = new Tile("" + i + "", i, TileType.Number);
                 grid.AddTile(tile);
             }
-            var actual = grid.GetTilesCount();
+            var actual = grid.TilesCount;
             var expected = 5;
-            Assert.AreEqual(actual,expected);
+            Assert.AreEqual(actual, expected);
 
         }
 
@@ -42,15 +42,12 @@
         public void TestClearMethodToRetturnZeroValue()
         {
             var grid = new Grid();
-            var tile = new Tile("1",1);
+            var tile = new Tile("1", 1, TileType.Number);
             grid.AddTile(tile);
             grid.Clear();
-            var actual = grid.GetTilesCount();
+            var actual = grid.TilesCount;
             var expected = 0;
             Assert.AreEqual(actual, expected);
         }
-        
-
-
     }
 }

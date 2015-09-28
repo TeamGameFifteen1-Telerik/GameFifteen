@@ -45,6 +45,7 @@
     <Compile Include="Contracts\IRenderer.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="GameInitializer.cs" />
+    <Compile Include="GridMemory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
