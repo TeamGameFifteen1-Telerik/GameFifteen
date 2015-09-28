@@ -19,6 +19,7 @@
         private Player player;
         private bool isGameOver;
         private GridMemory gridMemory;
+        private IDictionary<Command, Action> commands;
 
         public Engine(IRenderer renderer, IUserInterface userInterface, IGameInitializater gameInitializer)
         {
@@ -29,6 +30,7 @@
             this.scoreBoard = Scoreboard.Instance;
             this.player = new Player();
             this.gridMemory = new GridMemory();
+            this.commands = FillCommands();
         }
 
         public void Run()
@@ -59,35 +61,41 @@
 
         public void ProcessCommand(Command command)
         {
-            switch (command)
+            if (commands.ContainsKey(command))
             {
-                case Command.Restart:
-                    this.StartNewGame();
-                    break;
-                case Command.Top:
-                    this.renderer.PrintScoreboard(this.scoreBoard);
-                    break;
-                case Command.Exit:
-                    this.ProcessExitCommand();
-                    break;
-                case Command.Save:
-                    this.ProcessSaveCommand();
-                    break;
-                case Command.Load:
-                    this.ProcessLoadCommand();                 
-                    break;
-                case Command.Move:
-                    this.ProcessMoveCommand();
-                    break;           
-                case Command.Invalid:
-                default:
-                    throw new ArgumentException("Invalid Command!");
+                commands[command]();
             }
+            
+        }
+
+        private IDictionary<Command,Action> FillCommands()
+        {
+            this.commands = new Dictionary<Command,Action>();
+            Action startNewGame = this.StartNewGame;
+            Action printScoreBoard = this.PrintScoreBoard;
+            Action processExitCommand = this.ProcessExitCommand;
+            Action processLoadCommand = this.ProcessLoadCommand;
+            Action processMoveCommand = this.ProcessMoveCommand;
+            Action processSaveCommand = this.ProcessSaveCommand;
+            Action processInvalidCommand = () => new ArgumentException("Invalid Command!");
+            commands.Add(Command.Restart, startNewGame);
+            commands.Add(Command.Top, printScoreBoard);
+            commands.Add(Command.Exit, processExitCommand);
+            commands.Add(Command.Save, processSaveCommand);
+            commands.Add(Command.Load, processLoadCommand);
+            commands.Add(Command.Move, processMoveCommand);
+            commands.Add(Command.Invalid, processInvalidCommand);
+            return this.commands;
         }
 
         private bool IsGameOver()
         {
             return this.grid.IsSorted;
+        }
+
+        private void PrintScoreBoard()
+        {
+            this.renderer.PrintScoreboard(this.scoreBoard);
         }
 
         //TODO : refactor
