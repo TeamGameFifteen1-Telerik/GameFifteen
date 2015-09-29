@@ -8,6 +8,7 @@
 
     using GameFifteen.Logic.Contracts;
     using GameFifteen.Models;
+    using GameFifteen.Common;
 
     public class ConsoleRenderer : IRenderer
     {
@@ -26,7 +27,7 @@
             Console.WriteLine("  ------------");
             Console.Write("| ");
             int rowCounter = 0;
-            for (int index = 0; index < 16; index++)
+            for (int index = 0; index < GlobalConstants.TotalTilesCount; index++)
             {
                 Tile currentElement = sourceMatrix.GetTileAtPosition(index);
 
@@ -44,7 +45,7 @@
                 }
 
                 rowCounter++;
-                if (rowCounter == 4)
+                if (rowCounter == GlobalConstants.GridSize)
                 {
                     Console.Write(" |");
                     Console.WriteLine();

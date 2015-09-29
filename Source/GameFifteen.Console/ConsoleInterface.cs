@@ -13,6 +13,15 @@
     public class ConsoleInterface : IUserInterface
     {
         private int destinationTileValue;
+        private IDictionary<string, Command> commandStash = new Dictionary<string, Command> 
+                                                                        {
+                                                                           {GlobalConstants.RestartCommand, Command.Restart},
+                                                                           {GlobalConstants.TopCommand, Command.Top},
+                                                                           {GlobalConstants.ExitCommand, Command.Exit},
+                                                                           {GlobalConstants.AgreeCommand, Command.Agree},
+                                                                           {GlobalConstants.SaveCommand, Command.Save},
+                                                                           {GlobalConstants.LoadCommand, Command.Load}
+                                                                        };
 
         public string GetUserInput()
         {
@@ -24,27 +33,17 @@
         {
             string input = this.GetUserInput().ToLower();
 
-            switch (input)
+            if (commandStash.ContainsKey(input))
             {
-                case GlobalConstants.RestartCommand:
-                    return Command.Restart;
-                case GlobalConstants.TopCommand:
-                    return Command.Top;
-                case GlobalConstants.ExitCommand:
-                    return Command.Exit;
-                case GlobalConstants.AgreeCommand:
-                    return Command.Agree;
-                case GlobalConstants.SaveCommand:
-                    return Command.Save;
-                case GlobalConstants.LoadCommand:
-                    return Command.Load;
-                default:
-                    if (int.TryParse(input, out this.destinationTileValue))
-                    {
-                        return Command.Move;
-                    }
-
-                    return Command.Invalid;
+                return commandStash[input];
+            }
+            else if (int.TryParse(input, out this.destinationTileValue))
+            {
+                return Command.Move;
+            }
+            else
+            {
+                return Command.Invalid;
             }
         }
 
