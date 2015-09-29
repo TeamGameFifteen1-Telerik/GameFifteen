@@ -42,7 +42,7 @@
         private List<Player> GetTopPlayers(int count)
         {
             this.players.Sort();
-            this.players.Reverse();
+            //this.players.Reverse();
 
             int topCount = this.players.Count < count ? this.players.Count : count;
             var topPlayers = new List<Player>();
