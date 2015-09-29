@@ -77,7 +77,7 @@
             Action processLoadCommand = this.ProcessLoadCommand;
             Action processMoveCommand = this.ProcessMoveCommand;
             Action processSaveCommand = this.ProcessSaveCommand;
-            Action processInvalidCommand = () => new ArgumentException("Invalid Command!");
+            Action processInvalidCommand = () => { throw new ArgumentException("Invalid Command!"); };
 
             commands.Add(Command.Restart, processRestartCommand);
             commands.Add(Command.Top, processTopCommand);
