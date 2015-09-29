@@ -3,6 +3,7 @@
     using System;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using GameFifteen.Models;
+    using GameFifteen.Common;
     [TestClass]
     public class GridTests
     {
@@ -48,6 +49,25 @@
             var actual = grid.TilesCount;
             var expected = 0;
             Assert.AreEqual(actual, expected);
+        }
+
+        [TestMethod]
+        public void TestMementoToReturnValidObjectState()
+        {
+            var grid = new Grid();
+            var tile = new Tile("1",1,TileType.Number);
+            var emptyTile = new Tile(string.Empty, GlobalConstants.TotalTilesCount - 1, TileType.Empty);
+            var anotherTile = new Tile("2", 2, TileType.Number);
+            grid.AddTile(tile);
+            grid.AddTile(emptyTile);
+            Memento memento = grid.SaveMemento();
+
+            grid.AddTile(anotherTile);
+            grid.RestoreMemento(memento);
+
+            var actual = grid.TilesCount;
+            var expected = 2;
+            Assert.AreEqual(expected, actual);
         }
     }
 }

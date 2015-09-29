@@ -67,7 +67,6 @@
             }
         }
 
-        // TODO: Fix: Invalid command doesn't throw an exception
         private IDictionary<Command, Action> FillCommands()
         {
             this.commands = new Dictionary<Command, Action>();
