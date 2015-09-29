@@ -1,16 +1,15 @@
 ﻿namespace GameFifteen.Models
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
 
     using GameFifteen.Common;
-    using System.Collections;
 
     public class Grid : IEnumerable
     {
         private List<Tile> tiles;
-        private Tile emptyTile;
 
         public Grid()
         {
@@ -22,19 +21,6 @@
             get
             {
                 return this.tiles.Count;
-            }
-        }
-
-        public Tile EmptyTile
-        {
-            get
-            {
-                return this.GetEmptyTile();
-            }
-
-            set
-            {
-                this.emptyTile = value;
             }
         }
 
@@ -78,15 +64,16 @@
 
         public void SwapTiles(Tile targetTile)
         {
+            int emptyTilePosition = this.GetEmptyTile().Position;
             int targetTilePosition = targetTile.Position;
-            this.tiles[targetTile.Position].Position = this.EmptyTile.Position;
-            this.tiles[this.EmptyTile.Position].Position = targetTilePosition;
+            this.tiles[targetTile.Position].Position = emptyTilePosition;
+            this.tiles[emptyTilePosition].Position = targetTilePosition;
             this.tiles.Sort();
         }
 
         public bool CanSwap(Tile tile)
         {
-            int tilesDistance = this.EmptyTile.Position - tile.Position;
+            int tilesDistance = this.GetEmptyTile().Position - tile.Position;
 
             bool isTileAtFirstColumn = (tile.Position + 1) % GlobalConstants.GridSize == 1;
             bool isTileAtLastColumn = (tile.Position + 1) % GlobalConstants.GridSize == 0;
@@ -111,16 +98,14 @@
 
         public Memento SaveMemento()
         {
-            Tile emptyTile = (Tile)this.EmptyTile.Clone();
             var tiles = this.tiles.Clone<Tile>().ToList();
 
-            return new Memento(tiles, emptyTile);
+            return new Memento(tiles);
         }
 
         public void RestoreMemento(Memento memento)
         {
             this.tiles = memento.Tiles.Clone<Tile>().ToList();
-            this.EmptyTile = memento.EmptyTile;
         }
 
         private Tile GetEmptyTile()

@@ -4,15 +4,11 @@
 
     public class Memento
     {
-        public Memento(List<Tile> tiles, Tile emptyTile)
+        public Memento(List<Tile> tiles)
         {
             this.Tiles = tiles;
-            this.EmptyTile = emptyTile;
         }
 
         public List<Tile> Tiles { get; set; }
-
-        public Tile EmptyTile { get; set; }
-
     }
 }

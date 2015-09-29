@@ -124,7 +124,8 @@
             }
             else
             {
-                this.ProcessExitCommand();
+                this.userInterface.ExitGame();
+                //this.ProcessExitCommand();
             }
         }
 

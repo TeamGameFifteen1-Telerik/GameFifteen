@@ -37,7 +37,6 @@
 
             var emptyTile = new Tile(string.Empty, GlobalConstants.TotalTilesCount - 1, TileType.Empty);
             grid.AddTile(emptyTile);
-            grid.EmptyTile = emptyTile;      
         }
 
         private void ShuffleGrid(Grid grid)

@@ -2,9 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
     using GameFifteen.Logic;
     using GameFifteen.Logic.Contracts;
@@ -13,15 +10,20 @@
     public class ConsoleInterface : IUserInterface
     {
         private int destinationTileValue;
-        private IDictionary<string, Command> commandStash = new Dictionary<string, Command> 
-                                                                        {
-                                                                           {GlobalConstants.RestartCommand, Command.Restart},
-                                                                           {GlobalConstants.TopCommand, Command.Top},
-                                                                           {GlobalConstants.ExitCommand, Command.Exit},
-                                                                           {GlobalConstants.AgreeCommand, Command.Agree},
-                                                                           {GlobalConstants.SaveCommand, Command.Save},
-                                                                           {GlobalConstants.LoadCommand, Command.Load}
-                                                                        };
+        private IDictionary<string, Command> commandStash;
+
+        public ConsoleInterface()
+        {
+            this.commandStash = new Dictionary<string, Command> 
+                                    {
+                                        {GlobalConstants.RestartCommand, Command.Restart},
+                                        {GlobalConstants.TopCommand, Command.Top},
+                                        {GlobalConstants.ExitCommand, Command.Exit},
+                                        {GlobalConstants.AgreeCommand, Command.Agree},
+                                        {GlobalConstants.SaveCommand, Command.Save},
+                                        {GlobalConstants.LoadCommand, Command.Load}
+                                    };
+        }
 
         public string GetUserInput()
         {
