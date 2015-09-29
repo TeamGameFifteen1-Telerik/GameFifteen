@@ -93,6 +93,8 @@
         {
             this.gameInitializer.Initialize(this.grid);
             this.renderer.PrintMatrix(grid);
+            this.player = new Player();
+            this.player.Moves = 0;
         }
 
         private bool IsGameOver()
