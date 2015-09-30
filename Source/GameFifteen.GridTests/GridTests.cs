@@ -121,5 +121,22 @@
             var expected = anotherTile;
             Assert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
+        public void TestCanSwapMethodToReturnFalseValueWhenCurrentTileCannotBeSwapped()
+        {
+            var grid = new Grid();
+            for (int i = 0; i < 5; i++)
+            {
+                var tile = new Tile("" + i + "", i, TileType.Number);
+                grid.AddTile(tile);
+            }
+            var emptyTile = new Tile(string.Empty, GlobalConstants.TotalTilesCount - 1, TileType.Empty);
+            grid.AddTile(emptyTile);
+            var tileToTest = grid.GetTileFromLabel("1");
+            var actual = grid.CanSwap(tileToTest);
+            var expected = false;
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
