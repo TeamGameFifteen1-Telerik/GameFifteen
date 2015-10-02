@@ -36,13 +36,27 @@
 
         public void AddPlayer(Player player)
         {
+            if (player == null)
+            {
+                throw new ArgumentNullException("Player cannot be null.");
+            }
+
+            if (player.Moves == 0)
+            {
+                throw new ArgumentException("Player needs at least one move.");
+            }
+
             this.players.Add(player);
+        }
+
+        public void Clear()
+        {
+            this.players.Clear();
         }
 
         private List<Player> GetTopPlayers(int count)
         {
             this.players.Sort();
-            this.players.Reverse();
 
             int topCount = this.players.Count < count ? this.players.Count : count;
             var topPlayers = new List<Player>();

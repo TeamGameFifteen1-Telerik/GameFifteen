@@ -26,12 +26,62 @@
         public void TestingScoreBoardAddingPlayerFunctionality()
         {
             var score = Scoreboard.Instance;
+            score.Clear();
             var player = new Player();
             var anotherPlayer = new Player();
+            player.Moves = 8;
+            anotherPlayer.Moves = 10;
             score.AddPlayer(player);
             score.AddPlayer(anotherPlayer);
             var actual = score.TopPlayers.Count;
             var expected = 2;
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestAddPlayerShouldThrowWhenPlayerMovesAreZero()
+        {
+            var score = Scoreboard.Instance;
+            score.Clear();
+            var player = new Player();
+            score.AddPlayer(player);
+        }
+
+        [TestMethod]
+        public void TestScoreBoardShouldReturnTopPlayersInTheRightOrder()
+        {
+            var score = Scoreboard.Instance;
+            score.Clear();
+            for (int i = 0; i < 5; i++)
+            {
+                var player = new Player();
+                player.Moves = 5 - i;
+                player.Name = "Player" + (i + 1);
+                score.AddPlayer(player);
+            }
+
+            var topPlayers = score.TopPlayers;
+            Assert.AreEqual("Player5", topPlayers[0].Name);
+            Assert.AreEqual("Player4", topPlayers[1].Name); 
+        }
+
+        [TestMethod]
+        public void TestClearShouldReturnEmptyScoreBoard()
+        {
+            var score = Scoreboard.Instance;
+            for (int i = 0; i < 5; i++)
+            {
+                var player = new Player();
+                player.Moves = 5 - i;
+                player.Name = "Player" + (i + 1);
+                score.AddPlayer(player);
+            }
+
+            score.Clear();
+            var expected = 0;
+            var actual = score.TopPlayers.Count;
+
             Assert.AreEqual(expected, actual);
         }
     }
