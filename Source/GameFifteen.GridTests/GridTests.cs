@@ -69,5 +69,74 @@
             var expected = 2;
             Assert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
+        public void TestGetTileFromLabelMethodToReturnValidTile()
+        {
+            var grid = new Grid();
+            var tile = new Tile("1", 1, TileType.Number);
+            var anotherTile = new Tile("2", 2, TileType.Number);
+            grid.AddTile(tile);
+            grid.AddTile(anotherTile);
+            var actual = grid.GetTileFromLabel("2");
+            var expected = anotherTile;
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void TestGetTileFromLabelMethodToReturnNullWhenNoValidDataIsProvided()
+        {
+            var grid = new Grid();
+            var tile = new Tile("1", 1, TileType.Number);
+            var anotherTile = new Tile("2", 2, TileType.Number);
+            grid.AddTile(tile);
+            grid.AddTile(anotherTile);
+            var actual = grid.GetTileFromLabel("3");
+            Assert.AreEqual(null, actual);
+        }
+
+        [TestMethod]
+        public void TestGetTileAtPositionMethodToReturnValidPositionOfTile()
+        {
+            var grid = new Grid();
+            var tile = new Tile("3", 3, TileType.Number);
+            var anotherTile = new Tile("4", 4, TileType.Number);
+            grid.AddTile(tile);
+            grid.AddTile(anotherTile);
+            var actual = grid.GetTileAtPosition(1);
+            var expected = anotherTile;
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void TestGetTileAtPositionMethodToThrowWhenNoValidPositionIsProvided()
+        {
+            var grid = new Grid();
+            var tile = new Tile("3", 3, TileType.Number);
+            var anotherTile = new Tile("4", 4, TileType.Number);
+            grid.AddTile(tile);
+            grid.AddTile(anotherTile);
+            var actual = grid.GetTileAtPosition(2);
+            var expected = anotherTile;
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void TestCanSwapMethodToReturnFalseValueWhenCurrentTileCannotBeSwapped()
+        {
+            var grid = new Grid();
+            for (int i = 0; i < 5; i++)
+            {
+                var tile = new Tile("" + i + "", i, TileType.Number);
+                grid.AddTile(tile);
+            }
+            var emptyTile = new Tile(string.Empty, GlobalConstants.TotalTilesCount - 1, TileType.Empty);
+            grid.AddTile(emptyTile);
+            var tileToTest = grid.GetTileFromLabel("1");
+            var actual = grid.CanSwap(tileToTest);
+            var expected = false;
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
