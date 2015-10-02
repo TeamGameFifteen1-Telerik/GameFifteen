@@ -159,7 +159,7 @@
             {
                 this.grid.SwapTiles(tile);
                 this.player.Moves++;
-                this.renderer.PrintMatrix(grid);
+                this.renderer.PrintMatrix(this.grid);
                 this.isGameOver = this.IsGameOver();
             }
             else

@@ -1,15 +1,16 @@
 ﻿namespace GameFifteen.Models
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
 
-    public class Tile : IComparable, ICloneable
+    public class Tile : TilePrototype, IComparable, ICloneable
     {
         private string label;
         private int position;
         private TileType type;
+
+        public Tile()
+        {
+        }
 
         public Tile(string label, int position, TileType type)
         {
@@ -25,7 +26,7 @@
                 return this.label;
             }
 
-            private set
+            set
             {
                 this.label = value;
             }
@@ -63,6 +64,11 @@
             int result = this.position.CompareTo(currentTile.Position);
 
             return result;
+        }
+
+        public override Tile CloneMemberwise()
+        {
+            return this.MemberwiseClone() as Tile;
         }
 
         public object Clone()

@@ -16,6 +16,8 @@
             this.tiles = new List<Tile>();
         }
 
+        //public Tile EmptyTile { get; set; }
+
         public int TilesCount
         {
             get
@@ -69,6 +71,10 @@
             this.tiles[targetTile.Position].Position = emptyTilePosition;
             this.tiles[emptyTilePosition].Position = targetTilePosition;
             this.tiles.Sort();
+            //int targetTilePosition = targetTile.Position;
+            //this.tiles[targetTile.Position].Position = this.EmptyTile.Position;
+            //this.tiles[this.EmptyTile.Position].Position = targetTilePosition;
+            //this.tiles.Sort();
         }
 
         public bool CanSwap(Tile tile)
@@ -90,7 +96,7 @@
 
         public IEnumerator GetEnumerator()
         {
-            foreach (var tile in this.tiles)
+            foreach (Tile tile in this.tiles)
             {
                 yield return tile;
             }

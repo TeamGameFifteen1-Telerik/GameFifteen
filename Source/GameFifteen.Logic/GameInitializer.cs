@@ -27,15 +27,19 @@
         }
 
         public void InitilizeGrid(Grid grid)
-        {      
+        {
+            var emptyTile = new Tile(string.Empty, GlobalConstants.TotalTilesCount - 1, TileType.Empty);          
+            //grid.EmptyTile = emptyTile;
+
             for (int i = 0; i < GlobalConstants.TotalTilesCount - 1; i++)
             {
-                string tileLabel = (i + 1).ToString();
-                Tile tile = new Tile(tileLabel, i, TileType.Number);
+                Tile tile = emptyTile.CloneMemberwise();    //new Tile(tileLabel, i, TileType.Number);
+                tile.Label = (i + 1).ToString();
+                tile.Position = i;
+                tile.Type = TileType.Number;
                 grid.AddTile(tile);
             }
 
-            var emptyTile = new Tile(string.Empty, GlobalConstants.TotalTilesCount - 1, TileType.Empty);
             grid.AddTile(emptyTile);
         }
 
@@ -54,7 +58,6 @@
             var neighbourTiles = this.GetNeighbours(grid);
             int randomNeighbourIndex = random.Next() % neighbourTiles.Count;
             Tile targetTile = neighbourTiles[randomNeighbourIndex];
-
             grid.SwapTiles(targetTile);
         }
 
