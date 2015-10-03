@@ -9,8 +9,6 @@
 
     public class ConsoleInterface : IUserInterface
     {
-        // private int destinationTileValue;
-        //private string borderStyle;
         private IDictionary<string, dynamic> arguments;
         private IDictionary<string, Command> commandStash;
 
@@ -43,7 +41,7 @@
             {
                 string[] parameters = input.Split(new string[] { GlobalConstants.ExstenstionOperator }, StringSplitOptions.RemoveEmptyEntries);
 
-                if (!commandStash.ContainsKey(parameters[0]))
+                if (!commandStash.ContainsKey(parameters[0]) || parameters.Length != 2)
                 {
                     return Command.Invalid;
                 }
@@ -58,7 +56,7 @@
             {
                 return commandStash[input];
             }
-            else if (int.TryParse(input, out destinationTileValue)) //this.destinationTileValue
+            else if (int.TryParse(input, out destinationTileValue))
             {
                 this.arguments[GlobalConstants.DestinationTileValue] = destinationTileValue;
 
