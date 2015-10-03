@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using GameFifteen.Console.Contracts;
+using GameFifteen.Models.Contracts;
 
 namespace GameFifteen.Console.Styles
 {
-    public class MiddleFat: GridBorderStyle
+    public class MiddleFatStyle: GridBorderStyle
     {
         private readonly char topSymbol = '▄';
         private readonly char bottomSymbol = '▀';

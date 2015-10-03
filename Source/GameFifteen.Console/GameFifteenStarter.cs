@@ -1,5 +1,6 @@
 ﻿namespace GameFifteen.Console
 {
+    using GameFifteen.Console.Styles;
     using GameFifteen.Logic;
     using GameFifteen.Models;
 

@@ -8,6 +8,8 @@
     public interface IRenderer
     {
         //// TODO: refactor
+        void AddStyle(params string[] styles);
+
         void PrintScoreboard(Scoreboard scoreboard);
 
         void PrintMatrix(IGrid grid);

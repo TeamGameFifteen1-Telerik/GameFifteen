@@ -3,18 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using GameFifteen.Models.Contracts;
 
-namespace GameFifteen.Console.Styles
+namespace GameFifteen.Models.Styles
 {
-    public class FatStyle : GridBorderStyle
+    public class MiddleFatStyle: GridBorderStyle
     {
-        private readonly char symbol = '█';
+        private readonly char topSymbol = '▄';
+        private readonly char bottomSymbol = '▀';
+        private readonly char leftSymbol = '▌';
+        private readonly char rightSymbol = '▐';
         private readonly int length = 16;
 
         public override string Top
         {
-            get
+            get 
             {
-                return new string(this.symbol, this.length); 
+                return new string(this.topSymbol, this.length);
             }
         }
 
@@ -22,7 +25,7 @@ namespace GameFifteen.Console.Styles
         {
             get
             {
-                return new string(this.symbol, this.length);
+                return new string(this.bottomSymbol, this.length);
             }
         }
 
@@ -30,7 +33,7 @@ namespace GameFifteen.Console.Styles
         {
             get
             {
-                return this.symbol + " ";
+                return this.leftSymbol + " ";
             }
         }
 
@@ -38,7 +41,7 @@ namespace GameFifteen.Console.Styles
         {
             get
             {
-                return " " + this.symbol;
+                return " " + this.rightSymbol;
             }
         }
     }

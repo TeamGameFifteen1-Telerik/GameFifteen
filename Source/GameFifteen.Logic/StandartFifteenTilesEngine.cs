@@ -80,6 +80,7 @@
             Action processLoadCommand = this.ProcessLoadCommand;
             Action processMoveCommand = this.ProcessMoveCommand;
             Action processSaveCommand = this.ProcessSaveCommand;
+            Action processStyleCommand = this.ProcessStyleCommand;
             Action processInvalidCommand = () => { throw new ArgumentException("Invalid Command!"); };
 
             commands.Add(Command.Restart, processRestartCommand);
@@ -88,6 +89,7 @@
             commands.Add(Command.Save, processSaveCommand);
             commands.Add(Command.Load, processLoadCommand);
             commands.Add(Command.Move, processMoveCommand);
+            commands.Add(Command.Style, processStyleCommand);
             commands.Add(Command.Invalid, processInvalidCommand);
 
             return this.commands;
@@ -97,6 +99,7 @@
         {
             this.gameInitializer.Initialize(this.grid);
             this.renderer.PrintMatrix(grid);
+            //TODO: remove initialization
             this.player = new Player();
             this.player.Moves = 0;
         }
@@ -195,6 +198,12 @@
             }
 
             return false;
+        }
+
+        private void ProcessStyleCommand()
+        {
+            this.renderer.AddStyle(this.userInterface.SpecialParams);
+            this.renderer.PrintMatrix(grid);
         }
 
         private void ProcessSaveCommand()
