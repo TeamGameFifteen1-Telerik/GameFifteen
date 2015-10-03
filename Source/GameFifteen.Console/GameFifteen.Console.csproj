@@ -48,7 +48,14 @@
   <ItemGroup>
     <Compile Include="ConsoleInterface.cs" />
     <Compile Include="ConsoleRenderer.cs" />
+    <Compile Include="Contracts\GridBorderStyle.cs" />
     <Compile Include="GameFifteenMain.cs" />
+    <Compile Include="Styles\DottedStyle.cs" />
+    <Compile Include="Styles\DoubleStyle.cs" />
+    <Compile Include="Styles\FatStyle.cs" />
+    <Compile Include="Styles\MiddleFat.cs" />
+    <Compile Include="Styles\NormalStyle.cs" />
+    <Compile Include="Styles\SolidStyle.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
