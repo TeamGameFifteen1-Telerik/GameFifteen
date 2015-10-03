@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using GameFifteen.Models.Contracts;
+using GameFifteen.Console.Contracts;
 
 namespace GameFifteen.Console.Styles
 {

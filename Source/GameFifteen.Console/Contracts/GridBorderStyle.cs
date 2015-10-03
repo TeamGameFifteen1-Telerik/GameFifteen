@@ -1,4 +1,4 @@
-﻿namespace GameFifteen.Models.Contracts
+﻿namespace GameFifteen.Console.Contracts
 {
     using GameFifteen.Console.Contracts;
 

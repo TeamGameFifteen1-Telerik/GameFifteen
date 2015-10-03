@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GameFifteen.Models.Contracts;
+using GameFifteen.Console.Contracts;
 
 namespace GameFifteen.Console.Styles
 {
