@@ -16,5 +16,8 @@
         public const string SaveCommand = "save";
         public const string LoadCommand = "load";
         public const string StyleCommand = "style";
+
+        public const string DestinationTileValue = "DestinationTileValue";
+        public const string BorderStyle = "BorderStyle";
     }
 }

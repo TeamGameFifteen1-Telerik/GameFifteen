@@ -164,7 +164,7 @@
 
         private void ProcessMoveCommand()
         {
-            var tileLable = this.userInterface.GetDestinationTileValue();
+            var tileLable = this.userInterface.GetArgumentValue(GlobalConstants.DestinationTileValue);
             Tile tile = this.grid.GetTileFromLabel(tileLable.ToString());
 
             if (this.IsValidMove(tile))
@@ -202,7 +202,7 @@
 
         private void ProcessStyleCommand()
         {
-            this.renderer.AddStyle(this.userInterface.SpecialParams);
+            this.renderer.AddStyle(this.userInterface.GetArgumentValue(GlobalConstants.BorderStyle));
             this.renderer.PrintMatrix(grid);
         }
 

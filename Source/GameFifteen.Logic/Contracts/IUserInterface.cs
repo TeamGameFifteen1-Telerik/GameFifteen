@@ -8,8 +8,6 @@
 
         void ExitGame();
 
-        int GetDestinationTileValue();
-
-        string SpecialParams { get; }
+        dynamic GetArgumentValue(string argument);
     }
 }

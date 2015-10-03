@@ -9,11 +9,14 @@
 
     public class ConsoleInterface : IUserInterface
     {
-        private int destinationTileValue;
+        // private int destinationTileValue;
+        //private string borderStyle;
+        private IDictionary<string, dynamic> arguments;
         private IDictionary<string, Command> commandStash;
 
         public ConsoleInterface()
         {
+            this.arguments = new Dictionary<string, dynamic>();
             this.commandStash = new Dictionary<string, Command> 
                                     {
                                         {GlobalConstants.RestartCommand, Command.Restart},
@@ -26,7 +29,7 @@
                                     };
         }
 
-        public string SpecialParams { get; set; }
+        //public string SpecialParams { get; private set; }
 
         public string GetUserInput()
         {
@@ -47,17 +50,21 @@
                     return Command.Invalid;
                 }
 
-                this.SpecialParams = parameters[1].Trim();
+                this.arguments[GlobalConstants.BorderStyle] = parameters[1].Trim();
+                //this.borderStyle = parameters[1].Trim();
 
                 return commandStash[parameters[0]];
             }
 
+            int destinationTileValue;
             if (commandStash.ContainsKey(input))
             {
                 return commandStash[input];
             }
-            else if (int.TryParse(input, out this.destinationTileValue))
+            else if (int.TryParse(input, out destinationTileValue)) //this.destinationTileValue
             {
+                this.arguments[GlobalConstants.DestinationTileValue] = destinationTileValue;
+
                 return Command.Move;
             }
             else
@@ -71,9 +78,24 @@
             Environment.Exit(0);
         }
 
-        public int GetDestinationTileValue()
+        //public int GetDestinationTileValue()
+        //{
+        //    return this.destinationTileValue;
+        //}
+
+        //public string GetBorderStyle()
+        //{
+        //    return this.borderStyle;
+        //}
+
+        public dynamic GetArgumentValue(string argument)
         {
-            return this.destinationTileValue;
+            if (!this.arguments.ContainsKey(argument))
+            {
+                throw new ArgumentException("No such argument");
+            }
+
+            return this.arguments[argument];
         }
     }
 }
