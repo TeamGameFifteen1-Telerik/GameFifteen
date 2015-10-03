@@ -20,10 +20,10 @@
         {
             this.borderStyleFactory = new BorderStyleFactory();
             this.styles = new Dictionary<string, IStyle>();
-            this.styles["GridBorderStyle"] = borderStyleFactory.Get(BorderStyleType.Solid);
+            this.styles[GlobalConstants.GridBorderStyle] = borderStyleFactory.Get(BorderStyleType.Solid);
         }
 
-        public Dictionary<string, IStyle> Styles 
+        public Dictionary<string, IStyle> Styles
         {
             get
             {
@@ -43,25 +43,23 @@
                 switch (style)
                 {
                     case "solid":
-                        this.styles["GridBorderStyle"] = borderStyleFactory.Get(BorderStyleType.Solid);
+                        this.styles[GlobalConstants.GridBorderStyle] = borderStyleFactory.Get(BorderStyleType.Solid);
                         break;
                     case "dotted":
-                        this.styles["GridBorderStyle"] = borderStyleFactory.Get(BorderStyleType.Dotted);
+                        this.styles[GlobalConstants.GridBorderStyle] = borderStyleFactory.Get(BorderStyleType.Dotted);
                         break;
                     case "fat":
-                        this.styles["GridBorderStyle"] = borderStyleFactory.Get(BorderStyleType.Fat);
+                        this.styles[GlobalConstants.GridBorderStyle] = borderStyleFactory.Get(BorderStyleType.Fat);
                         break;
                     case "middlefat":
-                        this.styles["GridBorderStyle"] = borderStyleFactory.Get(BorderStyleType.MiddleFat);
+                        this.styles[GlobalConstants.GridBorderStyle] = borderStyleFactory.Get(BorderStyleType.MiddleFat);
                         break;
                     case "double":
-                        this.styles["GridBorderStyle"] = borderStyleFactory.Get(BorderStyleType.Double);
+                        this.styles[GlobalConstants.GridBorderStyle] = borderStyleFactory.Get(BorderStyleType.Double);
                         break;
                     case "default":
-                        this.styles["GridBorderStyle"] = borderStyleFactory.Get(BorderStyleType.Default);
-                        break;
                     default:
-                        throw new ArgumentException();
+                        this.styles[GlobalConstants.GridBorderStyle] = borderStyleFactory.Get(BorderStyleType.Default);
                         break;
                 }
             }
@@ -77,15 +75,16 @@
             }
         }
 
-        //public void PrintMatrix(IGrid sourceMatrix)
-        //{
-        //    this.AddStyle("solid");
-        //    this.PrintMatrix(sourceMatrix);
-        //}
-
         public void PrintMatrix(IGrid sourceMatrix)
         {
-            var style = this.styles["GridBorderStyle"] as GridBorderStyle;
+            GridBorderStyle style;
+            if (!this.styles.ContainsKey(GlobalConstants.GridBorderStyle))
+            {
+                style = borderStyleFactory.Get(BorderStyleType.Default) as GridBorderStyle;
+            }
+
+            style = this.styles[GlobalConstants.GridBorderStyle] as GridBorderStyle;
+
             Console.WriteLine(style.Top);
             Console.Write(style.Left);
             int rowCounter = 0;

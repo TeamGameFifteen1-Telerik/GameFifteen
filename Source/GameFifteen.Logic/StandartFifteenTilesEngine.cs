@@ -204,7 +204,7 @@
 
         private void ProcessStyleCommand()
         {
-            this.renderer.AddStyle(this.userInterface.GetArgumentValue(GlobalConstants.BorderStyle));
+            this.renderer.AddStyle(this.userInterface.GetArgumentValue(GlobalConstants.GridBorderStyle));
             this.renderer.PrintMatrix(grid);
         }
 

@@ -19,6 +19,6 @@
         public const string SolveCommand = "solve";
 
         public const string DestinationTileValue = "DestinationTileValue";
-        public const string BorderStyle = "BorderStyle";
+        public const string GridBorderStyle = "GridBorderStyle";
     }
 }

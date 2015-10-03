@@ -9,8 +9,6 @@
 
     public class ConsoleInterface : IUserInterface
     {
-        // private int destinationTileValue;
-        //private string borderStyle;
         private IDictionary<string, dynamic> arguments;
         private IDictionary<string, Command> commandStash;
 
@@ -49,7 +47,7 @@
                     return Command.Invalid;
                 }
 
-                this.arguments[GlobalConstants.BorderStyle] = parameters[1].Trim();
+                this.arguments[GlobalConstants.GridBorderStyle] = parameters[1].Trim();
 
                 return commandStash[parameters[0]];
             }
@@ -59,7 +57,7 @@
             {
                 return commandStash[input];
             }
-            else if (int.TryParse(input, out destinationTileValue)) //this.destinationTileValue
+            else if (int.TryParse(input, out destinationTileValue))
             {
                 this.arguments[GlobalConstants.DestinationTileValue] = destinationTileValue;
 
@@ -75,16 +73,6 @@
         {
             Environment.Exit(0);
         }
-
-        //public int GetDestinationTileValue()
-        //{
-        //    return this.destinationTileValue;
-        //}
-
-        //public string GetBorderStyle()
-        //{
-        //    return this.borderStyle;
-        //}
 
         public dynamic GetArgumentValue(string argument)
         {
