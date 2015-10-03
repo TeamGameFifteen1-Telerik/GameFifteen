@@ -29,8 +29,6 @@
                                     };
         }
 
-        //public string SpecialParams { get; private set; }
-
         public string GetUserInput()
         {
             var input = Console.ReadLine();
@@ -45,13 +43,12 @@
             {
                 string[] parameters = input.Split(new string[] { GlobalConstants.ExstenstionOperator }, StringSplitOptions.RemoveEmptyEntries);
 
-                if (!commandStash.ContainsKey(parameters[0]))
+                if (!commandStash.ContainsKey(parameters[0]) || parameters.Length != 2)
                 {
                     return Command.Invalid;
                 }
 
                 this.arguments[GlobalConstants.BorderStyle] = parameters[1].Trim();
-                //this.borderStyle = parameters[1].Trim();
 
                 return commandStash[parameters[0]];
             }
