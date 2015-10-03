@@ -81,6 +81,7 @@
             Action processMoveCommand = this.ProcessMoveCommand;
             Action processSaveCommand = this.ProcessSaveCommand;
             Action processStyleCommand = this.ProcessStyleCommand;
+            Action processSolveGridCommand = this.ProcessSolveGridCommand;
             Action processInvalidCommand = () => { throw new ArgumentException("Invalid Command!"); };
 
             commands.Add(Command.Restart, processRestartCommand);
@@ -90,6 +91,7 @@
             commands.Add(Command.Load, processLoadCommand);
             commands.Add(Command.Move, processMoveCommand);
             commands.Add(Command.Style, processStyleCommand);
+            commands.Add(Command.Solve, processSolveGridCommand);
             commands.Add(Command.Invalid, processInvalidCommand);
 
             return this.commands;
@@ -234,6 +236,17 @@
             {
                 this.userInterface.ExitGame();
             }
+        }
+
+        private void ProcessSolveGridCommand()
+        {
+            StandartGameInitializer hack = new StandartGameInitializer();
+            this.grid.Clear();
+            hack.InitilizeGrid(this.grid);
+            this.renderer.PrintMatrix(this.grid);
+            this.player.Moves++;
+            this.GameOver();
+            this.AskForAnotherGame();
         }
 
         private bool UserAgrees(string message)

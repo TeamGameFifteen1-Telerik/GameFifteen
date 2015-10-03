@@ -10,6 +10,7 @@
         Invalid,
         Save,
         Load,
-        Style
+        Style,
+        Solve
     }
 }

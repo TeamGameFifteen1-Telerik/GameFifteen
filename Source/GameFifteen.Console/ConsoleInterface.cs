@@ -25,7 +25,8 @@
                                         {GlobalConstants.AgreeCommand, Command.Agree},
                                         {GlobalConstants.SaveCommand, Command.Save},
                                         {GlobalConstants.LoadCommand, Command.Load},
-                                        {GlobalConstants.StyleCommand, Command.Style}
+                                        {GlobalConstants.StyleCommand, Command.Style},
+                                        {GlobalConstants.SolveCommand, Command.Solve}
                                     };
         }
 
