@@ -39,6 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\IGrid.cs" />
+    <Compile Include="Contracts\IPlayer.cs" />
     <Compile Include="Grid.cs" />
     <Compile Include="Memento.cs" />
     <Compile Include="Player.cs" />

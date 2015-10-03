@@ -2,6 +2,9 @@
 {
     using GameFifteen.Logic.Contracts;
 
+    /// <summary>
+    /// Bridge design pattern
+    /// </summary>
     public abstract class Engine : IEngine
     {
         protected readonly IGameInitializater gameInitializer;

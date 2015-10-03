@@ -5,7 +5,9 @@
     using System.Linq;
     using System.Text;
 
-    public class Player : IComparable
+    using GameFifteen.Models.Contracts;
+
+    public class Player : IPlayer, IComparable
     {
         private string name;
         private int moves;

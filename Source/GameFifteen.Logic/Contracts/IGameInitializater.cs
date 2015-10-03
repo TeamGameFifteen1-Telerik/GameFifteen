@@ -1,4 +1,5 @@
 ﻿using GameFifteen.Models;
+using GameFifteen.Models.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace GameFifteen.Logic.Contracts
 {
     public interface IGameInitializater
     {
-        void Initialize(Grid grid);
+        void Initialize(IGrid grid);
     }
 }

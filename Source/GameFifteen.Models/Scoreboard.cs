@@ -3,38 +3,40 @@
     using System;
     using System.Collections.Generic;
 
+    using GameFifteen.Models.Contracts;
+
     public sealed class Scoreboard
     {
         private const int TopPlayersCount = 4;
 
-        private List<Player> players;
+        private List<IPlayer> players;
 
         //lazy signleton
-        private static readonly Lazy<Scoreboard> scoreBoard =
+        private static readonly Lazy<Scoreboard> scoreboard =
             new Lazy<Scoreboard>(() => new Scoreboard());
 
         public static Scoreboard Instance
         {
             get
             {
-                return scoreBoard.Value;
+                return scoreboard.Value;
             }
         }
 
         private Scoreboard()
         {
-            this.players = new List<Player>();
+            this.players = new List<IPlayer>();
         }
 
-        public List<Player> TopPlayers
+        public List<IPlayer> TopPlayers
         {
             get
             {
-                return new List<Player>(this.GetTopPlayers(TopPlayersCount));
+                return new List<IPlayer>(this.GetTopPlayers(TopPlayersCount));
             }
         }
 
-        public void AddPlayer(Player player)
+        public void AddPlayer(IPlayer player)
         {
             if (player == null)
             {
@@ -54,12 +56,12 @@
             this.players.Clear();
         }
 
-        private List<Player> GetTopPlayers(int count)
+        private List<IPlayer> GetTopPlayers(int count)
         {
             this.players.Sort();
 
             int topCount = this.players.Count < count ? this.players.Count : count;
-            var topPlayers = new List<Player>();
+            var topPlayers = new List<IPlayer>();
 
             for (int i = 0; i < topCount; i++)
             {

@@ -2,6 +2,9 @@
 {
     using System;
 
+    /// <summary>
+    /// Prototype design pattern
+    /// </summary>
     public class Tile : TilePrototype, IComparable, ICloneable
     {
         private string label;

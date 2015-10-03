@@ -6,27 +6,32 @@
     using GameFifteen.Common;
     using GameFifteen.Logic.Contracts;
     using GameFifteen.Models;
+    using GameFifteen.Models.Contracts;
 
+    /// <summary>
+    /// Strategy design pattern: IRenderer renderer, IUserInterface userInterface
+    /// Bridge design pattern: IGameInitializater gameInitializer
+    /// </summary>
     public class StandartFifteenTilesEngine : Engine, IEngine
     {
         private IRenderer renderer;
         private IUserInterface userInterface;
-        private Grid grid;
         private Scoreboard scoreBoard;
-        private Player player;
-        private bool isGameOver;
+        private IPlayer player;
+        private IGrid grid;
         private GridMemory gridMemory;
+        private bool isGameOver;
         private IDictionary<Command, Action> commands;
 
-        public StandartFifteenTilesEngine(IRenderer renderer, IUserInterface userInterface, IGameInitializater gameInitializer)
+        public StandartFifteenTilesEngine(IRenderer renderer, IUserInterface userInterface, IGameInitializater gameInitializer, IPlayer player, IGrid grid)
             : base(gameInitializer)
         {
             this.renderer = renderer;
             this.userInterface = userInterface;
-            this.grid = new Grid();
-            gridMemory = new GridMemory();
-            player = new Player();
-            scoreBoard = Scoreboard.Instance;
+            this.player = player;
+            this.scoreBoard = Scoreboard.Instance;
+            this.grid = grid;
+            this.gridMemory = new GridMemory();
             this.commands = FillCommands();
         }
 

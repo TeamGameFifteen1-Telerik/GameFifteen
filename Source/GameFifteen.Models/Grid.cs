@@ -6,8 +6,13 @@
     using System.Linq;
 
     using GameFifteen.Common;
+    using GameFifteen.Models.Contracts;
 
-    public class Grid : IEnumerable
+    /// <summary>
+    /// Memento design pattern
+    /// The 'Originator' class
+    /// </summary>
+    public class Grid : IGrid, IEnumerable
     {
         private List<Tile> tiles;
 

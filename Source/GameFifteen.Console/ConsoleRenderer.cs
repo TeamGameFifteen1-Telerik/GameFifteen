@@ -1,16 +1,13 @@
 ﻿namespace GameFifteen.Console
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
     using GameFifteen.Logic.Contracts;
     using GameFifteen.Models;
     using GameFifteen.Common;
     using GameFifteen.Console.Contracts;
     using GameFifteen.Console.Styles;
+    using GameFifteen.Models.Contracts;
 
     public class ConsoleRenderer : IRenderer
     {
@@ -24,12 +21,12 @@
             }
         }
 
-        public void PrintMatrix(Grid sourceMatrix)
+        public void PrintMatrix(IGrid sourceMatrix)
         {
             this.PrintMatrix(sourceMatrix, new SolidStyle());
         }
 
-        public void PrintMatrix(Grid sourceMatrix, GridBorderStyle style)
+        public void PrintMatrix(IGrid sourceMatrix, GridBorderStyle style)
         {
             Console.WriteLine(style.Top);
             Console.Write(style.Left);

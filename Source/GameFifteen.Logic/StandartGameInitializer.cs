@@ -6,8 +6,9 @@
     using GameFifteen.Logic.Contracts;
     using GameFifteen.Models;
     using GameFifteen.Common;
+    using GameFifteen.Models.Contracts;
 
-    public class GameInitializer : IGameInitializater
+    public class StandartGameInitializer : IGameInitializater
     {
         private static Random random;
 
@@ -15,18 +16,18 @@
         private const int MinRoundsCount = 20;
         private const int MaxRoundsCount = 50;
 
-        static GameInitializer()
+        static StandartGameInitializer()
         {
             random = new Random();
         }
-        public void Initialize(Grid grid)
+        public void Initialize(IGrid grid)
         {
             grid.Clear();
             this.InitilizeGrid(grid);
             this.ShuffleGrid(grid);
         }
 
-        public void InitilizeGrid(Grid grid)
+        public void InitilizeGrid(IGrid grid)
         {
             var emptyTile = new Tile(string.Empty, GlobalConstants.TotalTilesCount - 1, TileType.Empty);          
             //grid.EmptyTile = emptyTile;
@@ -43,7 +44,7 @@
             grid.AddTile(emptyTile);
         }
 
-        private void ShuffleGrid(Grid grid)
+        private void ShuffleGrid(IGrid grid)
         {
             int rounds = random.Next(MinRoundsCount, MaxRoundsCount);
 
@@ -53,7 +54,7 @@
             }
         }
 
-        private void MoveEmptyTileRandomly(Grid grid)
+        private void MoveEmptyTileRandomly(IGrid grid)
         {
             var neighbourTiles = this.GetNeighbours(grid);
             int randomNeighbourIndex = random.Next() % neighbourTiles.Count;
@@ -62,7 +63,7 @@
         }
 
         // gets the empty tile neighbours
-        private List<Tile> GetNeighbours(Grid grid)
+        private List<Tile> GetNeighbours(IGrid grid)
         {
             List<Tile> neighbourTiles = new List<Tile>();
 

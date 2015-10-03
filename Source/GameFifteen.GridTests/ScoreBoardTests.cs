@@ -3,6 +3,7 @@
     using System;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using GameFifteen.Models;
+    using GameFifteen.Models.Contracts;
     [TestClass]
     public class ScoreBoardTests
     {
@@ -27,7 +28,7 @@
         {
             var score = Scoreboard.Instance;
             score.Clear();
-            var player = new Player();
+            IPlayer player = new Player();
             var anotherPlayer = new Player();
             player.Moves = 8;
             anotherPlayer.Moves = 10;
