@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GameFifteen.Models.Contracts;
 
-namespace GameFifteen.Console.Styles
+namespace GameFifteen.Models.Styles
 {
     public class DoubleStyle: GridBorderStyle
     {

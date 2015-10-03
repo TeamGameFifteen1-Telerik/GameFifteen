@@ -1,7 +1,9 @@
-﻿namespace GameFifteen.Models.Contracts
-{
-    using GameFifteen.Console.Contracts;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
+namespace GameFifteen.Models.Contracts
+{
     public abstract class GridBorderStyle : IStyle
     {
         public abstract string Top { get; }
