@@ -53,6 +53,7 @@
     <Compile Include="Contracts\IStyleFactory.cs" />
     <Compile Include="GameFifteenStarter.cs" />
     <Compile Include="GameFifteenMain.cs" />
+    <Compile Include="Styles\AsteriskStyle.cs" />
     <Compile Include="Styles\BorderStyleFactory.cs" />
     <Compile Include="Styles\BorderStyleType.cs" />
     <Compile Include="Styles\DottedStyle.cs" />

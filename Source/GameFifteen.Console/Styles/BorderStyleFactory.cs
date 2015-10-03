@@ -22,6 +22,8 @@
                     return new DoubleStyle();
                 case BorderStyleType.Default:
                     return new NormalStyle();
+                case BorderStyleType.Asteriks:
+                    return new AsteriskStyle();
                 default:
                     throw new ArgumentException("There's no border of that type.");
             }

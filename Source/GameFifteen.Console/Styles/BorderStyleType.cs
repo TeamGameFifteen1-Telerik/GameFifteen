@@ -7,6 +7,7 @@
         Fat,
         MiddleFat,
         Default,
-        Solid
+        Solid,
+        Asteriks
     }
 }

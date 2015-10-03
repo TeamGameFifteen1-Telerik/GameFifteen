@@ -57,6 +57,9 @@
                     case "double":
                         this.styles[GlobalConstants.GridBorderStyle] = borderStyleFactory.Get(BorderStyleType.Double);
                         break;
+                    case "asterisk":
+                        this.styles[GlobalConstants.GridBorderStyle] = borderStyleFactory.Get(BorderStyleType.Asteriks);
+                        break;
                     case "default":
                         this.styles[GlobalConstants.GridBorderStyle] = borderStyleFactory.Get(BorderStyleType.Default);
                         break;
