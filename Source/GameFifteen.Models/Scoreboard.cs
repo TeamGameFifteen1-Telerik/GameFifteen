@@ -5,13 +5,17 @@
 
     using GameFifteen.Models.Contracts;
 
+    /// <summary>
+    /// Class for saving and listing top scorers.
+    /// </summary>
+
     public sealed class Scoreboard
     {
         private const int TopPlayersCount = 4;
 
         private List<IPlayer> players;
 
-        //lazy signleton
+        //lazy singleton
         private static readonly Lazy<Scoreboard> scoreboard =
             new Lazy<Scoreboard>(() => new Scoreboard());
 
