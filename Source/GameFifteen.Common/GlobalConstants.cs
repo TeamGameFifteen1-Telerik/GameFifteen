@@ -7,7 +7,7 @@
         public const int GridSize = 4;
         public const int TotalTilesCount = 16;
 
-        public const string ExstenstionOperator = "=";
+        public const string ExstenstionOperator = "="; 
 
         public const string RestartCommand = "restart";
         public const string TopCommand = "top";
