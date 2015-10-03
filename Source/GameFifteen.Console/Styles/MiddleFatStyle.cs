@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using GameFifteen.Console.Contracts;
+using GameFifteen.Common;
 using GameFifteen.Console.Contracts;
 
 namespace GameFifteen.Console.Styles
@@ -12,7 +12,7 @@ namespace GameFifteen.Console.Styles
         private readonly char bottomSymbol = '▀';
         private readonly char leftSymbol = '▌';
         private readonly char rightSymbol = '▐';
-        private readonly int length = 16;
+        private readonly int length = GlobalConstants.GridSize * 4;
 
         public override string Top
         {

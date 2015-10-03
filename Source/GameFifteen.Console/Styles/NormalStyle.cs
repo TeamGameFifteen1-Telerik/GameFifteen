@@ -1,4 +1,5 @@
 ﻿using GameFifteen.Console.Contracts;
+using GameFifteen.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace GameFifteen.Console.Styles
     {
         private readonly char symbol = '-';
         private readonly char sideSymbol = '|';
-        private readonly int length = 11;
+        private readonly int length = (GlobalConstants.GridSize * 3) - 1;
 
         public override string Top
         {
