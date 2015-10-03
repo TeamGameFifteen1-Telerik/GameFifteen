@@ -9,6 +9,8 @@
     using GameFifteen.Logic.Contracts;
     using GameFifteen.Models;
     using GameFifteen.Common;
+    using GameFifteen.Console.Contracts;
+    using GameFifteen.Console.Styles;
 
     public class ConsoleRenderer : IRenderer
     {
@@ -24,8 +26,13 @@
 
         public void PrintMatrix(Grid sourceMatrix)
         {
-            Console.WriteLine("  ------------");
-            Console.Write("| ");
+            this.PrintMatrix(sourceMatrix, new SolidStyle());
+        }
+
+        public void PrintMatrix(Grid sourceMatrix, GridBorderStyle style)
+        {
+            Console.WriteLine(style.Top);
+            Console.Write(style.Left);
             int rowCounter = 0;
             for (int index = 0; index < GlobalConstants.TotalTilesCount; index++)
             {
@@ -47,18 +54,18 @@
                 rowCounter++;
                 if (rowCounter == GlobalConstants.GridSize)
                 {
-                    Console.Write(" |");
+                    Console.Write(style.Right);
                     Console.WriteLine();
                     if (index < 12)
                     {
-                        Console.Write("| ");
+                        Console.Write(style.Left);
                     }
 
                     rowCounter = 0;
                 }
             }
 
-            Console.WriteLine("  ------------");
+            Console.WriteLine(style.Bottom);
         }
 
 

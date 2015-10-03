@@ -42,6 +42,15 @@ Refactoring Documentation for Project “Game Fifteen"
 	- Added interfaces:
 		- *IRenderer* to use in class *Engine*
 		- *IUserInterface* for user input, to use in class *Engine*
+4.	Implemented Pattens
+	- Creation
+		- Singleton [link](https://github.com/TeamGameFifteen1-Telerik/GameFifteen/blob/master/Source/GameFifteen.Models/Scoreboard.cs)
+		- Prototype [link](https://github.com/TeamGameFifteen1-Telerik/GameFifteen/blob/master/Source/GameFifteen.Models/Tile.cs#L69)
+		- Factory Method
+	- Structural
+	- Behaivor
+		- Memento [link](https://github.com/TeamGameFifteen1-Telerik/GameFifteen/blob/master/Source/GameFifteen.Models/Grid.cs#L105)
+		- Strategy
 		
 		
 Sample Refactoring Documentation for Project “Game 15”                                                                                                                          
