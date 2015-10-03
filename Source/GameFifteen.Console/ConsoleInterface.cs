@@ -3,9 +3,9 @@
     using System;
     using System.Collections.Generic;
 
+    using GameFifteen.Common;
     using GameFifteen.Logic;
     using GameFifteen.Logic.Contracts;
-    using GameFifteen.Common;
 
     public class ConsoleInterface : IUserInterface
     {
@@ -17,14 +17,14 @@
             this.arguments = new Dictionary<string, dynamic>();
             this.commandStash = new Dictionary<string, Command> 
                                     {
-                                        {GlobalConstants.RestartCommand, Command.Restart},
-                                        {GlobalConstants.TopCommand, Command.Top},
-                                        {GlobalConstants.ExitCommand, Command.Exit},
-                                        {GlobalConstants.AgreeCommand, Command.Agree},
-                                        {GlobalConstants.SaveCommand, Command.Save},
-                                        {GlobalConstants.LoadCommand, Command.Load},
-                                        {GlobalConstants.StyleCommand, Command.Style},
-                                        {GlobalConstants.SolveCommand, Command.Solve}
+                                        { GlobalConstants.RestartCommand, Command.Restart },
+                                        { GlobalConstants.TopCommand, Command.Top },
+                                        { GlobalConstants.ExitCommand, Command.Exit },
+                                        { GlobalConstants.AgreeCommand, Command.Agree },
+                                        { GlobalConstants.SaveCommand, Command.Save },
+                                        { GlobalConstants.LoadCommand, Command.Load },
+                                        { GlobalConstants.StyleCommand, Command.Style },
+                                        { GlobalConstants.SolveCommand, Command.Solve }
                                     };
         }
 
@@ -42,20 +42,20 @@
             {
                 string[] parameters = input.Split(new string[] { GlobalConstants.ExstenstionOperator }, StringSplitOptions.RemoveEmptyEntries);
 
-                if (!commandStash.ContainsKey(parameters[0]) || parameters.Length != 2)
+                if (!this.commandStash.ContainsKey(parameters[0]) || parameters.Length != 2)
                 {
                     return Command.Invalid;
                 }
 
                 this.arguments[GlobalConstants.GridBorderStyle] = parameters[1].Trim();
 
-                return commandStash[parameters[0]];
+                return this.commandStash[parameters[0]];
             }
 
             int destinationTileValue;
-            if (commandStash.ContainsKey(input))
+            if (this.commandStash.ContainsKey(input))
             {
-                return commandStash[input];
+                return this.commandStash[input];
             }
             else if (int.TryParse(input, out destinationTileValue))
             {

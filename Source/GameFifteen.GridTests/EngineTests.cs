@@ -1,10 +1,11 @@
 ﻿namespace GameFifteen.GridTests
 {
     using System;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using GameFifteen.Logic;
     using GameFifteen.Console;
+    using GameFifteen.Logic;
     using GameFifteen.Models;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
     [TestClass]
     public class EngineTests
     {
@@ -17,7 +18,7 @@
             var gameInitializer = new StandartGameInitializer();
             var player = new Player();
             var grid = new Grid();
-            var engine = new StandartFifteenTilesEngine(renderer,userInterface,gameInitializer, player, grid);
+            var engine = new StandartFifteenTilesEngine(renderer, userInterface, gameInitializer, player, grid);
             engine.ProcessCommand(Command.Invalid);
         }
     }

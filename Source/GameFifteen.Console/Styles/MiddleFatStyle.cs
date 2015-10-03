@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using GameFifteen.Common;
-using GameFifteen.Console.Contracts;
-
-namespace GameFifteen.Console.Styles
+﻿namespace GameFifteen.Console.Styles
 {
-    public class MiddleFatStyle: GridBorderStyle
+    using System;
+    using System.Linq;
+    using GameFifteen.Common;
+    using GameFifteen.Console.Contracts;
+
+    public class MiddleFatStyle : GridBorderStyle
     {
         private readonly char topSymbol = '▄';
         private readonly char bottomSymbol = '▀';
@@ -16,7 +15,7 @@ namespace GameFifteen.Console.Styles
 
         public override string Top
         {
-            get 
+            get
             {
                 return new string(this.topSymbol, this.length);
             }

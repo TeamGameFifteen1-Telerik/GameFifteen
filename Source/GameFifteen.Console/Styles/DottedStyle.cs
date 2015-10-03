@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using GameFifteen.Console.Contracts;
-using GameFifteen.Common;
-
-namespace GameFifteen.Console.Styles
+﻿namespace GameFifteen.Console.Styles
 {
+    using System;
+    using System.Linq;
+    using GameFifteen.Common;
+    using GameFifteen.Console.Contracts;
+
     public class DottedStyle : GridBorderStyle
     {
         private readonly char symbol = '·';

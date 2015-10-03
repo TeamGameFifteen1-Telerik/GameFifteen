@@ -1,9 +1,10 @@
-﻿namespace GameFifteen.ModelTests
+﻿namespace GameFifteen.GridTests
 {
     using System;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using GameFifteen.Models;
     using GameFifteen.Common;
+    using GameFifteen.Models;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
     [TestClass]
     public class GridTests
     {
@@ -30,13 +31,13 @@
             var grid = new Grid();
             for (int i = 0; i < 5; i++)
             {
-                var tile = new Tile("" + i + "", i, TileType.Number);
+                var tile = new Tile(string.Empty + i + string.Empty, i, TileType.Number);
                 grid.AddTile(tile);
             }
+
             var actual = grid.TilesCount;
             var expected = 5;
             Assert.AreEqual(actual, expected);
-
         }
 
         [TestMethod]
@@ -55,7 +56,7 @@
         public void TestMementoToReturnValidObjectState()
         {
             var grid = new Grid();
-            var tile = new Tile("1",1,TileType.Number);
+            var tile = new Tile("1", 1, TileType.Number);
             var emptyTile = new Tile(string.Empty, GlobalConstants.TotalTilesCount - 1, TileType.Empty);
             var anotherTile = new Tile("2", 2, TileType.Number);
             grid.AddTile(tile);
@@ -128,9 +129,10 @@
             var grid = new Grid();
             for (int i = 0; i < 5; i++)
             {
-                var tile = new Tile("" + i + "", i, TileType.Number);
+                var tile = new Tile(string.Empty + i + string.Empty, i, TileType.Number);
                 grid.AddTile(tile);
             }
+
             var emptyTile = new Tile(string.Empty, GlobalConstants.TotalTilesCount - 1, TileType.Empty);
             grid.AddTile(emptyTile);
             var tileToTest = grid.GetTileFromLabel("1");

@@ -21,7 +21,7 @@
             this.tiles = new List<Tile>();
         }
 
-        //public Tile EmptyTile { get; set; }
+        //// public Tile EmptyTile { get; set; }
 
         public int TilesCount
         {
@@ -31,17 +31,17 @@
             }
         }
 
-        public void AddTile(Tile tile)
-        {
-            this.tiles.Add(tile);          
-        }
-
         public bool IsSorted
         {
             get
             {
                 return this.CheckIfSorted();
             }
+        }
+
+        public void AddTile(Tile tile)
+        {
+            this.tiles.Add(tile);          
         }
       
         public void Clear()
@@ -76,10 +76,10 @@
             this.tiles[targetTile.Position].Position = emptyTilePosition;
             this.tiles[emptyTilePosition].Position = targetTilePosition;
             this.tiles.Sort();
-            //int targetTilePosition = targetTile.Position;
-            //this.tiles[targetTile.Position].Position = this.EmptyTile.Position;
-            //this.tiles[this.EmptyTile.Position].Position = targetTilePosition;
-            //this.tiles.Sort();
+            //// int targetTilePosition = targetTile.Position;
+            //// this.tiles[targetTile.Position].Position = this.EmptyTile.Position;
+            //// this.tiles[this.EmptyTile.Position].Position = targetTilePosition;
+            //// this.tiles.Sort();
         }
 
         public bool CanSwap(Tile tile)

@@ -9,11 +9,16 @@
     {
         private const int TopPlayersCount = 4;
 
-        private List<IPlayer> players;
-
-        //lazy signleton
+        //// lazy signleton
         private static readonly Lazy<Scoreboard> scoreboard =
             new Lazy<Scoreboard>(() => new Scoreboard());
+
+        private List<IPlayer> players;
+
+        private Scoreboard()
+        {
+            this.players = new List<IPlayer>();
+        }
 
         public static Scoreboard Instance
         {
@@ -21,11 +26,6 @@
             {
                 return scoreboard.Value;
             }
-        }
-
-        private Scoreboard()
-        {
-            this.players = new List<IPlayer>();
         }
 
         public List<IPlayer> TopPlayers
