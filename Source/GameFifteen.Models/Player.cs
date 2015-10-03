@@ -31,6 +31,11 @@
 
             set
             {
+                if (string.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentNullException("Name cannot be empty.");
+                }
+
                 this.name = value;
             }
         }

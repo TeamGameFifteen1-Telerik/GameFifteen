@@ -40,9 +40,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Command.cs" />
+    <Compile Include="Contracts\IEngine.cs" />
     <Compile Include="Contracts\IGameInitializater.cs" />
     <Compile Include="Contracts\IUserInterface.cs" />
     <Compile Include="Contracts\IRenderer.cs" />
+    <Compile Include="StandartFifteenTilesEngine.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="GameInitializer.cs" />
     <Compile Include="GridMemory.cs" />

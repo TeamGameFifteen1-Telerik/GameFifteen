@@ -14,7 +14,7 @@
             var renderer = new ConsoleRenderer();
             var userInterface = new ConsoleInterface();
             var gameInitializer = new GameInitializer();
-            var engine = new Engine(renderer,userInterface,gameInitializer);
+            var engine = new StandartFifteenTilesEngine(renderer,userInterface,gameInitializer);
             engine.ProcessCommand(Command.Invalid);
         }
     }
