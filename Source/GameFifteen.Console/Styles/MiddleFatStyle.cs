@@ -5,7 +5,7 @@ using GameFifteen.Console.Contracts;
 
 namespace GameFifteen.Console.Styles
 {
-    public class MiddleFat: GridBorderStyle
+    public class MiddleFatStyle: GridBorderStyle
     {
         private readonly char topSymbol = '▄';
         private readonly char bottomSymbol = '▀';

@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace GameFifteen.Console.Contracts
 {
-    public abstract class GridBorderStyle
+    public abstract class GridBorderStyle : IStyle
     {
         public abstract string Top { get; }
 

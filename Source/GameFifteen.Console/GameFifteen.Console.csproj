@@ -49,12 +49,16 @@
     <Compile Include="ConsoleInterface.cs" />
     <Compile Include="ConsoleRenderer.cs" />
     <Compile Include="Contracts\GridBorderStyle.cs" />
+    <Compile Include="Contracts\IStyle.cs" />
+    <Compile Include="Contracts\IStyleFactory.cs" />
     <Compile Include="GameFifteenStarter.cs" />
     <Compile Include="GameFifteenMain.cs" />
+    <Compile Include="Styles\BorderStyleFactory.cs" />
+    <Compile Include="Styles\BorderStyleType.cs" />
     <Compile Include="Styles\DottedStyle.cs" />
     <Compile Include="Styles\DoubleStyle.cs" />
     <Compile Include="Styles\FatStyle.cs" />
-    <Compile Include="Styles\MiddleFat.cs" />
+    <Compile Include="Styles\MiddleFatStyle.cs" />
     <Compile Include="Styles\NormalStyle.cs" />
     <Compile Include="Styles\SolidStyle.cs" />
   </ItemGroup>
