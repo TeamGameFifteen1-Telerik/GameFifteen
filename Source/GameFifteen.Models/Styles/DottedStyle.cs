@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using GameFifteen.Console.Contracts;
+using GameFifteen.Models.Contracts;
 
-namespace GameFifteen.Console.Styles
+namespace GameFifteen.Models.Styles
 {
     public class DottedStyle : GridBorderStyle
     {

@@ -39,11 +39,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\GridBorderStyle.cs" />
     <Compile Include="Grid.cs" />
     <Compile Include="Memento.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scoreboard.cs" />
+    <Compile Include="Styles\DottedStyle.cs" />
+    <Compile Include="Styles\DoubleStyle.cs" />
+    <Compile Include="Styles\FatStyle.cs" />
+    <Compile Include="Styles\MiddleFatStyle.cs" />
+    <Compile Include="Styles\NormalStyle.cs" />
+    <Compile Include="Styles\SolidStyle.cs" />
     <Compile Include="Tile.cs" />
     <Compile Include="TilePrototype.cs" />
     <Compile Include="TileType.cs" />

@@ -1,10 +1,10 @@
-﻿using GameFifteen.Console.Contracts;
+﻿using GameFifteen.Models.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace GameFifteen.Console.Styles
+namespace GameFifteen.Models.Styles
 {
     public class NormalStyle : GridBorderStyle
     {

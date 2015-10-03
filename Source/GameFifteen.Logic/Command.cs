@@ -9,6 +9,7 @@
         Move,
         Invalid,
         Save,
-        Load
+        Load,
+        Style
     }
 }

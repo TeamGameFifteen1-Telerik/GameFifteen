@@ -6,11 +6,14 @@
     using GameFifteen.Common;
     using GameFifteen.Logic.Contracts;
     using GameFifteen.Models;
+    using GameFifteen.Models.Contracts;
+    using GameFifteen.Models.Styles;
 
     public class StandartFifteenTilesEngine : Engine, IEngine
     {
         private IRenderer renderer;
         private IUserInterface userInterface;
+        private GridBorderStyle borderStyle;
         private Grid grid;
         private Scoreboard scoreBoard;
         private Player player;
@@ -23,6 +26,7 @@
         {
             this.renderer = renderer;
             this.userInterface = userInterface;
+            this.borderStyle = new NormalStyle();
             this.grid = new Grid();
             gridMemory = new GridMemory();
             player = new Player();
@@ -75,6 +79,7 @@
             Action processLoadCommand = this.ProcessLoadCommand;
             Action processMoveCommand = this.ProcessMoveCommand;
             Action processSaveCommand = this.ProcessSaveCommand;
+            Action processStyleCommand = this.ProcessStyleCommand;
             Action processInvalidCommand = () => { throw new ArgumentException("Invalid Command!"); };
 
             commands.Add(Command.Restart, processRestartCommand);
@@ -83,6 +88,7 @@
             commands.Add(Command.Save, processSaveCommand);
             commands.Add(Command.Load, processLoadCommand);
             commands.Add(Command.Move, processMoveCommand);
+            commands.Add(Command.Style, processStyleCommand);
             commands.Add(Command.Invalid, processInvalidCommand);
 
             return this.commands;
@@ -163,7 +169,7 @@
             {
                 this.grid.SwapTiles(tile);
                 this.player.Moves++;
-                this.renderer.PrintMatrix(this.grid);
+                this.renderer.PrintMatrix(this.grid, borderStyle);
                 this.isGameOver = this.IsGameOver();
             }
             else
@@ -205,7 +211,7 @@
                 if (this.UserAgrees(GameMessages.LoadGameQuestion))
                 {
                     this.grid.RestoreMemento(this.gridMemory.Memento);
-                    this.renderer.PrintMatrix(this.grid);
+                    this.renderer.PrintMatrix(this.grid, borderStyle);
                 }
             }
             else
@@ -220,6 +226,36 @@
             {
                 this.userInterface.ExitGame();
             }
+        }
+
+        private void ProcessStyleCommand()
+        {
+            string style = userInterface.SpecialParams;
+            switch (style)
+            {
+                case "solid" :
+                    this.borderStyle = new SolidStyle();
+                    break;
+                case "dotted":
+                    this.borderStyle = new DottedStyle();
+                    break;
+                case "fat":
+                    this.borderStyle = new FatStyle();
+                    break;
+                case "middlefat":
+                    this.borderStyle = new MiddleFatStyle();
+                    break;
+                case "double":
+                    this.borderStyle = new DoubleStyle();
+                    break;
+                case "default":
+                    this.borderStyle = new NormalStyle();
+                    break;
+                default:
+                    break;
+            }
+
+            this.renderer.PrintMatrix(this.grid, borderStyle);
         }
 
         private bool UserAgrees(string message)

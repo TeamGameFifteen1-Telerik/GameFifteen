@@ -9,8 +9,8 @@
     using GameFifteen.Logic.Contracts;
     using GameFifteen.Models;
     using GameFifteen.Common;
-    using GameFifteen.Console.Contracts;
-    using GameFifteen.Console.Styles;
+    using GameFifteen.Models.Contracts;
+    using GameFifteen.Models.Styles;
 
     public class ConsoleRenderer : IRenderer
     {
@@ -26,7 +26,7 @@
 
         public void PrintMatrix(Grid sourceMatrix)
         {
-            this.PrintMatrix(sourceMatrix, new SolidStyle());
+            this.PrintMatrix(sourceMatrix, new NormalStyle());
         }
 
         public void PrintMatrix(Grid sourceMatrix, GridBorderStyle style)

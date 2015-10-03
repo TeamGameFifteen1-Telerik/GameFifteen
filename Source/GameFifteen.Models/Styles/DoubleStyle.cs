@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GameFifteen.Console.Contracts;
+using GameFifteen.Models.Contracts;
 
-namespace GameFifteen.Console.Styles
+namespace GameFifteen.Models.Styles
 {
     public class DoubleStyle: GridBorderStyle
     {

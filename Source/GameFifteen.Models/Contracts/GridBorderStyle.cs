@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace GameFifteen.Console.Contracts
+namespace GameFifteen.Models.Contracts
 {
     public abstract class GridBorderStyle
     {

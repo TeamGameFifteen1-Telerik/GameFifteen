@@ -21,9 +21,12 @@
                                         {GlobalConstants.ExitCommand, Command.Exit},
                                         {GlobalConstants.AgreeCommand, Command.Agree},
                                         {GlobalConstants.SaveCommand, Command.Save},
-                                        {GlobalConstants.LoadCommand, Command.Load}
+                                        {GlobalConstants.LoadCommand, Command.Load},
+                                        {GlobalConstants.StyleCommand, Command.Style}
                                     };
         }
+
+        public string SpecialParams { get; set; }
 
         public string GetUserInput()
         {
@@ -35,6 +38,18 @@
         {
             string input = this.GetUserInput().ToLower();
 
+            if(input.Contains(GlobalConstants.StyleCommand))
+            {
+                string[] parameters = input.Split(new string[] { GlobalConstants.ExstenstionOperator }, StringSplitOptions.RemoveEmptyEntries);
+
+                if (!commandStash.ContainsKey(parameters[0]))
+                {
+                    return Command.Invalid;
+                }
+
+                this.SpecialParams = parameters[1].Trim();
+                return commandStash[parameters[0]];
+            }
             if (commandStash.ContainsKey(input))
             {
                 return commandStash[input];

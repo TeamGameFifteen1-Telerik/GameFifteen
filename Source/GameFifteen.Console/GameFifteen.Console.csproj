@@ -8,7 +8,7 @@
     <ProjectGuid>{EE945DFB-A7C6-48B5-A3ED-9079C6FA71B4}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GameFifteen.Console</RootNamespace>
+    <RootNamespace>GameFifteen.Models</RootNamespace>
     <AssemblyName>GameFifteen.Console</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>
@@ -48,14 +48,7 @@
   <ItemGroup>
     <Compile Include="ConsoleInterface.cs" />
     <Compile Include="ConsoleRenderer.cs" />
-    <Compile Include="Contracts\GridBorderStyle.cs" />
     <Compile Include="GameFifteenMain.cs" />
-    <Compile Include="Styles\DottedStyle.cs" />
-    <Compile Include="Styles\DoubleStyle.cs" />
-    <Compile Include="Styles\FatStyle.cs" />
-    <Compile Include="Styles\MiddleFat.cs" />
-    <Compile Include="Styles\NormalStyle.cs" />
-    <Compile Include="Styles\SolidStyle.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

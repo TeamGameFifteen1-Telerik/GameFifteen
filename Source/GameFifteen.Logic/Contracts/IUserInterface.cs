@@ -9,5 +9,7 @@
         void ExitGame();
 
         int GetDestinationTileValue();
+
+        string SpecialParams { get; set; }
     }
 }
