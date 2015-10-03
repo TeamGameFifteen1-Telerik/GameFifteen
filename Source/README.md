@@ -49,7 +49,7 @@ Refactoring Documentation for Project “Game Fifteen"
 		- Factory Method
 	- Structural
 	- Behaivor
-		- Memento
+		- Memento [link](https://github.com/TeamGameFifteen1-Telerik/GameFifteen/blob/master/Source/GameFifteen.Models/Grid.cs#L105)
 		- Strategy
 		
 		
