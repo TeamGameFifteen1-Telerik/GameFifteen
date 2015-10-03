@@ -58,8 +58,9 @@
                         this.styles[GlobalConstants.GridBorderStyle] = borderStyleFactory.Get(BorderStyleType.Double);
                         break;
                     case "default":
-                    default:
                         this.styles[GlobalConstants.GridBorderStyle] = borderStyleFactory.Get(BorderStyleType.Default);
+                        break;
+                    default:
                         break;
                 }
             }
