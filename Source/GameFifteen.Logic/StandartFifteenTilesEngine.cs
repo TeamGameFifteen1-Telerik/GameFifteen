@@ -32,7 +32,7 @@
             this.scoreBoard = Scoreboard.Instance;
             this.grid = grid;
             this.gridMemory = new GridMemory();
-            this.commands = FillCommands();
+            this.commands = this.FillCommands();
         }
 
         public override void Run()
@@ -43,7 +43,7 @@
 
             while (true)
             {
-                if (isGameOver)
+                if (this.isGameOver)
                 {
                     this.GameOver();
                     this.AskForAnotherGame();
@@ -65,9 +65,9 @@
 
         public void ProcessCommand(Command command)
         {
-            if (commands.ContainsKey(command))
+            if (this.commands.ContainsKey(command))
             {
-                commands[command]();
+                this.commands[command]();
             }
         }
 
@@ -84,15 +84,15 @@
             Action processSolveGridCommand = this.ProcessSolveGridCommand;
             Action processInvalidCommand = () => { throw new ArgumentException("Invalid Command!"); };
 
-            commands.Add(Command.Restart, processRestartCommand);
-            commands.Add(Command.Top, processTopCommand);
-            commands.Add(Command.Exit, processExitCommand);
-            commands.Add(Command.Save, processSaveCommand);
-            commands.Add(Command.Load, processLoadCommand);
-            commands.Add(Command.Move, processMoveCommand);
-            commands.Add(Command.Style, processStyleCommand);
-            commands.Add(Command.Solve, processSolveGridCommand);
-            commands.Add(Command.Invalid, processInvalidCommand);
+            this.commands.Add(Command.Restart, processRestartCommand);
+            this.commands.Add(Command.Top, processTopCommand);
+            this.commands.Add(Command.Exit, processExitCommand);
+            this.commands.Add(Command.Save, processSaveCommand);
+            this.commands.Add(Command.Load, processLoadCommand);
+            this.commands.Add(Command.Move, processMoveCommand);
+            this.commands.Add(Command.Style, processStyleCommand);
+            this.commands.Add(Command.Solve, processSolveGridCommand);
+            this.commands.Add(Command.Invalid, processInvalidCommand);
 
             return this.commands;
         }
@@ -100,8 +100,9 @@
         private void StartNewGame()
         {
             this.gameInitializer.Initialize(this.grid);
-            this.renderer.PrintMatrix(grid);
-            //TODO: remove initialization
+            this.renderer.PrintMatrix(this.grid);
+
+            //// TODO: remove initialization
             this.player = new Player();
             this.player.Moves = 0;
         }
@@ -134,7 +135,7 @@
             else
             {
                 this.userInterface.ExitGame();
-                //this.ProcessExitCommand();
+                //// this.ProcessExitCommand();
             }
         }
 
@@ -148,7 +149,7 @@
                 this.player.Name = playerName;
             }    
             
-            scoreBoard.AddPlayer(player);
+            this.scoreBoard.AddPlayer(this.player);
         }
 
         private void ProcessRestartCommand()
@@ -184,7 +185,7 @@
 
         private bool IsValidMove(Tile tile)
         {
-            if (!IsValidTileLabel(int.Parse(tile.Label)))
+            if (!this.IsValidTileLabel(int.Parse(tile.Label)))
             {
                 return false;
             }
@@ -205,7 +206,7 @@
         private void ProcessStyleCommand()
         {
             this.renderer.AddStyle(this.userInterface.GetArgumentValue(GlobalConstants.GridBorderStyle));
-            this.renderer.PrintMatrix(grid);
+            this.renderer.PrintMatrix(this.grid);
         }
 
         private void ProcessSaveCommand()

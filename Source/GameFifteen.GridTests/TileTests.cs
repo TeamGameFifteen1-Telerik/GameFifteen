@@ -1,10 +1,8 @@
 ﻿namespace GameFifteen.GridTests
 {
     using System;
-
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-
     using GameFifteen.Models;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]
     public class TileTests
@@ -41,7 +39,7 @@
         public void TestIfCompareToMethodReturnsPositiveValueWhenSecondTileIsBeforeFirst()
         {
             var firstTile = new Tile("5", 5, TileType.Number);
-            var secondTile = this.CloneTile(firstTile,"3", 3);
+            var secondTile = this.CloneTile(firstTile, "3", 3);
             var actual = firstTile.CompareTo(secondTile);
             var expected = 1;
             Assert.AreEqual(actual, expected);
@@ -54,7 +52,7 @@
             var secondTile = this.CloneTile(firstTile, "3", 3);
             var actual = firstTile.CompareTo(secondTile);
             var expected = 0;
-            Assert.AreEqual(actual,expected);
+            Assert.AreEqual(actual, expected);
         }
 
         private Tile CloneTile(Tile tile, string newLabel, int newPosition, TileType newType = TileType.Number)

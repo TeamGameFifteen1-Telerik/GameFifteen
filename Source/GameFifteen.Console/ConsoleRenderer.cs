@@ -1,18 +1,18 @@
 ﻿namespace GameFifteen.Console
 {
     using System;
+    using System.Collections.Generic;
 
-    using GameFifteen.Logic.Contracts;
-    using GameFifteen.Models;
     using GameFifteen.Common;
     using GameFifteen.Console.Contracts;
     using GameFifteen.Console.Styles;
+    using GameFifteen.Logic.Contracts;
+    using GameFifteen.Models;
     using GameFifteen.Models.Contracts;
-    using System.Collections.Generic;
 
     public class ConsoleRenderer : IRenderer
     {
-        //TODO refactor
+        //// TODO refactor
         private Dictionary<string, IStyle> styles;
         private IStyleFactory borderStyleFactory;
 
@@ -20,7 +20,7 @@
         {
             this.borderStyleFactory = new BorderStyleFactory();
             this.styles = new Dictionary<string, IStyle>();
-            this.styles[GlobalConstants.GridBorderStyle] = borderStyleFactory.Get(BorderStyleType.Solid);
+            this.styles[GlobalConstants.GridBorderStyle] = this.borderStyleFactory.Get(BorderStyleType.Solid);
         }
 
         public Dictionary<string, IStyle> Styles
@@ -43,25 +43,25 @@
                 switch (style)
                 {
                     case "solid":
-                        this.styles[GlobalConstants.GridBorderStyle] = borderStyleFactory.Get(BorderStyleType.Solid);
+                        this.styles[GlobalConstants.GridBorderStyle] = this.borderStyleFactory.Get(BorderStyleType.Solid);
                         break;
                     case "dotted":
-                        this.styles[GlobalConstants.GridBorderStyle] = borderStyleFactory.Get(BorderStyleType.Dotted);
+                        this.styles[GlobalConstants.GridBorderStyle] = this.borderStyleFactory.Get(BorderStyleType.Dotted);
                         break;
                     case "fat":
-                        this.styles[GlobalConstants.GridBorderStyle] = borderStyleFactory.Get(BorderStyleType.Fat);
+                        this.styles[GlobalConstants.GridBorderStyle] = this.borderStyleFactory.Get(BorderStyleType.Fat);
                         break;
                     case "middlefat":
-                        this.styles[GlobalConstants.GridBorderStyle] = borderStyleFactory.Get(BorderStyleType.MiddleFat);
+                        this.styles[GlobalConstants.GridBorderStyle] = this.borderStyleFactory.Get(BorderStyleType.MiddleFat);
                         break;
                     case "double":
-                        this.styles[GlobalConstants.GridBorderStyle] = borderStyleFactory.Get(BorderStyleType.Double);
+                        this.styles[GlobalConstants.GridBorderStyle] = this.borderStyleFactory.Get(BorderStyleType.Double);
                         break;
                     case "asterisk":
-                        this.styles[GlobalConstants.GridBorderStyle] = borderStyleFactory.Get(BorderStyleType.Asteriks);
+                        this.styles[GlobalConstants.GridBorderStyle] = this.borderStyleFactory.Get(BorderStyleType.Asteriks);
                         break;
                     case "default":
-                        this.styles[GlobalConstants.GridBorderStyle] = borderStyleFactory.Get(BorderStyleType.Default);
+                        this.styles[GlobalConstants.GridBorderStyle] = this.borderStyleFactory.Get(BorderStyleType.Default);
                         break;
                     default:
                         break;
@@ -84,7 +84,7 @@
             GridBorderStyle style;
             if (!this.styles.ContainsKey(GlobalConstants.GridBorderStyle))
             {
-                style = borderStyleFactory.Get(BorderStyleType.Default) as GridBorderStyle;
+                style = this.borderStyleFactory.Get(BorderStyleType.Default) as GridBorderStyle;
             }
 
             style = this.styles[GlobalConstants.GridBorderStyle] as GridBorderStyle;
@@ -125,7 +125,6 @@
 
             Console.WriteLine(style.Bottom);
         }
-
 
         public void PrintMessage(string message)
         {

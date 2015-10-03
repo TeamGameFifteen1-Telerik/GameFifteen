@@ -3,23 +3,24 @@
     using System;
     using System.Collections.Generic;
 
+    using GameFifteen.Common;
     using GameFifteen.Logic.Contracts;
     using GameFifteen.Models;
-    using GameFifteen.Common;
     using GameFifteen.Models.Contracts;
 
     public class StandartGameInitializer : IGameInitializater
     {
-        private static Random random;
-
         // TODO : do something about these
         private const int MinRoundsCount = 20;
         private const int MaxRoundsCount = 50;
+
+        private static Random random;
 
         static StandartGameInitializer()
         {
             random = new Random();
         }
+
         public void Initialize(IGrid grid)
         {
             grid.Clear();
@@ -30,11 +31,11 @@
         public void InitilizeGrid(IGrid grid)
         {
             var emptyTile = new Tile(string.Empty, GlobalConstants.TotalTilesCount - 1, TileType.Empty);          
-            //grid.EmptyTile = emptyTile;
+            //// grid.EmptyTile = emptyTile;
 
             for (int i = 0; i < GlobalConstants.TotalTilesCount - 1; i++)
             {
-                Tile tile = emptyTile.CloneMemberwise();    //new Tile(tileLabel, i, TileType.Number);
+                Tile tile = emptyTile.CloneMemberwise();    //// new Tile(tileLabel, i, TileType.Number);
                 tile.Label = (i + 1).ToString();
                 tile.Position = i;
                 tile.Type = TileType.Number;

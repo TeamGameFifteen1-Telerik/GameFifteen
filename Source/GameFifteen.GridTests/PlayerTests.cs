@@ -1,8 +1,8 @@
 ﻿namespace GameFifteen.GridTests
 {
     using System;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
     using GameFifteen.Models;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]
     public class PlayerTests
@@ -33,7 +33,5 @@
             var expected = "Pesho";
             Assert.AreEqual(actual, expected);
         }
-
-
     }
 }

@@ -1,13 +1,9 @@
-﻿using GameFifteen.Models;
-using GameFifteen.Models.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GameFifteen.Logic.Contracts
+﻿namespace GameFifteen.Logic.Contracts
 {
+    using System;
+    using System.Linq;
+    using GameFifteen.Models.Contracts;
+
     public interface IGameInitializater
     {
         void Initialize(IGrid grid);

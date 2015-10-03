@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GameFifteen.Console.Contracts;
-using GameFifteen.Common;
-
-namespace GameFifteen.Console.Styles
+﻿namespace GameFifteen.Console.Styles
 {
-    public class AsteriskStyle: GridBorderStyle
+    using System;
+    using System.Linq;
+    using GameFifteen.Common;
+    using GameFifteen.Console.Contracts;
+
+    public class AsteriskStyle : GridBorderStyle
     {
         private readonly char symbol = '*';
         private readonly int length = GlobalConstants.GridSize * 4;
@@ -17,7 +14,7 @@ namespace GameFifteen.Console.Styles
         {
             get
             {
-                return new string(this.symbol, length); 
+                return new string(this.symbol, this.length);
             }
         }
 
@@ -25,7 +22,7 @@ namespace GameFifteen.Console.Styles
         {
             get
             {
-                return new string(this.symbol, length);
+                return new string(this.symbol, this.length);
             }
         }
 
@@ -41,7 +38,7 @@ namespace GameFifteen.Console.Styles
         {
             get
             {
-                return " " + this.symbol; 
+                return " " + this.symbol;
             }
         }
     }

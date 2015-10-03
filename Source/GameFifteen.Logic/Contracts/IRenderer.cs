@@ -1,7 +1,5 @@
 ﻿namespace GameFifteen.Logic.Contracts
 {
-    using System.Collections.Generic;
-
     using GameFifteen.Models;
     using GameFifteen.Models.Contracts;
 

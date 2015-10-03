@@ -1,12 +1,10 @@
-﻿using GameFifteen.Console.Contracts;
-using GameFifteen.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace GameFifteen.Console.Styles
+﻿namespace GameFifteen.Console.Styles
 {
+    using System;
+    using System.Linq;
+    using GameFifteen.Common;
+    using GameFifteen.Console.Contracts;
+
     public class NormalStyle : GridBorderStyle
     {
         private readonly char symbol = '-';
