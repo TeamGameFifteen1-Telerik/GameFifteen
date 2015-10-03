@@ -18,6 +18,6 @@
         public const string StyleCommand = "style";
 
         public const string DestinationTileValue = "DestinationTileValue";
-        public const string BorderStyle = "BorderStyle";
+        public const string GridBorderStyle = "GridBorderStyle";
     }
 }

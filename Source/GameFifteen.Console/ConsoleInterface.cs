@@ -29,8 +29,6 @@
                                     };
         }
 
-        //public string SpecialParams { get; private set; }
-
         public string GetUserInput()
         {
             var input = Console.ReadLine();
@@ -50,8 +48,7 @@
                     return Command.Invalid;
                 }
 
-                this.arguments[GlobalConstants.BorderStyle] = parameters[1].Trim();
-                //this.borderStyle = parameters[1].Trim();
+                this.arguments[GlobalConstants.GridBorderStyle] = parameters[1].Trim();
 
                 return commandStash[parameters[0]];
             }
@@ -77,16 +74,6 @@
         {
             Environment.Exit(0);
         }
-
-        //public int GetDestinationTileValue()
-        //{
-        //    return this.destinationTileValue;
-        //}
-
-        //public string GetBorderStyle()
-        //{
-        //    return this.borderStyle;
-        //}
 
         public dynamic GetArgumentValue(string argument)
         {
