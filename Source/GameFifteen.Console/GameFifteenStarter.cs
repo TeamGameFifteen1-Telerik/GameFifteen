@@ -5,7 +5,7 @@
     using GameFifteen.Models;
 
     /// <summary>
-    /// Facade design pattern
+    /// A normal game starter object implementing Facade design pattern.
     /// </summary>
     public class GameFifteenStarter
     {
@@ -15,6 +15,10 @@
         {
         }
 
+        /// <summary>
+        /// Gets a instance of the game <see cref="GameFifteenStarter"/> class.
+        /// </summary>
+        /// <value>Instance of a game starter.</value>
         public static GameFifteenStarter Instance
         {
             get
@@ -28,6 +32,9 @@
             }
         }
 
+        /// <summary>
+        /// Starts a new game.
+        /// </summary>
         public void NewGame()
         {
             var borderStyleFactory = new BorderStyleFactory();

@@ -5,11 +5,18 @@
     using GameFifteen.Common;
     using GameFifteen.Console.Contracts;
 
+    /// <summary>
+    /// Using a rectangular solid symbol presenting a thick lines for grid borders.
+    /// </summary>
     public class FatStyle : GridBorderStyle
     {
         private readonly char symbol = '█';
         private readonly int length = GlobalConstants.GridSize * 4;
 
+        /// <summary>
+        /// Fat top-border style.
+        /// </summary>
+        /// <value>Sequence of special symbols.</value>
         public override string Top
         {
             get
@@ -18,6 +25,10 @@
             }
         }
 
+        /// <summary>
+        /// Fat bottom-border style.
+        /// </summary>
+        /// <value>Sequence of special symbols.</value>
         public override string Bottom
         {
             get
@@ -26,6 +37,10 @@
             }
         }
 
+        /// <summary>
+        /// Fat left-border style.
+        /// </summary>
+        /// <value>Special symbol followed by space.</value>
         public override string Left
         {
             get
@@ -34,6 +49,10 @@
             }
         }
 
+        /// <summary>
+        /// Fat right-border style.
+        /// </summary>
+        /// <value>Space followed by special symbol.</value>
         public override string Right
         {
             get

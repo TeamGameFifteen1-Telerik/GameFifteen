@@ -5,6 +5,10 @@
     using GameFifteen.Common;
     using GameFifteen.Console.Contracts;
 
+    /// <summary>
+    /// Style that uses a sequence symbols that present a line think than <see cref="SolidStyle"/> and thin than <see cref="FatStyle"/>.
+    /// Uses for grid borders.
+    /// </summary>
     public class MiddleFatStyle : GridBorderStyle
     {
         private readonly char topSymbol = '▄';
@@ -13,6 +17,10 @@
         private readonly char rightSymbol = '▐';
         private readonly int length = GlobalConstants.GridSize * 4;
 
+        /// <summary>
+        /// MiddleFat top-border style.
+        /// </summary>
+        /// <value>Sequence of special symbols.</value>
         public override string Top
         {
             get
@@ -21,6 +29,10 @@
             }
         }
 
+        /// <summary>
+        /// MiddleFat bottom-border style.
+        /// </summary>
+        /// <value>Sequence of special symbols.</value>
         public override string Bottom
         {
             get
@@ -29,6 +41,10 @@
             }
         }
 
+        /// <summary>
+        /// MiddleFat left-border style.
+        /// </summary>
+        /// <value>Special symbol followed by space.</value>
         public override string Left
         {
             get
@@ -36,7 +52,11 @@
                 return this.leftSymbol + " ";
             }
         }
-
+        
+        /// <summary>
+        /// MiddleFat right-border style.
+        /// </summary>
+        /// <value>Space followed by special symbol.</value>
         public override string Right
         {
             get

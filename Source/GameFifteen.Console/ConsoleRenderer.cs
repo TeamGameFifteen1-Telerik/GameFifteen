@@ -10,12 +10,19 @@
     using GameFifteen.Models;
     using GameFifteen.Models.Contracts;
 
+    /// <summary>
+    /// Provides drawing functions for grid.
+    /// </summary>
     public class ConsoleRenderer : IRenderer
     {
         //// TODO refactor
         private Dictionary<string, IStyle> styles;
         private IStyleFactory borderStyleFactory;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConsoleRenderer"/> class.
+        /// </summary>
+        /// <param name="borderStyleFactory">Style that will be used for drawing border.</param>
         public ConsoleRenderer(IStyleFactory borderStyleFactory)
         {
             this.borderStyleFactory = borderStyleFactory;
@@ -25,6 +32,10 @@
             };
         }
 
+        /// <summary>
+        /// Gets collection of styles.
+        /// </summary>
+        /// <value>Pair key-value collection.</value>
         public Dictionary<string, IStyle> Styles
         {
             get
@@ -33,6 +44,11 @@
             }
         }
 
+        /// <summary>
+        /// Adding styles to the style collection.
+        /// </summary>
+        /// <exception cref="System.ArgumentNullException">When empty style are passed.</exception>
+        /// <param name="styles">Styles to add.</param>
         public void AddStyle(params string[] styles)
         {
             if (styles.Length == 0)
@@ -52,6 +68,10 @@
             }
         }
 
+        /// <summary>
+        /// Prints scores of players. 
+        /// </summary>
+        /// <param name="scoreboard">Uses a <see cref="GameFifteen.Models.Scoreboard"/> that contains players with scores.</param>
         public void RenderScoreboard(Scoreboard scoreboard)
         {
             Console.WriteLine("Scoreboard:");
@@ -62,6 +82,10 @@
             }
         }
 
+        /// <summary>
+        /// Prints the grid on the console.
+        /// </summary>
+        /// <param name="grid">Using <see cref="GameFifteen.Models.Contracts.IGrid"/> that contains a list of tiles.</param>
         public void RenderGrid(IGrid grid)
         {
             GridBorderStyle style;
@@ -109,6 +133,10 @@
             Console.WriteLine(style.Bottom);
         }
 
+        /// <summary>
+        /// Prints message on the console.
+        /// </summary>
+        /// <param name="message">Text to be printed.</param>
         public void RenderMessage(string message)
         {
             Console.WriteLine(message);
