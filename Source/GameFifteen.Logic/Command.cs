@@ -33,7 +33,6 @@
         /// <summary>
         /// Moves tiles.
         /// </summary>
-
         Move,
 
         /// <summary>

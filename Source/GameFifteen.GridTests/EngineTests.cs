@@ -3,9 +3,9 @@
     using System;
 
     using GameFifteen.Console;
+    using GameFifteen.Console.Styles;
     using GameFifteen.Logic;
     using GameFifteen.Models;
-    using GameFifteen.Console.Styles;
 
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 

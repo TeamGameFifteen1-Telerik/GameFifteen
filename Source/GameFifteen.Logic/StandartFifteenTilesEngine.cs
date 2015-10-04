@@ -56,24 +56,6 @@
         }
 
         /// <summary>
-        /// Starts the game.
-        /// </summary>
-        private void Run()
-        {
-            while (true)
-            {
-                if (this.isGameOver)
-                {
-                    this.GameOver();
-                    this.AskForAnotherGame();
-                }
-
-                Command command = this.userInterface.GetCommandFromInput();
-                this.ProcessCommand(command);
-            }
-        }
-
-        /// <summary>
         /// Process commands.
         /// </summary>
         /// <param name="command">Command to process.</param>
@@ -89,6 +71,21 @@
             catch (Exception ex)
             {
                 this.renderer.RenderMessage(ex.Message);
+            }
+        }
+
+        private void Run()
+        {
+            while (true)
+            {
+                if (this.isGameOver)
+                {
+                    this.GameOver();
+                    this.AskForAnotherGame();
+                }
+
+                Command command = this.userInterface.GetCommandFromInput();
+                this.ProcessCommand(command);
             }
         }
 
@@ -242,7 +239,7 @@
         private void ProcessStyleCommand()
         {
             this.renderer.AddStyle(this.userInterface.GetArgumentValue(GlobalConstants.GridBorderStyle));
-            if (isGameStarted)
+            if (this.isGameStarted)
             {
                 this.renderer.RenderGrid(this.grid);
             }

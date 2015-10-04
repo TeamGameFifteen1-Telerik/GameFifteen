@@ -10,7 +10,7 @@
     public class GridMemory
     {
         /// <summary>
-        /// Gets, sets memento.
+        /// Gets or sets memento.
         /// </summary>
         /// <value>Memento that stores game states.</value>
         public Memento Memento { get; set; }
