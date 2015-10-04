@@ -35,11 +35,25 @@
             this.commands = this.FillCommands();
         }
 
+        public override void Initialize()
+        {
+            this.GetInitialGameScreen();
+            Command command = this.userInterface.GetCommandFromInput();
+
+            try
+            {
+                this.ProcessCommand(command);
+            }
+            catch (Exception ex)
+            {
+                this.renderer.RenderMessage(ex.Message);
+            }
+        }
+
         public override void Run()
         {
             Command command;
-            this.renderer.RenderMessage(GameMessages.WelcomeMessage);
-            this.StartNewGame();
+            //this.StartNewGame();  
 
             while (true)
             {
@@ -74,6 +88,7 @@
         private IDictionary<Command, Action> FillCommands()
         {
             this.commands = new Dictionary<Command, Action>();
+            Action processStartCommand = this.StartNewGame;
             Action processRestartCommand = this.ProcessRestartCommand;
             Action processTopCommand = this.ProcessTopCommand;
             Action processExitCommand = this.ProcessExitCommand;
@@ -82,8 +97,10 @@
             Action processSaveCommand = this.ProcessSaveCommand;
             Action processStyleCommand = this.ProcessStyleCommand;
             Action processSolveGridCommand = this.ProcessSolveGridCommand;
+            Action processHowCommand = this.ProcessHowToCommand;
             Action processInvalidCommand = () => { throw new ArgumentException("Invalid Command!"); };
 
+            this.commands.Add(Command.Start, StartNewGame);
             this.commands.Add(Command.Restart, processRestartCommand);
             this.commands.Add(Command.Top, processTopCommand);
             this.commands.Add(Command.Exit, processExitCommand);
@@ -92,19 +109,24 @@
             this.commands.Add(Command.Move, processMoveCommand);
             this.commands.Add(Command.Style, processStyleCommand);
             this.commands.Add(Command.Solve, processSolveGridCommand);
+            this.commands.Add(Command.How, processHowCommand);
             this.commands.Add(Command.Invalid, processInvalidCommand);
 
             return this.commands;
         }
 
+        private void GetInitialGameScreen()
+        {
+            this.renderer.RenderInitialScreen();
+        }
+
         private void StartNewGame()
         {
             this.gameInitializer.Initialize(this.grid);
+            this.renderer.RenderMessage(GameMessages.WelcomeMessage);
             this.renderer.RenderGrid(this.grid);
-
-            //// TODO: remove initialization
-            this.player = new Player();
             this.player.Moves = 0;
+            this.Run();
         }
 
         private bool IsGameOver()
@@ -150,6 +172,12 @@
             }    
             
             this.scoreBoard.AddPlayer(this.player);
+        }
+
+        //TODO: refactor - add commands and description to a dictionary
+        private void ProcessHowToCommand()
+        {
+            this.renderer.RenderMessage(GameMessages.HowToPlay);
         }
 
         private void ProcessRestartCommand()

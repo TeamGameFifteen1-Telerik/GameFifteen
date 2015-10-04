@@ -113,5 +113,42 @@
         {
             Console.WriteLine(message);
         }
+        public void RenderInitialScreen(int menuStartPositionX = GlobalConstants.MenuStartPositionX, int menuStartPositionY = GlobalConstants.MenuStartPositionY)
+        {
+            this.PrintOnPosition(0, 0, GameMessages.GameLogo, ConsoleColor.Yellow);
+            this.RenderGameMenu(menuStartPositionX, menuStartPositionY);
+        }
+
+        private void RenderGameMenu(int menuStartPositionX = GlobalConstants.MenuStartPositionX, int menuStartPositionY = GlobalConstants.MenuStartPositionY)
+        {
+            this.PrintOnPosition(menuStartPositionX, menuStartPositionY, GameMessages.Enter, ConsoleColor.Yellow);
+
+            var options = new Dictionary<string, string>()
+            {
+                {"START", "Start new game" },
+                {"HOW", "See game options"},
+                {"TOP", "Get top scores"},
+                {"EXIT", "Quit"}
+            };
+
+            int position = 0;
+            foreach (var option in options)
+            {
+                this.PrintOnPosition(menuStartPositionX, menuStartPositionY + position + 1, option.Key, ConsoleColor.White);
+                this.PrintOnPosition(menuStartPositionX + 5, menuStartPositionY + position + 1, " to ", ConsoleColor.Yellow);
+
+                this.PrintOnPosition(menuStartPositionX + 10, menuStartPositionY + position + 1, option.Value, ConsoleColor.Green);
+                position++;
+            }
+
+            this.PrintOnPosition(menuStartPositionX, menuStartPositionY + options.Count + 3, string.Empty, ConsoleColor.White);
+        }
+
+        private void PrintOnPosition(int x, int y, string text, ConsoleColor color = ConsoleColor.White)
+        {
+            Console.SetCursorPosition(x, y);
+            Console.ForegroundColor = color;
+            Console.Write(text);
+        }
     }
 }

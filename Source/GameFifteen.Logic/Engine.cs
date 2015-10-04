@@ -14,6 +14,8 @@
             this.gameInitializer = gameInitializer;
         }
 
+        public abstract void Initialize();
+
         public abstract void Run();
     }
 }
