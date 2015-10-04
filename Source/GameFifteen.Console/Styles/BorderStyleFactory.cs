@@ -21,7 +21,7 @@
                 case BorderStyleType.Double:
                     return new DoubleStyle();
                 case BorderStyleType.Default:
-                    return new NormalStyle();
+                    return new DefaultStyle();
                 case BorderStyleType.Asteriks:
                     return new AsteriskStyle();
                 default:

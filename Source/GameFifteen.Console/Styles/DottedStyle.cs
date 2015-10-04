@@ -5,10 +5,24 @@
     using GameFifteen.Common;
     using GameFifteen.Console.Contracts;
 
-    public class DottedStyle : GridBorderStyle
+    public class DottedStyle : GridBorderStyle, IStyle
     {
         private readonly char symbol = '·';
         private readonly int length = GlobalConstants.GridSize * 4;
+        private Enum type;
+
+        public DottedStyle()
+        {
+            this.type = BorderStyleType.Dotted;
+        }
+
+        public override Enum Type
+        {
+            get
+            {
+                return this.type;
+            }
+        }
 
         public override string Top
         {

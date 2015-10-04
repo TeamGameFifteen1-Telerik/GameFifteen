@@ -2,16 +2,31 @@
 {
     using System;
     using System.Linq;
+
     using GameFifteen.Common;
     using GameFifteen.Console.Contracts;
 
-    public class MiddleFatStyle : GridBorderStyle
+    public class MiddleFatStyle : GridBorderStyle, IStyle
     {
         private readonly char topSymbol = '▄';
         private readonly char bottomSymbol = '▀';
         private readonly char leftSymbol = '▌';
         private readonly char rightSymbol = '▐';
         private readonly int length = GlobalConstants.GridSize * 4;
+        private Enum type;
+
+        public MiddleFatStyle()
+        {
+            this.type = BorderStyleType.MiddleFat;
+        }
+
+        public override Enum Type
+        {
+            get
+            {
+                return this.type;
+            }
+        }
 
         public override string Top
         {

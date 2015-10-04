@@ -48,7 +48,7 @@
   <ItemGroup>
     <Compile Include="ConsoleInterface.cs" />
     <Compile Include="ConsoleRenderer.cs" />
-    <Compile Include="Contracts\GridBorderStyle.cs" />
+    <Compile Include="Styles\GridBorderStyle.cs" />
     <Compile Include="Contracts\IStyle.cs" />
     <Compile Include="Contracts\IStyleFactory.cs" />
     <Compile Include="GameFifteenStarter.cs" />

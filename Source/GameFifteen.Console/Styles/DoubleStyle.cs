@@ -2,14 +2,29 @@
 {
     using System;
     using System.Linq;
+
     using GameFifteen.Common;
     using GameFifteen.Console.Contracts;
 
-    public class DoubleStyle : GridBorderStyle
+    public class DoubleStyle : GridBorderStyle, IStyle
     {
         private readonly char symbol = '║';
         private readonly char line = '═';
         private readonly int length = (GlobalConstants.GridSize * 4) - 2;
+        private Enum type;
+
+        public DoubleStyle()
+        {
+            this.type = BorderStyleType.Double;
+        }
+
+        public override Enum Type
+        {
+            get
+            {
+                return this.type;
+            }
+        }
 
         public override string Top
         {
