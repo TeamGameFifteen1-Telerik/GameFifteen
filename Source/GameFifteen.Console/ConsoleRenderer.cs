@@ -16,11 +16,13 @@
         private Dictionary<string, IStyle> styles;
         private IStyleFactory borderStyleFactory;
 
-        public ConsoleRenderer()
+        public ConsoleRenderer(IStyleFactory borderStyleFactory)
         {
-            this.borderStyleFactory = new BorderStyleFactory();
-            this.styles = new Dictionary<string, IStyle>();
-            this.styles[GlobalConstants.GridBorderStyle] = this.borderStyleFactory.Get(BorderStyleType.Solid);
+            this.borderStyleFactory = borderStyleFactory;
+            this.styles = new Dictionary<string, IStyle>()
+            {
+                { GlobalConstants.GridBorderStyle, this.borderStyleFactory.Get(BorderStyleType.Solid) }
+            };
         }
 
         public Dictionary<string, IStyle> Styles
@@ -35,41 +37,22 @@
         {
             if (styles.Length == 0)
             {
-                throw new ArgumentNullException("You need at least one style.");
+                throw new ArgumentNullException("You need to add at least one style.");
             }
 
             foreach (var style in styles)
             {
-                switch (style)
+                string capitalStyle = style[0].ToString().ToUpper() + style.Substring(1);
+                BorderStyleType styleType;
+                if (Enum.TryParse(capitalStyle, out styleType))
                 {
-                    case "solid":
-                        this.styles[GlobalConstants.GridBorderStyle] = this.borderStyleFactory.Get(BorderStyleType.Solid);
-                        break;
-                    case "dotted":
-                        this.styles[GlobalConstants.GridBorderStyle] = this.borderStyleFactory.Get(BorderStyleType.Dotted);
-                        break;
-                    case "fat":
-                        this.styles[GlobalConstants.GridBorderStyle] = this.borderStyleFactory.Get(BorderStyleType.Fat);
-                        break;
-                    case "middlefat":
-                        this.styles[GlobalConstants.GridBorderStyle] = this.borderStyleFactory.Get(BorderStyleType.MiddleFat);
-                        break;
-                    case "double":
-                        this.styles[GlobalConstants.GridBorderStyle] = this.borderStyleFactory.Get(BorderStyleType.Double);
-                        break;
-                    case "asterisk":
-                        this.styles[GlobalConstants.GridBorderStyle] = this.borderStyleFactory.Get(BorderStyleType.Asteriks);
-                        break;
-                    case "default":
-                        this.styles[GlobalConstants.GridBorderStyle] = this.borderStyleFactory.Get(BorderStyleType.Default);
-                        break;
-                    default:
-                        break;
+                    IStyle borderStyle = this.borderStyleFactory.Get(styleType);
+                    this.styles[GlobalConstants.GridBorderStyle] = borderStyle;
                 }
             }
         }
 
-        public void PrintScoreboard(Scoreboard scoreboard)
+        public void RenderScoreboard(Scoreboard scoreboard)
         {
             Console.WriteLine("Scoreboard:");
             foreach (Player player in scoreboard.TopPlayers)
@@ -79,7 +62,7 @@
             }
         }
 
-        public void PrintMatrix(IGrid sourceMatrix)
+        public void RenderGrid(IGrid grid)
         {
             GridBorderStyle style;
             if (!this.styles.ContainsKey(GlobalConstants.GridBorderStyle))
@@ -94,7 +77,7 @@
             int rowCounter = 0;
             for (int index = 0; index < GlobalConstants.TotalTilesCount; index++)
             {
-                Tile currentElement = sourceMatrix.GetTileAtPosition(index);
+                Tile currentElement = grid.GetTileAtPosition(index);
 
                 if (currentElement.Label == string.Empty)
                 {
@@ -126,7 +109,7 @@
             Console.WriteLine(style.Bottom);
         }
 
-        public void PrintMessage(string message)
+        public void RenderMessage(string message)
         {
             Console.WriteLine(message);
         }

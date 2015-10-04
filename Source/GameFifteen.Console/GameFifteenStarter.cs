@@ -1,5 +1,6 @@
 ﻿namespace GameFifteen.Console
 {
+    using GameFifteen.Console.Styles;
     using GameFifteen.Logic;
     using GameFifteen.Models;
 
@@ -29,7 +30,8 @@
 
         public void NewGame()
         {
-            var renderer = new ConsoleRenderer();
+            var borderStyleFactory = new BorderStyleFactory();
+            var renderer = new ConsoleRenderer(borderStyleFactory);
             var userInterface = new ConsoleInterface();
             var gameInitializer = new StandartGameInitializer();
             var player = new Player();

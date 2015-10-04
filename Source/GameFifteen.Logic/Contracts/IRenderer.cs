@@ -8,10 +8,10 @@
         //// TODO: refactor
         void AddStyle(params string[] styles);
 
-        void PrintScoreboard(Scoreboard scoreboard);
+        void RenderScoreboard(Scoreboard scoreboard);
 
-        void PrintMatrix(IGrid grid);
+        void RenderGrid(IGrid grid);
 
-        void PrintMessage(string message);
+        void RenderMessage(string message);
     }
 }

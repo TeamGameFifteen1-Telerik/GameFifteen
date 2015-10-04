@@ -38,7 +38,7 @@
         public override void Run()
         {
             Command command;
-            this.renderer.PrintMessage(GameMessages.WelcomeMessage);
+            this.renderer.RenderMessage(GameMessages.WelcomeMessage);
             this.StartNewGame();
 
             while (true)
@@ -49,7 +49,7 @@
                     this.AskForAnotherGame();
                 }
 
-                this.renderer.PrintMessage(GameMessages.EnterNumberMessage);
+                this.renderer.RenderMessage(GameMessages.EnterNumberMessage);
                 command = this.userInterface.GetCommandFromInput();
 
                 try
@@ -58,7 +58,7 @@
                 }
                 catch (Exception ex)
                 {
-                    this.renderer.PrintMessage(ex.Message);
+                    this.renderer.RenderMessage(ex.Message);
                 }
             }
         }
@@ -100,7 +100,7 @@
         private void StartNewGame()
         {
             this.gameInitializer.Initialize(this.grid);
-            this.renderer.PrintMatrix(this.grid);
+            this.renderer.RenderGrid(this.grid);
 
             //// TODO: remove initialization
             this.player = new Player();
@@ -116,13 +116,13 @@
         {
             if (this.player.Moves == 0)
             {
-                this.renderer.PrintMessage(GameMessages.SolvedByDefaultMessage);
+                this.renderer.RenderMessage(GameMessages.SolvedByDefaultMessage);
             }
             else
             {
-                this.renderer.PrintMessage(string.Format(GameMessages.WinMessage, this.player.Moves));
+                this.renderer.RenderMessage(string.Format(GameMessages.WinMessage, this.player.Moves));
                 this.SaveScore();
-                this.renderer.PrintScoreboard(this.scoreBoard);
+                this.renderer.RenderScoreboard(this.scoreBoard);
             }
         }
 
@@ -141,7 +141,7 @@
 
         private void SaveScore()
         {
-            this.renderer.PrintMessage(GameMessages.EnterYourNameMessage);
+            this.renderer.RenderMessage(GameMessages.EnterYourNameMessage);
             string playerName = this.userInterface.GetUserInput();
 
             if (!string.IsNullOrEmpty(playerName))
@@ -162,7 +162,7 @@
 
         private void ProcessTopCommand()
         {
-            this.renderer.PrintScoreboard(this.scoreBoard);
+            this.renderer.RenderScoreboard(this.scoreBoard);
         }
 
         private void ProcessMoveCommand()
@@ -174,12 +174,12 @@
             {
                 this.grid.SwapTiles(tile);
                 this.player.Moves++;
-                this.renderer.PrintMatrix(this.grid);
+                this.renderer.RenderGrid(this.grid);
                 this.isGameOver = this.IsGameOver();
             }
             else
             {
-                this.renderer.PrintMessage(GameMessages.InvalidMove);
+                this.renderer.RenderMessage(GameMessages.InvalidMove);
             }
         }
 
@@ -205,14 +205,15 @@
 
         private void ProcessStyleCommand()
         {
-            this.renderer.AddStyle(this.userInterface.GetArgumentValue(GlobalConstants.GridBorderStyle));
-            this.renderer.PrintMatrix(this.grid);
+            var temp = this.userInterface.GetArgumentValue(GlobalConstants.GridBorderStyle);
+            this.renderer.AddStyle(temp);
+            this.renderer.RenderGrid(this.grid);
         }
 
         private void ProcessSaveCommand()
         {
             this.gridMemory.Memento = this.grid.SaveMemento();
-            this.renderer.PrintMessage(GameMessages.GameSaved);
+            this.renderer.RenderMessage(GameMessages.GameSaved);
         }
 
         private void ProcessLoadCommand()
@@ -222,12 +223,12 @@
                 if (this.UserAgrees(GameMessages.LoadGameQuestion))
                 {
                     this.grid.RestoreMemento(this.gridMemory.Memento);
-                    this.renderer.PrintMatrix(this.grid);
+                    this.renderer.RenderGrid(this.grid);
                 }
             }
             else
             {
-                this.renderer.PrintMessage(GameMessages.NoGameToLoad);
+                this.renderer.RenderMessage(GameMessages.NoGameToLoad);
             }
         }
 
@@ -244,7 +245,7 @@
             StandartGameInitializer hack = new StandartGameInitializer();
             this.grid.Clear();
             hack.InitilizeGrid(this.grid);
-            this.renderer.PrintMatrix(this.grid);
+            this.renderer.RenderGrid(this.grid);
             this.player.Moves++;
             this.GameOver();
             this.AskForAnotherGame();
@@ -252,7 +253,7 @@
 
         private bool UserAgrees(string message)
         {
-            this.renderer.PrintMessage(string.Format(message + " " + GameMessages.PressKeyToExit, GlobalConstants.AgreeCommand));
+            this.renderer.RenderMessage(string.Format(message + " " + GameMessages.PressKeyToExit, GlobalConstants.AgreeCommand));
             Command command = this.userInterface.GetCommandFromInput();
 
             return command == Command.Agree;
