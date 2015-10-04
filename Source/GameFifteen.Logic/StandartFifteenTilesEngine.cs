@@ -88,7 +88,7 @@
             Action processHowCommand = this.ProcessHowToCommand;
             Action processInvalidCommand = () => { throw new ArgumentException("Invalid Command!"); };
 
-            this.commands.Add(Command.Start, StartNewGame);
+            this.commands.Add(Command.Start, this.StartNewGame);
             this.commands.Add(Command.Restart, processRestartCommand);
             this.commands.Add(Command.Top, processTopCommand);
             this.commands.Add(Command.Exit, processExitCommand);

@@ -6,6 +6,9 @@
     using GameFifteen.Common;
     using GameFifteen.Console.Contracts;
 
+    /// <summary>
+    /// Style that uses a double line and double lined corners for grid borders.
+    /// </summary>
     public class DoubleStyle : GridBorderStyle, IStyle
     {
         private readonly char symbol = '║';
@@ -13,11 +16,18 @@
         private readonly int length = (GlobalConstants.GridSize * 4) - 2;
         private Enum type;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DoubleStyle"/> class.
+        /// </summary>
         public DoubleStyle()
         {
             this.type = BorderStyleType.Double;
         }
 
+        /// <summary>
+        /// Gets the type of the style.
+        /// </summary>
+        /// <value>Type of the style.</value>
         public override Enum Type
         {
             get
@@ -26,6 +36,10 @@
             }
         }
 
+        /// <summary>
+        /// Double-line top-border style.
+        /// </summary>
+        /// <value>Double line with two corners.</value>
         public override string Top
         {
             get
@@ -34,6 +48,10 @@
             }
         }
 
+        /// <summary>
+        /// Double-line bottom-border style.
+        /// </summary>
+        /// <value>Double line with two corners.</value>
         public override string Bottom
         {
             get
@@ -42,6 +60,10 @@
             }
         }
 
+        /// <summary>
+        /// Double-line left-border style.
+        /// </summary>
+        /// <value>Vertical double line followed by space.</value>
         public override string Left
         {
             get
@@ -50,6 +72,10 @@
             }
         }
 
+        /// <summary>
+        /// Double-line right-border style.
+        /// </summary>
+        /// <value>Space followed by vertical double line.</value>
         public override string Right
         {
             get

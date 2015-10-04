@@ -60,7 +60,7 @@
     <Compile Include="Styles\DoubleStyle.cs" />
     <Compile Include="Styles\FatStyle.cs" />
     <Compile Include="Styles\MiddleFatStyle.cs" />
-    <Compile Include="Styles\DefaultStyle.cs" />
+    <Compile Include="Styles\NormalStyle.cs" />
     <Compile Include="Styles\SolidStyle.cs" />
   </ItemGroup>
   <ItemGroup>

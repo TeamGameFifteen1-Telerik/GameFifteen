@@ -5,17 +5,27 @@
     using GameFifteen.Common;
     using GameFifteen.Console.Contracts;
 
+    /// <summary>
+    /// Style that uses a dot for drawing grid borders.
+    /// </summary>
     public class DottedStyle : GridBorderStyle, IStyle
     {
         private readonly char symbol = '·';
         private readonly int length = GlobalConstants.GridSize * 4;
         private Enum type;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DottedStyle"/> class.
+        /// </summary>
         public DottedStyle()
         {
             this.type = BorderStyleType.Dotted;
         }
 
+        /// <summary>
+        /// Gets the type of the style.
+        /// </summary>
+        /// <value>Type of the style.</value>
         public override Enum Type
         {
             get
@@ -24,6 +34,10 @@
             }
         }
 
+        /// <summary>
+        /// Dotted top-border style.
+        /// </summary>
+        /// <value>Sequence of dots.</value>
         public override string Top
         {
             get
@@ -32,6 +46,10 @@
             }
         }
 
+        /// <summary>
+        /// Dotted bottom-border style.
+        /// </summary>
+        /// <value>Sequence of dots.</value>
         public override string Bottom
         {
             get
@@ -40,6 +58,10 @@
             }
         }
 
+        /// <summary>
+        /// Dotted left-border style.
+        /// </summary>
+        /// <value>Dot followed by space.</value>
         public override string Left
         {
             get 
@@ -48,6 +70,10 @@
             }
         }
 
+        /// <summary>
+        /// Dotted right-borders style.
+        /// </summary>
+        /// <value>Space followed by dot.</value>
         public override string Right
         {
             get
