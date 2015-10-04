@@ -141,6 +141,12 @@
         {
             Console.WriteLine(message);
         }
+
+        /// <summary>
+        /// Prints game screen log. 
+        /// </summary>
+        /// <param name="menuStartPositionX">Horizontal position of the menu.</param>
+        /// <param name="menuStartPositionY">Vertical position of the menu.</param>
         public void RenderInitialScreen(int menuStartPositionX = GlobalConstants.MenuStartPositionX, int menuStartPositionY = GlobalConstants.MenuStartPositionY)
         {
             this.PrintOnPosition(0, 0, GameMessages.GameLogo, ConsoleColor.Yellow);
@@ -153,10 +159,10 @@
 
             var options = new Dictionary<string, string>()
             {
-                {"START", "Start new game" },
-                {"HOW", "See game options"},
-                {"TOP", "Get top scores"},
-                {"EXIT", "Quit"}
+                { "START", "Start new game" },
+                { "HOW", "See game options" },
+                { "TOP", "Get top scores" },
+                { "EXIT", "Quit" }
             };
 
             int position = 0;

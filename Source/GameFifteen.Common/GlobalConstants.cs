@@ -27,6 +27,5 @@
 
         public const int MenuStartPositionX = 47;
         public const int MenuStartPositionY = 15;
-
     }
 }

@@ -14,11 +14,18 @@
         private readonly int length = GlobalConstants.GridSize * 4;
         private Enum type;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DottedStyle"/> class.
+        /// </summary>
         public DottedStyle()
         {
             this.type = BorderStyleType.Dotted;
         }
 
+        /// <summary>
+        /// Gets the type of the style.
+        /// </summary>
+        /// <value>Type of the style.</value>
         public override Enum Type
         {
             get

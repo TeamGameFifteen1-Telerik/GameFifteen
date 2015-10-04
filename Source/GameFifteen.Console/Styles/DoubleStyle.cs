@@ -16,11 +16,18 @@
         private readonly int length = (GlobalConstants.GridSize * 4) - 2;
         private Enum type;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DoubleStyle"/> class.
+        /// </summary>
         public DoubleStyle()
         {
             this.type = BorderStyleType.Double;
         }
 
+        /// <summary>
+        /// Gets the type of the style.
+        /// </summary>
+        /// <value>Type of the style.</value>
         public override Enum Type
         {
             get

@@ -16,11 +16,18 @@
         private readonly int length = (GlobalConstants.GridSize * 4) - 2;
         private Enum type;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SolidStyle"/> class.
+        /// </summary>
         public SolidStyle()
         {
             this.type = BorderStyleType.Solid;
         }
 
+        /// <summary>
+        /// Gets the type of the style.
+        /// </summary>
+        /// <value>Type of the style.</value>
         public override Enum Type
         {
             get

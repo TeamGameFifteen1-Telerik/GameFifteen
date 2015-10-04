@@ -34,6 +34,10 @@
         /// <value>Right border.</value>
         public abstract string Right { get; }
 
+        /// <summary>
+        /// Gets type of the type of the border style.
+        /// </summary>
+        /// <value>Style type.</value>
         public abstract Enum Type { get; }
     }
 }

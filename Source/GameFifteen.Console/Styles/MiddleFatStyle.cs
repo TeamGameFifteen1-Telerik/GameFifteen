@@ -19,11 +19,18 @@
         private readonly int length = GlobalConstants.GridSize * 4;
         private Enum type;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MiddleFatStyle"/> class.
+        /// </summary>
         public MiddleFatStyle()
         {
             this.type = BorderStyleType.MiddleFat;
         }
 
+        /// <summary>
+        /// Gets the type of the style.
+        /// </summary>
+        /// <value>Type of the style.</value>
         public override Enum Type
         {
             get

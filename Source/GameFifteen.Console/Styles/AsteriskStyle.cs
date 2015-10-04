@@ -15,11 +15,18 @@
         private readonly int length = GlobalConstants.GridSize * 4;
         private Enum type;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AsteriskStyle"/> class.
+        /// </summary>
         public AsteriskStyle()
         {
             this.type = BorderStyleType.Asteriks;
         }
 
+        /// <summary>
+        /// Gets the type of the style.
+        /// </summary>
+        /// <value>Type of the style.</value>
         public override Enum Type
         {
             get
