@@ -9,8 +9,9 @@
     using GameFifteen.Models.Contracts;
 
     /// <summary>
+    /// Game logic implementation.
     /// Strategy design pattern: IRenderer renderer, IUserInterface userInterface
-    /// Bridge design pattern: IGameInitializater gameInitializer
+    /// Bridge design pattern: IGameInitializer gameInitializer.
     /// </summary>
     public class StandartFifteenTilesEngine : Engine, IEngine
     {
@@ -24,6 +25,14 @@
         private bool isGameStarted;
         private IDictionary<Command, Action> commands;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="StandartFifteenTilesEngine"/> class.
+        /// </summary>
+        /// <param name="renderer">Object to print.</param>
+        /// <param name="userInterface">Interacting with user.</param>
+        /// <param name="gameInitializer">Initializing the game.</param>
+        /// <param name="player">The player.</param>
+        /// <param name="grid">Grid with tiles.</param>
         public StandartFifteenTilesEngine(IRenderer renderer, IUserInterface userInterface, IGameInitializater gameInitializer, IPlayer player, IGrid grid)
             : base(gameInitializer)
         {
@@ -36,6 +45,9 @@
             this.commands = this.FillCommands();
         }
 
+        /// <summary>
+        /// Initializes start screen.
+        /// </summary>
         public override void Initialize()
         {
             this.GetInitialGameScreen();
@@ -43,6 +55,9 @@
             this.ProcessCommand(command);
         }
 
+        /// <summary>
+        /// Starts the game.
+        /// </summary>
         private void Run()
         {
             while (true)
@@ -58,6 +73,10 @@
             }
         }
 
+        /// <summary>
+        /// Process commands.
+        /// </summary>
+        /// <param name="command">Command to process.</param>
         public void ProcessCommand(Command command)
         {
             try

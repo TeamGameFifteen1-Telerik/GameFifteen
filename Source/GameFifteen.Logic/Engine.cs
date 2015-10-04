@@ -3,7 +3,7 @@
     using GameFifteen.Logic.Contracts;
 
     /// <summary>
-    /// Bridge design pattern
+    /// Implementing bridge design pattern to provides abstract game functionality.
     /// </summary>
     public abstract class Engine : IEngine
     {
@@ -14,6 +14,9 @@
             this.gameInitializer = gameInitializer;
         }
 
+        /// <summary>
+        /// Game initialization.
+        /// </summary>
         public abstract void Initialize();
     }
 }

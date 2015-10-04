@@ -8,6 +8,9 @@
     using GameFifteen.Models;
     using GameFifteen.Models.Contracts;
 
+    /// <summary>
+    /// Game creator.
+    /// </summary>
     public class StandartGameInitializer : IGameInitializater
     {
         // TODO : do something about these
@@ -16,11 +19,18 @@
 
         private static Random random;
 
+        /// <summary>
+        /// Initializes static members of the <see cref="StandartGameInitializer" /> class.
+        /// </summary>
         static StandartGameInitializer()
         {
             random = new Random();
         }
 
+        /// <summary>
+        /// Full initialization of grid.
+        /// </summary>
+        /// <param name="grid">The empty grid.</param>
         public void Initialize(IGrid grid)
         {
             grid.Clear();
@@ -28,6 +38,10 @@
             this.ShuffleGrid(grid);
         }
 
+        /// <summary>
+        /// Fills grid with tiles.
+        /// </summary>
+        /// <param name="grid">The empty grid.</param>
         public void InitilizeGrid(IGrid grid)
         {
             var emptyTile = new Tile(string.Empty, GlobalConstants.TotalTilesCount - 1, TileType.Empty);          
