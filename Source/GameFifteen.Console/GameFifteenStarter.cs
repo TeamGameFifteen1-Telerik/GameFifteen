@@ -44,7 +44,7 @@
             var player = new Player();
             var grid = new Grid();
             var engine = new StandartFifteenTilesEngine(renderer, userInterface, gameInitializer, player, grid);
-            engine.Run();
+            engine.Initialize();
         }
     }
 }

@@ -23,6 +23,7 @@
             this.arguments = new Dictionary<string, dynamic>();
             this.commandStash = new Dictionary<string, Command> 
                                     {
+                                        { GlobalConstants.StartCommand, Command.Start },
                                         { GlobalConstants.RestartCommand, Command.Restart },
                                         { GlobalConstants.TopCommand, Command.Top },
                                         { GlobalConstants.ExitCommand, Command.Exit },
@@ -30,7 +31,8 @@
                                         { GlobalConstants.SaveCommand, Command.Save },
                                         { GlobalConstants.LoadCommand, Command.Load },
                                         { GlobalConstants.StyleCommand, Command.Style },
-                                        { GlobalConstants.SolveCommand, Command.Solve }
+                                        { GlobalConstants.SolveCommand, Command.Solve },
+                                        { GlobalConstants.HowCommand, Command.How }
                                     };
         }
 

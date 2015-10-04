@@ -2,9 +2,11 @@
 {
     using System;
     using System.Linq;
+
     using GameFifteen.Common;
     using GameFifteen.Console.Contracts;
 
+    public class SolidStyle : GridBorderStyle, IStyle
     /// <summary>
     /// Style that uses single solid line with correct corners for grid borders.
     /// </summary>
@@ -13,6 +15,20 @@
         private readonly char symbol = '│';
         private readonly char line = '─';
         private readonly int length = (GlobalConstants.GridSize * 4) - 2;
+        private Enum type;
+
+        public SolidStyle()
+        {
+            this.type = BorderStyleType.Solid;
+        }
+
+        public override Enum Type
+        {
+            get
+            {
+                return this.type;
+            }
+        }
 
         /// <summary>
         /// Solid top-border style.

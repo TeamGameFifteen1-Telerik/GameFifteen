@@ -2,6 +2,7 @@
 {
     public enum Command
     {
+        Start,
         Restart,
         Top,
         Exit,
@@ -11,6 +12,7 @@
         Save,
         Load,
         Style,
-        Solve
+        Solve,
+        How
     }
 }

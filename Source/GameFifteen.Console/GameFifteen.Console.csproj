@@ -48,7 +48,7 @@
   <ItemGroup>
     <Compile Include="ConsoleInterface.cs" />
     <Compile Include="ConsoleRenderer.cs" />
-    <Compile Include="Contracts\GridBorderStyle.cs" />
+    <Compile Include="Styles\GridBorderStyle.cs" />
     <Compile Include="Contracts\IStyle.cs" />
     <Compile Include="Contracts\IStyleFactory.cs" />
     <Compile Include="GameFifteenStarter.cs" />
@@ -60,7 +60,7 @@
     <Compile Include="Styles\DoubleStyle.cs" />
     <Compile Include="Styles\FatStyle.cs" />
     <Compile Include="Styles\MiddleFatStyle.cs" />
-    <Compile Include="Styles\NormalStyle.cs" />
+    <Compile Include="Styles\DefaultStyle.cs" />
     <Compile Include="Styles\SolidStyle.cs" />
   </ItemGroup>
   <ItemGroup>

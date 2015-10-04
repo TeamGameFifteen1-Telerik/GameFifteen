@@ -1,5 +1,6 @@
 ﻿namespace GameFifteen.Logic.Contracts
 {
+    using GameFifteen.Common;
     using GameFifteen.Models;
     using GameFifteen.Models.Contracts;
 
@@ -13,5 +14,7 @@
         void RenderGrid(IGrid grid);
 
         void RenderMessage(string message);
+
+        void RenderInitialScreen(int menuStartPositionX = GlobalConstants.MenuStartPositionX, int menuStartPositionY = GlobalConstants.MenuStartPositionY);
     }
 }

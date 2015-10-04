@@ -2,6 +2,8 @@
 {
     public interface IEngine
     {
+        void Initialize();
+
         void Run();
     }
 }

@@ -2,16 +2,31 @@
 {
     using System;
     using System.Linq;
+
     using GameFifteen.Common;
     using GameFifteen.Console.Contracts;
     
     /// <summary>
     /// Style that uses a normal symbol 'asterisk'(*) for grid borders.
     /// </summary>
-    public class AsteriskStyle : GridBorderStyle
+    public class AsteriskStyle : GridBorderStyle, IStyle
     {
         private readonly char symbol = '*';
         private readonly int length = GlobalConstants.GridSize * 4;
+        private Enum type;
+
+        public AsteriskStyle()
+        {
+            this.type = BorderStyleType.Asteriks;
+        }
+
+        public override Enum Type
+        {
+            get
+            {
+                return this.type;
+            }
+        }
 
         /// <summary>
         /// Asterisk top-border style.

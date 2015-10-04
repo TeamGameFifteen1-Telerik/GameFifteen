@@ -2,9 +2,11 @@
 {
     using System;
     using System.Linq;
+
     using GameFifteen.Common;
     using GameFifteen.Console.Contracts;
 
+    public class MiddleFatStyle : GridBorderStyle, IStyle
     /// <summary>
     /// Style that uses a sequence symbols that present a line think than <see cref="SolidStyle"/> and thin than <see cref="FatStyle"/>.
     /// Uses for grid borders.
@@ -16,6 +18,20 @@
         private readonly char leftSymbol = '▌';
         private readonly char rightSymbol = '▐';
         private readonly int length = GlobalConstants.GridSize * 4;
+        private Enum type;
+
+        public MiddleFatStyle()
+        {
+            this.type = BorderStyleType.MiddleFat;
+        }
+
+        public override Enum Type
+        {
+            get
+            {
+                return this.type;
+            }
+        }
 
         /// <summary>
         /// MiddleFat top-border style.

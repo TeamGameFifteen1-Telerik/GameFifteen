@@ -1,5 +1,9 @@
-﻿namespace GameFifteen.Console.Contracts
+﻿namespace GameFifteen.Console
 {
+    using System;
+
+    using GameFifteen.Console.Contracts;
+
     /// <summary>
     /// An object that provides a style for each border on the grid.
     /// Styles are a ordered symbols in clear way.
@@ -29,5 +33,7 @@
         /// </summary>
         /// <value>Right border.</value>
         public abstract string Right { get; }
+
+        public abstract Enum Type { get; }
     }
 }
