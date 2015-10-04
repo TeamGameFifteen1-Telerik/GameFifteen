@@ -53,7 +53,7 @@
         public override void Run()
         {
             Command command;
-            //this.StartNewGame();  
+            /// this.StartNewGame();  
 
             while (true)
             {
@@ -174,7 +174,7 @@
             this.scoreBoard.AddPlayer(this.player);
         }
 
-        //TODO: refactor - add commands and description to a dictionary
+        /// TODO: refactor - add commands and description to a dictionary
         private void ProcessHowToCommand()
         {
             this.renderer.RenderMessage(GameMessages.HowToPlay);

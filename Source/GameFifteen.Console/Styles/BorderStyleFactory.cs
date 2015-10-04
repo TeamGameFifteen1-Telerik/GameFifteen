@@ -30,7 +30,7 @@
                 case BorderStyleType.Double:
                     return new DoubleStyle();
                 case BorderStyleType.Default:
-                    return new DefaultStyle();
+                    return new NormalStyle();
                 case BorderStyleType.Asteriks:
                     return new AsteriskStyle();
                 default:

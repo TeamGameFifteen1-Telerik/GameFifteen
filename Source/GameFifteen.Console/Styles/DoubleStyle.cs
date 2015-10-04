@@ -6,11 +6,10 @@
     using GameFifteen.Common;
     using GameFifteen.Console.Contracts;
 
-    public class DoubleStyle : GridBorderStyle, IStyle
     /// <summary>
     /// Style that uses a double line and double lined corners for grid borders.
     /// </summary>
-    public class DoubleStyle : GridBorderStyle
+    public class DoubleStyle : GridBorderStyle, IStyle
     {
         private readonly char symbol = '║';
         private readonly char line = '═';

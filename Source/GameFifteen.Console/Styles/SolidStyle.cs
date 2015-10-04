@@ -6,11 +6,10 @@
     using GameFifteen.Common;
     using GameFifteen.Console.Contracts;
 
-    public class SolidStyle : GridBorderStyle, IStyle
     /// <summary>
     /// Style that uses single solid line with correct corners for grid borders.
     /// </summary>
-    public class SolidStyle : GridBorderStyle
+    public class SolidStyle : GridBorderStyle, IStyle
     {
         private readonly char symbol = '│';
         private readonly char line = '─';

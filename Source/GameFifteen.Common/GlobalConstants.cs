@@ -10,10 +10,10 @@
         public const string DestinationTileValue = "DestinationTileValue";
         public const string GridBorderStyle = "GridBorderStyle";
 
-        //TODO: extract from here?
+        /// TODO: extract from here?
         public const string ExstenstionOperator = "=";
 
-        //Remove? Use enum?
+        /// Remove? Use enum?
         public const string StartCommand = "start";
         public const string RestartCommand = "restart";
         public const string TopCommand = "top";

@@ -6,12 +6,11 @@
     using GameFifteen.Common;
     using GameFifteen.Console.Contracts;
 
-    public class MiddleFatStyle : GridBorderStyle, IStyle
     /// <summary>
     /// Style that uses a sequence symbols that present a line think than <see cref="SolidStyle"/> and thin than <see cref="FatStyle"/>.
     /// Uses for grid borders.
     /// </summary>
-    public class MiddleFatStyle : GridBorderStyle
+    public class MiddleFatStyle : GridBorderStyle, IStyle
     {
         private readonly char topSymbol = '▄';
         private readonly char bottomSymbol = '▀';

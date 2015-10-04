@@ -6,18 +6,17 @@
     using GameFifteen.Common;
     using GameFifteen.Console.Contracts;
 
-    public class DefaultStyle : GridBorderStyle, IStyle
     /// <summary>
     /// Style that uses default borders for grid - dashes and lines.
     /// </summary>
-    public class NormalStyle : GridBorderStyle
+    public class NormalStyle : GridBorderStyle, IStyle
     {
         private readonly char symbol = '-';
         private readonly char sideSymbol = '|';
         private readonly int length = (GlobalConstants.GridSize * 3) - 1;
         private Enum type;
 
-        public DefaultStyle()
+        public NormalStyle()
         {
             this.type = BorderStyleType.Default;
         }
