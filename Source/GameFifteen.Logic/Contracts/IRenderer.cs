@@ -16,5 +16,7 @@
         void RenderMessage(string message);
 
         void RenderInitialScreen(int menuStartPositionX = GlobalConstants.MenuStartPositionX, int menuStartPositionY = GlobalConstants.MenuStartPositionY);
+
+        void RenderGameOptions();
     }
 }

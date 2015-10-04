@@ -6,7 +6,7 @@
         Restart,
         Top,
         Exit,
-        Agree,
+        Yes,
         Move,
         Invalid,
         Save,

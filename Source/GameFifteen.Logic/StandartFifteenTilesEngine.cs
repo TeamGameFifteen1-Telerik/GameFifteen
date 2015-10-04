@@ -21,6 +21,7 @@
         private IGrid grid;
         private GridMemory gridMemory;
         private bool isGameOver;
+        private bool isGameStarted;
         private IDictionary<Command, Action> commands;
 
         public StandartFifteenTilesEngine(IRenderer renderer, IUserInterface userInterface, IGameInitializater gameInitializer, IPlayer player, IGrid grid)
@@ -39,22 +40,11 @@
         {
             this.GetInitialGameScreen();
             Command command = this.userInterface.GetCommandFromInput();
-
-            try
-            {
-                this.ProcessCommand(command);
-            }
-            catch (Exception ex)
-            {
-                this.renderer.RenderMessage(ex.Message);
-            }
+            this.ProcessCommand(command);
         }
 
-        public override void Run()
+        private void Run()
         {
-            Command command;
-            //this.StartNewGame();  
-
             while (true)
             {
                 if (this.isGameOver)
@@ -63,25 +53,23 @@
                     this.AskForAnotherGame();
                 }
 
-                this.renderer.RenderMessage(GameMessages.EnterNumberMessage);
-                command = this.userInterface.GetCommandFromInput();
-
-                try
-                {
-                    this.ProcessCommand(command);
-                }
-                catch (Exception ex)
-                {
-                    this.renderer.RenderMessage(ex.Message);
-                }
+                Command command = this.userInterface.GetCommandFromInput();
+                this.ProcessCommand(command);
             }
         }
 
         public void ProcessCommand(Command command)
         {
-            if (this.commands.ContainsKey(command))
+            try
             {
-                this.commands[command]();
+                if (this.commands.ContainsKey(command))
+                {
+                    this.commands[command]();
+                }
+            }
+            catch (Exception ex)
+            {
+                this.renderer.RenderMessage(ex.Message);
             }
         }
 
@@ -123,9 +111,10 @@
         private void StartNewGame()
         {
             this.gameInitializer.Initialize(this.grid);
-            this.renderer.RenderMessage(GameMessages.WelcomeMessage);
+            this.renderer.RenderMessage(GameMessages.Welcome);
             this.renderer.RenderGrid(this.grid);
             this.player.Moves = 0;
+            this.isGameStarted = true;
             this.Run();
         }
 
@@ -138,11 +127,11 @@
         {
             if (this.player.Moves == 0)
             {
-                this.renderer.RenderMessage(GameMessages.SolvedByDefaultMessage);
+                this.renderer.RenderMessage(GameMessages.SolvedByDefault);
             }
             else
             {
-                this.renderer.RenderMessage(string.Format(GameMessages.WinMessage, this.player.Moves));
+                this.renderer.RenderMessage(string.Format(GameMessages.Win, this.player.Moves));
                 this.SaveScore();
                 this.renderer.RenderScoreboard(this.scoreBoard);
             }
@@ -157,27 +146,27 @@
             else
             {
                 this.userInterface.ExitGame();
-                //// this.ProcessExitCommand();
             }
         }
 
         private void SaveScore()
         {
-            this.renderer.RenderMessage(GameMessages.EnterYourNameMessage);
+            this.renderer.RenderMessage(GameMessages.EnterYourName);
             string playerName = this.userInterface.GetUserInput();
 
             if (!string.IsNullOrEmpty(playerName))
             {
                 this.player.Name = playerName;
-            }    
-            
+            }
+
             this.scoreBoard.AddPlayer(this.player);
         }
 
-        //TODO: refactor - add commands and description to a dictionary
         private void ProcessHowToCommand()
         {
-            this.renderer.RenderMessage(GameMessages.HowToPlay);
+            this.renderer.RenderGameOptions();
+            Command command = this.userInterface.GetCommandFromInput();
+            this.ProcessCommand(command);
         }
 
         private void ProcessRestartCommand()
@@ -233,9 +222,16 @@
 
         private void ProcessStyleCommand()
         {
-            var temp = this.userInterface.GetArgumentValue(GlobalConstants.GridBorderStyle);
-            this.renderer.AddStyle(temp);
-            this.renderer.RenderGrid(this.grid);
+            this.renderer.AddStyle(this.userInterface.GetArgumentValue(GlobalConstants.GridBorderStyle));
+            if (isGameStarted)
+            {
+                this.renderer.RenderGrid(this.grid);
+            }
+            else
+            {
+                Command command = this.userInterface.GetCommandFromInput();
+                this.ProcessCommand(command);
+            }
         }
 
         private void ProcessSaveCommand()
@@ -262,7 +258,7 @@
 
         private void ProcessExitCommand()
         {
-            if (this.UserAgrees(GameMessages.ExitMessage))
+            if (this.UserAgrees(GameMessages.Exit))
             {
                 this.userInterface.ExitGame();
             }
@@ -281,10 +277,10 @@
 
         private bool UserAgrees(string message)
         {
-            this.renderer.RenderMessage(string.Format(message + " " + GameMessages.PressKeyToExit, GlobalConstants.AgreeCommand));
+            this.renderer.RenderMessage(string.Format(message + " " + GameMessages.PressKeyToExit, Command.Yes.ToString().ToUpper()));
             Command command = this.userInterface.GetCommandFromInput();
 
-            return command == Command.Agree;
+            return command == Command.Yes;
         }
     }
 }

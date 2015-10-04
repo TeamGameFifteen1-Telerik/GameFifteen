@@ -107,14 +107,33 @@
             }
 
             Console.WriteLine(style.Bottom);
+            this.RenderMessage(GameMessages.EnterCommand);
+        }
+
+        public void RenderGameOptions()
+        {
+            this.RenderMessage("Goal: ");
+            this.RenderMessage(GameMessages.Goal);
+            this.RenderMessage("Commands: ");
+            foreach (var command in GameMessages.CommandsDescription)
+            {
+                Console.WriteLine("{0,-15}{1}{2}", command.Key, " -> ", command.Value);
+            }
+
+            foreach (var command in GameMessages.StyleCommandsDescription)
+            {
+                Console.WriteLine("{0,15}{1}{2}", command.Key, " -> ", command.Value);
+            }
         }
 
         public void RenderMessage(string message)
         {
             Console.WriteLine(message);
         }
+
         public void RenderInitialScreen(int menuStartPositionX = GlobalConstants.MenuStartPositionX, int menuStartPositionY = GlobalConstants.MenuStartPositionY)
         {
+            this.SetInitialConsoleSize();
             this.PrintOnPosition(0, 0, GameMessages.GameLogo, ConsoleColor.Yellow);
             this.RenderGameMenu(menuStartPositionX, menuStartPositionY);
         }
@@ -149,6 +168,12 @@
             Console.SetCursorPosition(x, y);
             Console.ForegroundColor = color;
             Console.Write(text);
+        }
+
+        private void SetInitialConsoleSize()
+        {
+            Console.BufferWidth = Console.WindowWidth = 81;
+            Console.BufferHeight = Console.WindowHeight = 25;
         }
     }
 }

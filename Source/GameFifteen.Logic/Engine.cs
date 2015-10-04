@@ -15,7 +15,5 @@
         }
 
         public abstract void Initialize();
-
-        public abstract void Run();
     }
 }

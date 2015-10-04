@@ -1,9 +1,12 @@
 ﻿namespace GameFifteen.GridTests
 {
     using System;
+
     using GameFifteen.Console;
     using GameFifteen.Logic;
     using GameFifteen.Models;
+    using GameFifteen.Console.Styles;
+
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]
@@ -13,7 +16,8 @@
         [ExpectedException(typeof(ArgumentException))]
         public void TestingEngineProcessCommandToThrowExceptionWhenInvalidInputCommandIsProvided()
         {
-            var renderer = new ConsoleRenderer();
+            var borderStyleFactory = new BorderStyleFactory();
+            var renderer = new ConsoleRenderer(borderStyleFactory);
             var userInterface = new ConsoleInterface();
             var gameInitializer = new StandartGameInitializer();
             var player = new Player();
