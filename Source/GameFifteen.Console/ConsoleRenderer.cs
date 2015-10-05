@@ -75,10 +75,17 @@
         public void RenderScoreboard(Scoreboard scoreboard)
         {
             Console.WriteLine("Scoreboard:");
-            foreach (Player player in scoreboard.TopPlayers)
+            if (scoreboard.TopPlayers.Count == 0)
             {
-                string scoreboardLine = (scoreboard.TopPlayers.IndexOf(player) + 1).ToString() + ". " + player.Name + " --> " + player.Moves.ToString() + " moves";
-                Console.WriteLine(scoreboardLine);
+                Console.WriteLine("No top players yet.");
+            }
+            else
+            {
+                foreach (Player player in scoreboard.TopPlayers)
+                {
+                    string scoreboardLine = (scoreboard.TopPlayers.IndexOf(player) + 1).ToString() + ". " + player.Name + " --> " + player.Moves.ToString() + " moves";
+                    Console.WriteLine(scoreboardLine);
+                }
             }
         }
 

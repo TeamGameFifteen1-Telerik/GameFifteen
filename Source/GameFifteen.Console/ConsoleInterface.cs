@@ -52,10 +52,6 @@
 
                 return Command.Move;
             } 
-            else if (Enum.TryParse(input, out command))
-            {
-                return command;
-            }
             else if (input.StartsWith(Command.Style.ToString()))
             {
                 string[] parameters = input.Split(new string[] { "=" }, StringSplitOptions.RemoveEmptyEntries);
@@ -68,6 +64,10 @@
                 this.arguments[GlobalConstants.GridBorderStyle] = parameters[1].Trim();
 
                 return Command.Style;
+            }
+            else if (Enum.TryParse(input, out command))
+            {
+                return command;
             }
             else
             {

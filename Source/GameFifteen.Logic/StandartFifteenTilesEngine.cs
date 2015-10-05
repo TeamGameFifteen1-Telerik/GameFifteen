@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Reflection;
 
     using GameFifteen.Common;
     using GameFifteen.Logic.Contracts;
@@ -23,7 +24,7 @@
         private GridMemory gridMemory;
         private bool isGameOver;
         private bool isGameStarted;
-        private IDictionary<Command, Action> commands;
+       // private IDictionary<Command, Action> commands;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StandartFifteenTilesEngine"/> class.
@@ -42,7 +43,7 @@
             this.scoreBoard = Scoreboard.Instance;
             this.grid = grid;
             this.gridMemory = new GridMemory();
-            this.commands = this.FillCommands();
+            //this.commands = this.FillCommands();
         }
 
         /// <summary>
@@ -54,23 +55,23 @@
             while (!this.isGameStarted)
             {
                 Command command = this.userInterface.GetCommandFromInput();
-                this.ProcessCommand(command);
+                this.ExecuteCommand(command);
             }
         }
 
         /// <summary>
-        /// Process commands.
+        /// Execute commands.
         /// </summary>
-        /// <param name="command">Command to process.</param>
-        public void ProcessCommand(Command command)
+        /// <param name="command">Command to execute.</param>
+        public void ExecuteCommand(Command command)
         {
             try
             {
-                //GetCommandMethodProcess(command);
-                if (this.commands.ContainsKey(command))
-                {
-                    this.commands[command]();
-                }
+                this.ExecuteSpecificCommand(command);
+                //if (this.commands.ContainsKey(command))
+                //{
+                //    this.commands[command]();
+                //}
             }
             catch (Exception ex)
             {
@@ -78,14 +79,18 @@
             }
         }
 
-        //private void GetCommandMethodProcess(Command command)
-        //{
-        //    string methodName = "Process" + command.ToString() + "Command";
-        //    var methodInfo = this.GetType().GetMethod(methodName);
-        //    Action action = (() => this.GetType().GetMethod(methodName))
-        //    methodInfo.Invoke(this, null);
-        //    //return null;
-        //}
+        private void ExecuteSpecificCommand(Command command)
+        {
+            if (command == Command.Invalid)
+            {
+                throw new ArgumentException("Invalid Command!");
+            }
+
+            string methodName = "Execute" + command.ToString() + "Command";
+            var methodInfo = this.GetType().GetMethod(methodName, BindingFlags.NonPublic
+                | BindingFlags.Instance);
+            methodInfo.Invoke(this, null);
+        }
 
         private void Run()
         {
@@ -98,46 +103,46 @@
                 }
 
                 Command command = this.userInterface.GetCommandFromInput();
-                this.ProcessCommand(command);
+                this.ExecuteCommand(command);
             }
         }
 
-        private IDictionary<Command, Action> FillCommands()
-        {
-            this.commands = new Dictionary<Command, Action>();
-            Action processStartCommand = this.StartNewGame;
-            Action processRestartCommand = this.ProcessRestartCommand;
-            Action processTopCommand = this.ProcessTopCommand;
-            Action processExitCommand = this.ProcessExitCommand;
-            Action processLoadCommand = this.ProcessLoadCommand;
-            Action processMoveCommand = this.ProcessMoveCommand;
-            Action processSaveCommand = this.ProcessSaveCommand;
-            Action processStyleCommand = this.ProcessStyleCommand;
-            Action processSolveGridCommand = this.ProcessSolveCommand;
-            Action processHowCommand = this.ProcessHowCommand;
-            Action processInvalidCommand = () => { throw new ArgumentException("Invalid Command!"); };
+        //private IDictionary<Command, Action> FillCommands()
+        //{
+        //    this.commands = new Dictionary<Command, Action>();
+        //    Action ExecuteStartCommand = this.ExecuteStartCommand;
+        //    Action ExecuteRestartCommand = this.ExecuteRestartCommand;
+        //    Action ExecuteTopCommand = this.ExecuteTopCommand;
+        //    Action ExecuteExitCommand = this.ExecuteExitCommand;
+        //    Action ExecuteLoadCommand = this.ExecuteLoadCommand;
+        //    Action ExecuteMoveCommand = this.ExecuteMoveCommand;
+        //    Action ExecuteSaveCommand = this.ExecuteSaveCommand;
+        //    Action ExecuteStyleCommand = this.ExecuteStyleCommand;
+        //    Action ExecuteSolveGridCommand = this.ExecuteSolveCommand;
+        //    Action ExecuteHowCommand = this.ExecuteHowCommand;
+        //    Action ExecuteInvalidCommand = () => { throw new ArgumentException("Invalid Command!"); };
 
-            this.commands.Add(Command.Start, this.StartNewGame);
-            this.commands.Add(Command.Restart, processRestartCommand);
-            this.commands.Add(Command.Top, processTopCommand);
-            this.commands.Add(Command.Exit, processExitCommand);
-            this.commands.Add(Command.Save, processSaveCommand);
-            this.commands.Add(Command.Load, processLoadCommand);
-            this.commands.Add(Command.Move, processMoveCommand);
-            this.commands.Add(Command.Style, processStyleCommand);
-            this.commands.Add(Command.Solve, processSolveGridCommand);
-            this.commands.Add(Command.How, processHowCommand);
-            this.commands.Add(Command.Invalid, processInvalidCommand);
+        //    this.commands.Add(Command.Start, this.ExecuteStartCommand);
+        //    this.commands.Add(Command.Restart, ExecuteRestartCommand);
+        //    this.commands.Add(Command.Top, ExecuteTopCommand);
+        //    this.commands.Add(Command.Exit, ExecuteExitCommand);
+        //    this.commands.Add(Command.Save, ExecuteSaveCommand);
+        //    this.commands.Add(Command.Load, ExecuteLoadCommand);
+        //    this.commands.Add(Command.Move, ExecuteMoveCommand);
+        //    this.commands.Add(Command.Style, ExecuteStyleCommand);
+        //    this.commands.Add(Command.Solve, ExecuteSolveGridCommand);
+        //    this.commands.Add(Command.How, ExecuteHowCommand);
+        //    this.commands.Add(Command.Invalid, ExecuteInvalidCommand);
 
-            return this.commands;
-        }
+        //    return this.commands;
+        //}
 
         private void GetInitialGameScreen()
         {
             this.renderer.RenderInitialScreen();
         }
 
-        private void StartNewGame()
+        private void ExecuteStartCommand()
         {
             this.gameInitializer.Initialize(this.grid);
             this.renderer.RenderMessage(GameMessages.Welcome);
@@ -173,7 +178,7 @@
         {
             if (this.UserAgrees(GameMessages.NewGameQuestion))
             {
-                this.StartNewGame();
+                this.ExecuteStartCommand();
             }
             else
             {
@@ -194,25 +199,25 @@
             this.scoreBoard.AddPlayer(this.player);
         }
 
-        private void ProcessHowCommand()
+        private void ExecuteHowCommand()
         {
             this.renderer.RenderGameOptions();
         }
 
-        private void ProcessTopCommand()
+        private void ExecuteTopCommand()
         {
             this.renderer.RenderScoreboard(this.scoreBoard);
         }
 
-        private void ProcessRestartCommand()
+        private void ExecuteRestartCommand()
         {
             if (this.UserAgrees(GameMessages.RestartGameQuestion))
             {
-                this.StartNewGame();
+                this.ExecuteStartCommand();
             }
         }
 
-        private void ProcessMoveCommand()
+        private void ExecuteMoveCommand()
         {
             var tileLable = this.userInterface.GetArgumentValue(GlobalConstants.DestinationTileValue);
             Tile tile = this.grid.GetTileFromLabel(tileLable.ToString());
@@ -250,7 +255,7 @@
             return false;
         }
 
-        private void ProcessStyleCommand()
+        private void ExecuteStyleCommand()
         {
             this.renderer.AddStyle(this.userInterface.GetArgumentValue(GlobalConstants.GridBorderStyle));
             if (this.isGameStarted)
@@ -259,7 +264,7 @@
             }
         }
 
-        private void ProcessSaveCommand()
+        private void ExecuteSaveCommand()
         {
             if (this.isGameStarted)
             {
@@ -272,7 +277,7 @@
             }
         }
 
-        private void ProcessLoadCommand()
+        private void ExecuteLoadCommand()
         {
             if (this.gridMemory.Memento != null)
             {
@@ -288,7 +293,7 @@
             }
         }
 
-        private void ProcessSolveCommand()
+        private void ExecuteSolveCommand()
         {
             if (this.isGameStarted)
             {
@@ -305,7 +310,7 @@
             }         
         }
 
-        private void ProcessExitCommand()
+        private void ExecuteExitCommand()
         {
             if (this.UserAgrees(GameMessages.Exit))
             {
