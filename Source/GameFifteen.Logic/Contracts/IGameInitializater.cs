@@ -14,5 +14,11 @@
         /// </summary>
         /// <param name="grid">Grid that contains tiles.</param>
         void Initialize(IGrid grid);
+
+        /// <summary>
+        /// Fills grid with tiles.
+        /// </summary>
+        /// <param name="grid">The empty grid.</param>
+        void InitilizeGrid(IGrid grid);
     }
 }

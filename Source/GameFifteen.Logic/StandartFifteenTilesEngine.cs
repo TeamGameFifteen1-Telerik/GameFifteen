@@ -51,8 +51,11 @@
         public override void Initialize()
         {
             this.GetInitialGameScreen();
-            Command command = this.userInterface.GetCommandFromInput();
-            this.ProcessCommand(command);
+            while (!this.isGameStarted)
+            {
+                Command command = this.userInterface.GetCommandFromInput();
+                this.ProcessCommand(command);
+            }
         }
 
         /// <summary>
@@ -63,6 +66,7 @@
         {
             try
             {
+                //GetCommandMethodProcess(command);
                 if (this.commands.ContainsKey(command))
                 {
                     this.commands[command]();
@@ -73,6 +77,15 @@
                 this.renderer.RenderMessage(ex.Message);
             }
         }
+
+        //private void GetCommandMethodProcess(Command command)
+        //{
+        //    string methodName = "Process" + command.ToString() + "Command";
+        //    var methodInfo = this.GetType().GetMethod(methodName);
+        //    Action action = (() => this.GetType().GetMethod(methodName))
+        //    methodInfo.Invoke(this, null);
+        //    //return null;
+        //}
 
         private void Run()
         {
@@ -100,8 +113,8 @@
             Action processMoveCommand = this.ProcessMoveCommand;
             Action processSaveCommand = this.ProcessSaveCommand;
             Action processStyleCommand = this.ProcessStyleCommand;
-            Action processSolveGridCommand = this.ProcessSolveGridCommand;
-            Action processHowCommand = this.ProcessHowToCommand;
+            Action processSolveGridCommand = this.ProcessSolveCommand;
+            Action processHowCommand = this.ProcessHowCommand;
             Action processInvalidCommand = () => { throw new ArgumentException("Invalid Command!"); };
 
             this.commands.Add(Command.Start, this.StartNewGame);
@@ -126,7 +139,6 @@
 
         private void StartNewGame()
         {
-            this.isGameOver = false;
             this.gameInitializer.Initialize(this.grid);
             this.renderer.RenderMessage(GameMessages.Welcome);
             this.renderer.RenderGrid(this.grid);
@@ -142,6 +154,9 @@
 
         private void GameOver()
         {
+            this.isGameStarted = false;
+            this.isGameOver = false;
+
             if (this.player.Moves == 0)
             {
                 this.renderer.RenderMessage(GameMessages.SolvedByDefault);
@@ -179,11 +194,14 @@
             this.scoreBoard.AddPlayer(this.player);
         }
 
-        private void ProcessHowToCommand()
+        private void ProcessHowCommand()
         {
             this.renderer.RenderGameOptions();
-            Command command = this.userInterface.GetCommandFromInput();
-            this.ProcessCommand(command);
+        }
+
+        private void ProcessTopCommand()
+        {
+            this.renderer.RenderScoreboard(this.scoreBoard);
         }
 
         private void ProcessRestartCommand()
@@ -192,11 +210,6 @@
             {
                 this.StartNewGame();
             }
-        }
-
-        private void ProcessTopCommand()
-        {
-            this.renderer.RenderScoreboard(this.scoreBoard);
         }
 
         private void ProcessMoveCommand()
@@ -244,17 +257,19 @@
             {
                 this.renderer.RenderGrid(this.grid);
             }
-            else
-            {
-                Command command = this.userInterface.GetCommandFromInput();
-                this.ProcessCommand(command);
-            }
         }
 
         private void ProcessSaveCommand()
         {
-            this.gridMemory.Memento = this.grid.SaveMemento();
-            this.renderer.RenderMessage(GameMessages.GameSaved);
+            if (this.isGameStarted)
+            {
+                this.gridMemory.Memento = this.grid.SaveMemento();
+                this.renderer.RenderMessage(GameMessages.GameSaved);
+            }
+            else
+            {
+                throw new InvalidOperationException("No game to save.");
+            }
         }
 
         private void ProcessLoadCommand()
@@ -269,8 +284,25 @@
             }
             else
             {
-                this.renderer.RenderMessage(GameMessages.NoGameToLoad);
+                throw new InvalidOperationException("No game to load.");
             }
+        }
+
+        private void ProcessSolveCommand()
+        {
+            if (this.isGameStarted)
+            {
+                this.grid.Clear();
+                this.gameInitializer.InitilizeGrid(this.grid);
+                this.renderer.RenderGrid(this.grid);
+                this.player.Moves++;
+                this.GameOver();
+                this.AskForAnotherGame();
+            }
+            else
+            {
+                throw new InvalidOperationException("No grid to solve.");
+            }         
         }
 
         private void ProcessExitCommand()
@@ -279,17 +311,6 @@
             {
                 this.userInterface.ExitGame();
             }
-        }
-
-        private void ProcessSolveGridCommand()
-        {
-            StandartGameInitializer hack = new StandartGameInitializer();
-            this.grid.Clear();
-            hack.InitilizeGrid(this.grid);
-            this.renderer.RenderGrid(this.grid);
-            this.player.Moves++;
-            this.GameOver();
-            this.AskForAnotherGame();
         }
 
         private bool UserAgrees(string message)
