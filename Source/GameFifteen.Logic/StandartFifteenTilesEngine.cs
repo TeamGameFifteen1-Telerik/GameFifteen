@@ -126,6 +126,7 @@
 
         private void StartNewGame()
         {
+            this.isGameOver = false;
             this.gameInitializer.Initialize(this.grid);
             this.renderer.RenderMessage(GameMessages.Welcome);
             this.renderer.RenderGrid(this.grid);
