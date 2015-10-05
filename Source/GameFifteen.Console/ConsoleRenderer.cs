@@ -15,6 +15,12 @@
     /// </summary>
     public class ConsoleRenderer : IRenderer
     {
+        private const int ConsoleWindowWidth = 81;
+        private const int ConsoleWindowHeight = 25;
+
+        private const int InitialGridX = ConsoleWindowWidth / 2 - GlobalConstants.GridSize * 2 - 2;
+        private const int InitialGridY = 3;
+
         //// TODO refactor
         private Dictionary<string, IStyle> styles;
         private IStyleFactory borderStyleFactory;
@@ -95,50 +101,33 @@
         /// <param name="grid">Using <see cref="GameFifteen.Models.Contracts.IGrid"/> that contains a list of tiles.</param>
         public void RenderGrid(IGrid grid)
         {
-            GridBorderStyle style;
-            if (!this.styles.ContainsKey(GlobalConstants.GridBorderStyle))
-            {
-                style = this.borderStyleFactory.Get(BorderStyleType.Default) as GridBorderStyle;
-            }
+            this.Clear();
+            this.RenderMessage(GameMessages.Welcome);
 
-            style = this.styles[GlobalConstants.GridBorderStyle] as GridBorderStyle;
+            int x = InitialGridX;
+            int y = InitialGridY;
 
-            Console.WriteLine(style.Top);
-            Console.Write(style.Left);
-            int rowCounter = 0;
-            for (int index = 0; index < GlobalConstants.TotalTilesCount; index++)
-            {
-                Tile currentElement = grid.GetTileAtPosition(index);
+            this.RenderBorder(x + 1, y - 1);
 
-                if (currentElement.Label == string.Empty)
+            for (int i = 0, colCounter = 1; i < GlobalConstants.TotalTilesCount; i++, colCounter++)
+            {                
+                Tile currentTile = grid.GetTileAtPosition(i);
+                string stringFormat = currentTile.Label.Length < 2 ? " {0}" : "{0}";
+
+                x = currentTile.Label.Length < 2 ? x + stringFormat.Length - 1 : x + stringFormat.Length;
+
+                string tileFormat = string.Format(stringFormat, currentTile.Label);
+                this.PrintOnPosition(x, y, tileFormat);
+               
+                if (colCounter == GlobalConstants.GridSize)
                 {
-                    Console.Write("   ");
-                }
-                else if (int.Parse(currentElement.Label) < 10)
-                {
-                    Console.Write(' ' + currentElement.Label + ' ');
-                }
-                else
-                {
-                    Console.Write(currentElement.Label + ' ');
-                }
-
-                rowCounter++;
-                if (rowCounter == GlobalConstants.GridSize)
-                {
-                    Console.Write(style.Right);
-                    Console.WriteLine();
-                    if (index < 12)
-                    {
-                        Console.Write(style.Left);
-                    }
-
-                    rowCounter = 0;
+                    x = InitialGridX;
+                    y++;
+                    colCounter = 0;
                 }
             }
 
-            Console.WriteLine(style.Bottom);
-            this.RenderMessage(GameMessages.EnterCommand);
+            this.PrintOnPosition(0, ++y, GameMessages.EnterCommand);
         }
 
         /// <summary>
@@ -185,16 +174,8 @@
         {
             this.PrintOnPosition(menuStartPositionX, menuStartPositionY, GameMessages.Enter, ConsoleColor.Yellow);
 
-            var options = new Dictionary<string, string>()
-            {
-                { "START", "Start new game" },
-                { "HOW", "See game options" },
-                { "TOP", "Get top scores" },
-                { "EXIT", "Quit" }
-            };
-
             int position = 0;
-            foreach (var option in options)
+            foreach (var option in GameMessages.MenuOptions)
             {
                 this.PrintOnPosition(menuStartPositionX, menuStartPositionY + position + 1, option.Key, ConsoleColor.White);
                 this.PrintOnPosition(menuStartPositionX + 5, menuStartPositionY + position + 1, " to ", ConsoleColor.Yellow);
@@ -203,7 +184,28 @@
                 position++;
             }
 
-            this.PrintOnPosition(menuStartPositionX, menuStartPositionY + options.Count + 3, string.Empty, ConsoleColor.White);
+            this.PrintOnPosition(menuStartPositionX, menuStartPositionY + GameMessages.MenuOptions.Count + 3, string.Empty, ConsoleColor.White);
+        }
+
+        private void RenderBorder(int x, int y)
+        {
+            GridBorderStyle style;
+            if (!this.styles.ContainsKey(GlobalConstants.GridBorderStyle))
+            {
+                style = this.borderStyleFactory.Get(BorderStyleType.Default) as GridBorderStyle;
+            }
+
+            style = this.styles[GlobalConstants.GridBorderStyle] as GridBorderStyle;
+
+            this.PrintOnPosition(x, y, style.Top);
+
+            for (int i = 0; i < GlobalConstants.GridSize + 1; i++)
+            {
+                this.PrintOnPosition(x, ++y, style.Left);
+                this.PrintOnPosition(x + GlobalConstants.GridSize * 3 + 2, y, style.Right);
+            }
+
+            this.PrintOnPosition(x, y, style.Bottom);
         }
 
         private void PrintOnPosition(int x, int y, string text, ConsoleColor color = ConsoleColor.White)
@@ -215,8 +217,13 @@
 
         private void SetInitialConsoleSize()
         {
-            Console.BufferWidth = Console.WindowWidth = 81;
-            Console.BufferHeight = Console.WindowHeight = 25;
+            Console.BufferWidth = Console.WindowWidth = ConsoleWindowWidth;
+            Console.BufferHeight = Console.WindowHeight = ConsoleWindowHeight;
+        }
+
+        private void Clear()
+        {
+            Console.Clear();
         }
     }
 }

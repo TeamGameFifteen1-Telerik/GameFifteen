@@ -51,7 +51,7 @@
         /// </summary>
         public override void Initialize()
         {
-            this.GetInitialGameScreen();
+            this.ExecuteMenuCommand();
             while (!this.isGameStarted)
             {
                 Command command = this.userInterface.GetCommandFromInput();
@@ -137,7 +137,7 @@
         //    return this.commands;
         //}
 
-        private void GetInitialGameScreen()
+        private void ExecuteMenuCommand()
         {
             this.renderer.RenderInitialScreen();
         }
@@ -145,7 +145,7 @@
         private void ExecuteStartCommand()
         {
             this.gameInitializer.Initialize(this.grid);
-            this.renderer.RenderMessage(GameMessages.Welcome);
+            //this.renderer.RenderMessage(GameMessages.Welcome);
             this.renderer.RenderGrid(this.grid);
             this.player.Moves = 0;
             this.isGameStarted = true;

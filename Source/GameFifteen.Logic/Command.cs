@@ -63,6 +63,11 @@
         /// <summary>
         /// Shows help commands.
         /// </summary>
-        How
+        How,
+
+        /// <summary>
+        /// Shows the initial menu.
+        /// </summary>
+        Menu
     }
 }
