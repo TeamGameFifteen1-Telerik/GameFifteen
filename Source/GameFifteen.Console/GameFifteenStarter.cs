@@ -1,8 +1,10 @@
 ﻿namespace GameFifteen.Console
 {
-    using GameFifteen.Console.Styles;
-    using GameFifteen.Logic;
-    using GameFifteen.Models;
+    using System.Reflection;
+
+    using Ninject;
+
+    using GameFifteen.Logic.Contracts;
 
     /// <summary>
     /// A normal game starter object implementing Facade design pattern.
@@ -37,13 +39,10 @@
         /// </summary>
         public void NewGame()
         {
-            var borderStyleFactory = new BorderStyleFactory();
-            var renderer = new ConsoleRenderer(borderStyleFactory);
-            var userInterface = new ConsoleInterface();
-            var gameInitializer = new StandartGameInitializer();
-            var player = new Player();
-            var grid = new Grid();
-            var engine = new StandartFifteenTilesEngine(renderer, userInterface, gameInitializer, player, grid);
+            IKernel kernel = new StandardKernel();
+            kernel.Load(Assembly.GetExecutingAssembly());
+
+            var engine = kernel.Get<IEngine>();
             engine.Initialize();
         }
     }
