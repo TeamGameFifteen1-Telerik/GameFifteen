@@ -1,6 +1,8 @@
-﻿namespace GameFifteen.Models.Contracts
+﻿using System;
+
+namespace GameFifteen.Models.Contracts
 {
-    public interface IPlayer
+    public interface IPlayer : ICloneable
     {
         string Name { get; set; }
 

@@ -147,7 +147,7 @@
             this.gameInitializer.Initialize(this.grid);
             //this.renderer.RenderMessage(GameMessages.Welcome);
             this.renderer.RenderGrid(this.grid);
-            this.player = new Player();
+            //this.player = new Player();
             this.player.Moves = 0;
             this.isGameStarted = true;
             this.Run();

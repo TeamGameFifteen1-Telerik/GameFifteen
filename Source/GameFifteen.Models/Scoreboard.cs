@@ -51,7 +51,7 @@
                 throw new ArgumentException("Player needs at least one move.");
             }
 
-            this.players.Add(player);
+            this.players.Add((IPlayer)player.Clone());
         }
 
         public void Clear()

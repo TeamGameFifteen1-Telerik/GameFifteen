@@ -5,7 +5,7 @@
 
     using GameFifteen.Models.Contracts;
 
-    public class Player : IPlayer, IComparable
+    public class Player : IPlayer, IComparable, ICloneable
     {
         private string name;
         private int moves;
@@ -58,6 +58,13 @@
             Player currentPlayer = (Player)player;
             int result = this.moves.CompareTo(currentPlayer.Moves);
             return result;
+        }
+
+        public object Clone()
+        {
+            var clone = new Player(this.Name);
+            clone.Moves = this.Moves;
+            return clone;
         }
     }
 }
