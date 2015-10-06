@@ -14,8 +14,8 @@
     public class StandartGameInitializer : IGameInitializater
     {
         // TODO : do something about these
-        private const int MinRoundsCount = 20;
-        private const int MaxRoundsCount = 50;
+        private const int MinRoundsCount = 1120;
+        private const int MaxRoundsCount = 1150;
 
         private static Random random;
 
