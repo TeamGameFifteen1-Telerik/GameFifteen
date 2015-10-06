@@ -2,6 +2,9 @@
 {
     using System.Collections.Generic;
 
+    /// <summary>
+    /// Contains public constants (as strings) as sentences to the Player.
+    /// </summary>
     public class GameMessages
     {
         public const string Exit = "Are you sure you want to exit?";
