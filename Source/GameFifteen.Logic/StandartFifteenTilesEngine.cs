@@ -24,7 +24,7 @@
         private GridMemory gridMemory;
         private bool isGameOver;
         private bool isGameStarted;
-       // private IDictionary<Command, Action> commands;
+        // private IDictionary<Command, Action> commands;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StandartFifteenTilesEngine"/> class.
@@ -147,7 +147,7 @@
             this.gameInitializer.Initialize(this.grid);
             //this.renderer.RenderMessage(GameMessages.Welcome);
             this.renderer.RenderGrid(this.grid);
-            //this.player = new Player();
+            this.player = new Player();
             this.player.Moves = 0;
             this.isGameStarted = true;
             this.Run();
@@ -308,7 +308,7 @@
             else
             {
                 throw new InvalidOperationException("No grid to solve.");
-            }         
+            }
         }
 
         private void ExecuteExitCommand()

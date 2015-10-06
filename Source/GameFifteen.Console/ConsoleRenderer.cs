@@ -68,8 +68,15 @@
                 BorderStyleType styleType;
                 if (Enum.TryParse(capitalStyle, out styleType))
                 {
-                    IStyle borderStyle = this.borderStyleFactory.Get(styleType);
-                    this.styles[GlobalConstants.GridBorderStyle] = borderStyle;
+                    try
+                    {
+                        IStyle borderStyle = this.borderStyleFactory.Get(styleType);
+                        this.styles[GlobalConstants.GridBorderStyle] = borderStyle;
+                    }
+                    catch (Exception ex)
+                    {
+                        this.RenderMessage(ex.Message);
+                    }
                 }
             }
         }
@@ -110,7 +117,7 @@
             this.RenderBorder(x + 1, y - 1);
 
             for (int i = 0, colCounter = 1; i < GlobalConstants.TotalTilesCount; i++, colCounter++)
-            {                
+            {
                 Tile currentTile = grid.GetTileAtPosition(i);
                 string stringFormat = currentTile.Label.Length < 2 ? " {0}" : "{0}";
 
@@ -118,7 +125,7 @@
 
                 string tileFormat = string.Format(stringFormat, currentTile.Label);
                 this.PrintOnPosition(x, y, tileFormat);
-               
+
                 if (colCounter == GlobalConstants.GridSize)
                 {
                     x = InitialGridX;
