@@ -146,7 +146,7 @@
         {
             this.gameInitializer.Initialize(this.grid);
             //this.renderer.RenderMessage(GameMessages.Welcome);
-            this.renderer.RenderGrid(this.grid);
+            this.renderer.RenderPlayScreen(this.grid);
             //this.player = new Player();
             this.player.Moves = 0;
             this.isGameStarted = true;
@@ -227,7 +227,7 @@
             {
                 this.grid.SwapTiles(tile);
                 this.player.Moves++;
-                this.renderer.RenderGrid(this.grid);
+                this.renderer.RenderPlayScreen(this.grid);
                 this.isGameOver = this.IsGameOver();
             }
             else
@@ -270,7 +270,7 @@
 
             if (this.isGameStarted)
             {
-                this.renderer.RenderGrid(this.grid);
+                this.renderer.RenderPlayScreen(this.grid);
             }
         }
 
@@ -294,7 +294,7 @@
                 if (this.UserAgrees(GameMessages.LoadGameQuestion))
                 {
                     this.grid.RestoreMemento(this.gridMemory.Memento);
-                    this.renderer.RenderGrid(this.grid);
+                    this.renderer.RenderPlayScreen(this.grid);
                 }
             }
             else
@@ -309,7 +309,7 @@
             {
                 this.grid.Clear();
                 this.gameInitializer.InitilizeGrid(this.grid);
-                this.renderer.RenderGrid(this.grid);
+                this.renderer.RenderPlayScreen(this.grid);
                 this.player.Moves++;
                 this.GameOver();
                 this.AskForAnotherGame();

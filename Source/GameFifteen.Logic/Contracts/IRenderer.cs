@@ -27,7 +27,7 @@
         /// Prints the grid.
         /// </summary>
         /// <param name="grid">The grid with tiles.</param>
-        void RenderGrid(IGrid grid);
+        void RenderPlayScreen(IGrid grid);
 
         /// <summary>
         /// Prints information message to user.

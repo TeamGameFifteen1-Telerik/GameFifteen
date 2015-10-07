@@ -21,9 +21,33 @@
         private const int InitialGridX = ConsoleWindowWidth / 2 - GlobalConstants.GridSize * 2 - 2;
         private const int InitialGridY = 3;
 
-        //// TODO refactor
+        private const int InitialGameOptionsX = 0;
+        private const int InitialGameOptionsY = 0;
+
+        private const int InitialWelcomeMessageX = 0;
+        private const int InitialWelcomeMessageY = 0;
+
+        private const int InitialGameOptionsCommandsX = ConsoleWindowWidth / 2 - 20;
+
+        private const int GameMessagesY = 11;
+
+        private const int InitialScoreboardX = ConsoleWindowWidth / 2 - GlobalConstants.GridSize * 2;
+        private const int InitialScoreboardY = 0;
+
+        private const string Goal = "Goal: ";
+        private const string Commands = "Commands: ";
+        private const string Scoreboard = "Scoreboard:";
+        private const string NoTopPlayers = "No top players yet.";
+
+        private const ConsoleColor UserMessagesColor = ConsoleColor.White;
+        private const ConsoleColor GameMessagesColor = ConsoleColor.Yellow;
+        private const ConsoleColor ExplanationsColor = ConsoleColor.Green;
+
         private Dictionary<string, IStyle> styles;
         private IStyleFactory borderStyleFactory;
+
+        private int previousX;
+        private int previousY;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ConsoleRenderer"/> class.
@@ -68,14 +92,8 @@
                 BorderStyleType styleType;
                 if (Enum.TryParse(capitalStyle, out styleType))
                 {
-                    /*try
-                    {*/
-                        IStyle borderStyle = this.borderStyleFactory.Get(styleType);
-                        this.styles[GlobalConstants.GridBorderStyle] = borderStyle;
-                    /*}
-                    catch (Exception ex)
-                    {
-                    }*/
+                    IStyle borderStyle = this.borderStyleFactory.Get(styleType);
+                    this.styles[GlobalConstants.GridBorderStyle] = borderStyle;
                 }
                 else
                 {
@@ -85,38 +103,139 @@
         }
 
         /// <summary>
+        /// Prints message on the console.
+        /// </summary>
+        /// <param name="message">Text to be printed.</param>
+        public void RenderMessage(string message)
+        {
+            int x = 0;
+            int y = this.previousY + 1;
+            this.ClearConsolePart(x, y, ConsoleWindowWidth - x, 1);
+            this.PrintOnPosition(x, y, message, GameMessagesColor);
+            this.ResetConsoleColor();
+            this.ResetCursorToPreviousPosition(this.previousX, this.previousY);
+            this.ClearConsolePart(this.previousX, this.previousY, ConsoleWindowWidth - this.previousX, 1);
+
+            //Console.WriteLine(message);
+        }
+
+        /// <summary>
+        /// Prints game screen log. 
+        /// </summary>
+        /// <param name="menuStartPositionX">Horizontal position of the menu.</param>
+        /// <param name="menuStartPositionY">Vertical position of the menu.</param>
+        public void RenderInitialScreen(int menuStartPositionX = GlobalConstants.MenuStartPositionX, int menuStartPositionY = GlobalConstants.MenuStartPositionY)
+        {
+            this.SetInitialConsoleSize();
+            this.ClearConsole();
+            this.PrintOnPosition(0, 0, GameMessages.GameLogo, GameMessagesColor);
+            this.RenderGameMenu(menuStartPositionX, menuStartPositionY);
+        }
+
+        /// <summary>
+        /// Prints game options on the console.
+        /// </summary>
+        public void RenderGameOptions()
+        {
+            int x = InitialGameOptionsX;
+            int y = InitialGameOptionsY;
+
+            this.ClearConsole();
+            this.PrintOnPosition(x, y++, Goal, GameMessagesColor);
+            this.PrintOnPosition(x, y++, GameMessages.Goal, ExplanationsColor);
+            y = Console.CursorTop + 1;
+            this.PrintOnPosition(x, y++, Commands, GameMessagesColor);
+
+            foreach (var command in GameMessages.CommandsDescription)
+            {
+                x = InitialGameOptionsCommandsX;
+                this.PrintOnPosition(x, y, string.Format("{0,-15}", command.Key));
+                this.PrintOnPosition(Console.CursorLeft, y, " -> ", GameMessagesColor);
+                this.PrintOnPosition(Console.CursorLeft, y++, command.Value, ExplanationsColor);
+            }
+
+            foreach (var command in GameMessages.StyleCommandsDescription)
+            {
+                x = InitialGameOptionsCommandsX;
+                this.PrintOnPosition(x, y, string.Format("{0,15}", command.Key), UserMessagesColor);
+                this.PrintOnPosition(Console.CursorLeft, y, " -> ", GameMessagesColor);
+                this.PrintOnPosition(Console.CursorLeft, y++, command.Value, ExplanationsColor);
+            }
+
+            this.PrintOnPosition(x, ++y, GameMessages.EnterCommand, GameMessagesColor);
+            this.ResetConsoleColor();
+            this.SaveCursorCurrentPosition();
+        }
+
+        private void RenderGameMenu(int menuStartPositionX = GlobalConstants.MenuStartPositionX, int menuStartPositionY = GlobalConstants.MenuStartPositionY)
+        {
+            this.PrintOnPosition(menuStartPositionX, menuStartPositionY, GameMessages.Enter, GameMessagesColor);
+
+            int position = 0;
+            foreach (var option in GameMessages.MenuOptions)
+            {
+                this.PrintOnPosition(menuStartPositionX, menuStartPositionY + position + 1, option.Key, UserMessagesColor);
+                this.PrintOnPosition(menuStartPositionX + 5, menuStartPositionY + position + 1, " to ", GameMessagesColor);
+
+                this.PrintOnPosition(menuStartPositionX + 10, menuStartPositionY + position + 1, option.Value, ExplanationsColor);
+                position++;
+            }
+
+            this.PrintOnPosition(menuStartPositionX, menuStartPositionY + GameMessages.MenuOptions.Count + 3, string.Empty, UserMessagesColor);
+            this.SaveCursorCurrentPosition();
+        }
+
+        /// <summary>
         /// Prints scores of players. 
         /// </summary>
         /// <param name="scoreboard">Uses a <see cref="GameFifteen.Models.Scoreboard"/> that contains players with scores.</param>
         public void RenderScoreboard(Scoreboard scoreboard)
         {
-            Console.WriteLine("Scoreboard:");
+            int x = InitialScoreboardX;
+            int y = InitialScoreboardY;
+
+            this.ClearConsole();
+            this.PrintOnPosition(x, y++, Scoreboard, GameMessagesColor);
+
             if (scoreboard.TopPlayers.Count == 0)
             {
-                Console.WriteLine("No top players yet.");
+                this.PrintOnPosition(x, y++, NoTopPlayers, UserMessagesColor);
             }
             else
             {
+                int position = 1;
                 foreach (Player player in scoreboard.TopPlayers)
                 {
-                    string scoreboardLine = (scoreboard.TopPlayers.IndexOf(player) + 1).ToString() + ". " + player.Name + " --> " + player.Moves.ToString() + " moves";
-                    Console.WriteLine(scoreboardLine);
+                    this.PrintOnPosition(x, y, position.ToString() + ". ", GameMessagesColor);
+                    this.PrintOnPosition(Console.CursorLeft, y, player.Name, UserMessagesColor);
+                    this.PrintOnPosition(Console.CursorLeft, y, " -> ", GameMessagesColor);
+                    this.PrintOnPosition(Console.CursorLeft, y, player.Moves.ToString(), UserMessagesColor);
+                    this.PrintOnPosition(Console.CursorLeft, y++, " moves", GameMessagesColor);
+                    position++;
                 }
             }
+
+            this.PrintOnPosition(x, y++, string.Empty, UserMessagesColor);
+            this.SaveCursorCurrentPosition();
         }
 
         /// <summary>
         /// Prints the grid on the console.
         /// </summary>
         /// <param name="grid">Using <see cref="GameFifteen.Models.Contracts.IGrid"/> that contains a list of tiles.</param>
-        public void RenderGrid(IGrid grid)
+        public void RenderPlayScreen(IGrid grid)
         {
-            this.Clear();
-            this.RenderMessage(GameMessages.Welcome);
-
             int x = InitialGridX;
             int y = InitialGridY;
 
+            this.ClearConsole();
+            this.PrintOnPosition(InitialWelcomeMessageX, InitialWelcomeMessageX, GameMessages.Welcome, ExplanationsColor);
+            this.RenderGrid(x, y, grid);
+        }
+
+        private void RenderGrid(int x, int y, IGrid grid)
+        {
+            //this.ClearConsolePart(InitialGridX, InitialGridY, GlobalConstants.GridSize * 2, GlobalConstants.GridSize);
             this.RenderBorder(x + 1, y - 1);
 
             for (int i = 0, colCounter = 1; i < GlobalConstants.TotalTilesCount; i++, colCounter++)
@@ -137,64 +256,9 @@
                 }
             }
 
-            this.PrintOnPosition(0, ++y, GameMessages.EnterCommand);
-        }
-
-        /// <summary>
-        /// Prints game options on the console.
-        /// </summary>
-        public void RenderGameOptions()
-        {
-            this.RenderMessage("Goal: ");
-            this.RenderMessage(GameMessages.Goal);
-            this.RenderMessage("Commands: ");
-            foreach (var command in GameMessages.CommandsDescription)
-            {
-                Console.WriteLine("{0,-15}{1}{2}", command.Key, " -> ", command.Value);
-            }
-
-            foreach (var command in GameMessages.StyleCommandsDescription)
-            {
-                Console.WriteLine("{0,15}{1}{2}", command.Key, " -> ", command.Value);
-            }
-        }
-
-        /// <summary>
-        /// Prints message on the console.
-        /// </summary>
-        /// <param name="message">Text to be printed.</param>
-        public void RenderMessage(string message)
-        {
-            Console.WriteLine(message);
-        }
-
-        /// <summary>
-        /// Prints game screen log. 
-        /// </summary>
-        /// <param name="menuStartPositionX">Horizontal position of the menu.</param>
-        /// <param name="menuStartPositionY">Vertical position of the menu.</param>
-        public void RenderInitialScreen(int menuStartPositionX = GlobalConstants.MenuStartPositionX, int menuStartPositionY = GlobalConstants.MenuStartPositionY)
-        {
-            this.SetInitialConsoleSize();
-            this.PrintOnPosition(0, 0, GameMessages.GameLogo, ConsoleColor.Yellow);
-            this.RenderGameMenu(menuStartPositionX, menuStartPositionY);
-        }
-
-        private void RenderGameMenu(int menuStartPositionX = GlobalConstants.MenuStartPositionX, int menuStartPositionY = GlobalConstants.MenuStartPositionY)
-        {
-            this.PrintOnPosition(menuStartPositionX, menuStartPositionY, GameMessages.Enter, ConsoleColor.Yellow);
-
-            int position = 0;
-            foreach (var option in GameMessages.MenuOptions)
-            {
-                this.PrintOnPosition(menuStartPositionX, menuStartPositionY + position + 1, option.Key, ConsoleColor.White);
-                this.PrintOnPosition(menuStartPositionX + 5, menuStartPositionY + position + 1, " to ", ConsoleColor.Yellow);
-
-                this.PrintOnPosition(menuStartPositionX + 10, menuStartPositionY + position + 1, option.Value, ConsoleColor.Green);
-                position++;
-            }
-
-            this.PrintOnPosition(menuStartPositionX, menuStartPositionY + GameMessages.MenuOptions.Count + 3, string.Empty, ConsoleColor.White);
+            this.PrintOnPosition(0, ++y, GameMessages.EnterNumberToMove, GameMessagesColor);
+            this.ResetConsoleColor();
+            this.SaveCursorCurrentPosition();
         }
 
         private void RenderBorder(int x, int y)
@@ -216,6 +280,7 @@
             }
 
             this.PrintOnPosition(x, y, style.Bottom);
+            this.SaveCursorCurrentPosition();
         }
 
         private void PrintOnPosition(int x, int y, string text, ConsoleColor color = ConsoleColor.White)
@@ -231,7 +296,36 @@
             Console.BufferHeight = Console.WindowHeight = ConsoleWindowHeight;
         }
 
-        private void Clear()
+        private void SaveCursorCurrentPosition()
+        {
+            this.previousX = Console.CursorLeft;
+            this.previousY = Console.CursorTop;
+        }
+
+        private void ResetCursorToPreviousPosition(int previousX, int previousY)
+        {
+            Console.SetCursorPosition(previousX, previousY);
+        }
+
+        private void ResetConsoleColor()
+        {
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+
+        private void ClearConsolePart(int x, int y, int width, int height)
+        {
+            int currentLineCursor = y;
+            Console.SetCursorPosition(x, y);
+            for (int i = 0; i < height; i++)
+            {
+                Console.SetCursorPosition(x, y + i);
+                Console.Write(new string(' ', width));
+            }
+
+            Console.SetCursorPosition(x, currentLineCursor);
+        }
+
+        private void ClearConsole()
         {
             Console.Clear();
         }
