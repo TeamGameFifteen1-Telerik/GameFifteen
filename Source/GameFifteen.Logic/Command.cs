@@ -68,6 +68,11 @@
         /// <summary>
         /// Shows the initial menu.
         /// </summary>
-        Menu
+        Menu,
+
+        /// <summary>
+        /// Shows the last game screen.
+        /// </summary>
+        Game
     }
 }

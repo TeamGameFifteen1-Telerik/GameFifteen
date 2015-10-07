@@ -18,7 +18,6 @@
         public const string LoadGameQuestion = "Are you sure you want to load your last saved game?";
         public const string RestartGameQuestion = "Are you sure you want to restart?";
         public const string PressKeyToExit = "Press {0} for yes or enter to continue.";        
-        public const string InvalidMove = "Invalid move!";
         public const string GameSaved = "Game saved.";
         public const string Welcome = "Welcome to the game “15”. Try to arrange the numbers sequentially. " + EnterHow;
         public const string Goal = "You're given a grid of 15 numbered tiles and one empty one. Try to arrange the numbers sequentially by moving numbered tiles to the empty space. To move a tile, enter its number.";
@@ -54,6 +53,7 @@
             { "START", "Start a new game" },
             { "HOW", "How to play" },
             { "TOP", "Get top scores" },
+            { "GAME", "Go to game screen" },
             { "SAVE", "Save game" },
             { "LOAD", "Load saved game" },
             { "SOLVE", "Solve puzzle" },

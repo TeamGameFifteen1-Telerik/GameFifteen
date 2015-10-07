@@ -96,6 +96,7 @@
         {
             while (true)
             {
+                this.SaveCurrentGameState();
                 if (this.isGameOver)
                 {
                     this.GameOver();
@@ -153,6 +154,11 @@
             this.Run();
         }
 
+        private void SaveCurrentGameState()
+        {
+            this.gridMemory.CurrentMemento = this.grid.SaveMemento();
+        }
+
         private bool IsGameOver()
         {
             return this.grid.IsSorted;
@@ -200,6 +206,18 @@
             this.scoreBoard.AddPlayer(this.player);
         }
 
+        private void ExecuteGameCommand()
+        {
+            if (this.isGameStarted)
+            {
+                this.LoadMemento(this.gridMemory.CurrentMemento);
+            }
+            else
+            {
+                throw new InvalidOperationException("The game hasn't started yet.");
+            }
+        }
+
         private void ExecuteHowCommand()
         {
             this.renderer.RenderGameOptions();
@@ -232,7 +250,7 @@
             }
             else
             {
-                this.renderer.RenderMessage(GameMessages.InvalidMove);
+                throw new InvalidOperationException("Invalid move!");
             }
         }
 
@@ -262,7 +280,7 @@
             {
                 this.renderer.AddStyle(this.userInterface.GetArgumentValue(GlobalConstants.GridBorderStyle));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 this.renderer.RenderMessage(ex.Message);
                 return;
@@ -278,7 +296,7 @@
         {
             if (this.isGameStarted)
             {
-                this.gridMemory.Memento = this.grid.SaveMemento();
+                this.gridMemory.SavedMemento = this.grid.SaveMemento();
                 this.renderer.RenderMessage(GameMessages.GameSaved);
             }
             else
@@ -289,13 +307,18 @@
 
         private void ExecuteLoadCommand()
         {
-            if (this.gridMemory.Memento != null)
+            if (this.UserAgrees(GameMessages.LoadGameQuestion))
             {
-                if (this.UserAgrees(GameMessages.LoadGameQuestion))
-                {
-                    this.grid.RestoreMemento(this.gridMemory.Memento);
+                this.LoadMemento(this.gridMemory.SavedMemento);
+            }
+        }
+
+        private void LoadMemento(Memento memento)
+        {
+            if (memento != null)
+            {
+                this.grid.RestoreMemento(memento);
                     this.renderer.RenderPlayScreen(this.grid);
-                }
             }
             else
             {

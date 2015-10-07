@@ -12,7 +12,13 @@
         /// <summary>
         /// Gets or sets memento.
         /// </summary>
-        /// <value>Memento that stores game states.</value>
-        public Memento Memento { get; set; }
+        /// <value>Memento that stores game states when the player saves their game.</value>
+        public Memento SavedMemento { get; set; }
+
+        /// <summary>
+        /// Gets or sets memento.
+        /// </summary>
+        /// <value>Memento that stores the current game state.</value>
+        public Memento CurrentMemento { get; set; }
     }
 }
