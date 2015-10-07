@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameFifteen.Common", "GameF
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameFifteen.ModelTests", "GameFifteen.GridTests\GameFifteen.ModelTests.csproj", "{0E42F1CE-47C6-4CBE-9029-3C3A15D7BBC9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameFifteen.ConsoleTests", "GameFifteen.ConsoleTests\GameFifteen.ConsoleTests.csproj", "{ABAD05FB-7F01-407B-8550-C082DC269778}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +75,16 @@ Global
 		{0E42F1CE-47C6-4CBE-9029-3C3A15D7BBC9}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{0E42F1CE-47C6-4CBE-9029-3C3A15D7BBC9}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{0E42F1CE-47C6-4CBE-9029-3C3A15D7BBC9}.Release|x86.ActiveCfg = Release|Any CPU
+		{ABAD05FB-7F01-407B-8550-C082DC269778}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABAD05FB-7F01-407B-8550-C082DC269778}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABAD05FB-7F01-407B-8550-C082DC269778}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{ABAD05FB-7F01-407B-8550-C082DC269778}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{ABAD05FB-7F01-407B-8550-C082DC269778}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{ABAD05FB-7F01-407B-8550-C082DC269778}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABAD05FB-7F01-407B-8550-C082DC269778}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABAD05FB-7F01-407B-8550-C082DC269778}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{ABAD05FB-7F01-407B-8550-C082DC269778}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{ABAD05FB-7F01-407B-8550-C082DC269778}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

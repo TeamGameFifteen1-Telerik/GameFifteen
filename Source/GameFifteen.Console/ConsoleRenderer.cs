@@ -68,15 +68,18 @@
                 BorderStyleType styleType;
                 if (Enum.TryParse(capitalStyle, out styleType))
                 {
-                    try
-                    {
+                    /*try
+                    {*/
                         IStyle borderStyle = this.borderStyleFactory.Get(styleType);
                         this.styles[GlobalConstants.GridBorderStyle] = borderStyle;
-                    }
+                    /*}
                     catch (Exception ex)
                     {
-                        this.RenderMessage(ex.Message);
-                    }
+                    }*/
+                }
+                else
+                {
+                    throw new ArgumentException("There's no border of that type.");
                 }
             }
         }

@@ -223,7 +223,7 @@
             var tileLable = this.userInterface.GetArgumentValue(GlobalConstants.DestinationTileValue);
             Tile tile = this.grid.GetTileFromLabel(tileLable.ToString());
 
-            if (this.IsValidMove(tile))
+            if (tile != null && this.IsValidMove(tile))
             {
                 this.grid.SwapTiles(tile);
                 this.player.Moves++;
@@ -258,7 +258,16 @@
 
         private void ExecuteStyleCommand()
         {
-            this.renderer.AddStyle(this.userInterface.GetArgumentValue(GlobalConstants.GridBorderStyle));
+            try
+            {
+                this.renderer.AddStyle(this.userInterface.GetArgumentValue(GlobalConstants.GridBorderStyle));
+            }
+            catch(Exception ex)
+            {
+                this.renderer.RenderMessage(ex.Message);
+                return;
+            }
+
             if (this.isGameStarted)
             {
                 this.renderer.RenderGrid(this.grid);
