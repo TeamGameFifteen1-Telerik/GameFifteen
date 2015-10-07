@@ -54,6 +54,7 @@
     <Compile Include="GridTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScoreBoardTests.cs" />
+    <Compile Include="StyleTests.cs" />
     <Compile Include="TileTests.cs" />
     <Compile Include="PlayerTests.cs" />
   </ItemGroup>
