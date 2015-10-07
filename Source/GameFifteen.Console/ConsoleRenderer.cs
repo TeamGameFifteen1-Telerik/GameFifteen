@@ -9,6 +9,7 @@
     using GameFifteen.Logic.Contracts;
     using GameFifteen.Models;
     using GameFifteen.Models.Contracts;
+    using System.Text;
 
     /// <summary>
     /// Provides drawing functions for grid.
@@ -18,7 +19,7 @@
         private const int ConsoleWindowWidth = 81;
         private const int ConsoleWindowHeight = 25;
 
-        private const int InitialGridX = ConsoleWindowWidth / 2 - GlobalConstants.GridSize * 2 - 2;
+        private const int InitialGridX = ConsoleWindowWidth / 2 - GlobalConstants.GridSize * 2;
         private const int InitialGridY = 3;
 
         private const int InitialGameOptionsX = 0;
@@ -223,7 +224,7 @@
         /// Prints the grid on the console.
         /// </summary>
         /// <param name="grid">Using <see cref="GameFifteen.Models.Contracts.IGrid"/> that contains a list of tiles.</param>
-        public void RenderPlayScreen(IGrid grid)
+        public void RenderPlayScreen(IGameMember grid)
         {
             int x = InitialGridX;
             int y = InitialGridY;
@@ -233,53 +234,24 @@
             this.RenderGrid(x, y, grid);
         }
 
-        private void RenderGrid(int x, int y, IGrid grid)
+        private void RenderGrid(int x, int y, IGameMember grid)
         {
-            //this.ClearConsolePart(InitialGridX, InitialGridY, GlobalConstants.GridSize * 2, GlobalConstants.GridSize);
-            this.RenderBorder(x + 1, y - 1);
+            string[] gridLines = grid.Display().Split('|');
 
-            for (int i = 0, colCounter = 1; i < GlobalConstants.TotalTilesCount; i++, colCounter++)
+            if (this.styles.ContainsKey(GlobalConstants.GridBorderStyle))
             {
-                Tile currentTile = grid.GetTileAtPosition(i);
-                string stringFormat = currentTile.Label.Length < 2 ? " {0}" : "{0}";
+                var style = this.styles[GlobalConstants.GridBorderStyle] as GridBorderStyle;
+                var gridWithBorder = new GridWithBorder(grid, style);
+                gridLines = gridWithBorder.Display().Split('|');
+            }
 
-                x = currentTile.Label.Length < 2 ? x + stringFormat.Length - 1 : x + stringFormat.Length;
-
-                string tileFormat = string.Format(stringFormat, currentTile.Label);
-                this.PrintOnPosition(x, y, tileFormat);
-
-                if (colCounter == GlobalConstants.GridSize)
-                {
-                    x = InitialGridX;
-                    y++;
-                    colCounter = 0;
-                }
+            foreach (var line in gridLines)
+            {
+                this.PrintOnPosition(x, y++, line);
             }
 
             this.PrintOnPosition(0, ++y, GameMessages.EnterNumberToMove, GameMessagesColor);
             this.ResetConsoleColor();
-            this.SaveCursorCurrentPosition();
-        }
-
-        private void RenderBorder(int x, int y)
-        {
-            GridBorderStyle style;
-            if (!this.styles.ContainsKey(GlobalConstants.GridBorderStyle))
-            {
-                style = this.borderStyleFactory.Get(BorderStyleType.Default) as GridBorderStyle;
-            }
-
-            style = this.styles[GlobalConstants.GridBorderStyle] as GridBorderStyle;
-
-            this.PrintOnPosition(x, y, style.Top);
-
-            for (int i = 0; i < GlobalConstants.GridSize + 1; i++)
-            {
-                this.PrintOnPosition(x, ++y, style.Left);
-                this.PrintOnPosition(x + GlobalConstants.GridSize * 3 + 2, y, style.Right);
-            }
-
-            this.PrintOnPosition(x, y, style.Bottom);
             this.SaveCursorCurrentPosition();
         }
 

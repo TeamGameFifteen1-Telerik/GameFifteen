@@ -1,8 +1,9 @@
 ﻿namespace GameFifteen.Models.Contracts
 {
     using System.Collections;
+    using System.Collections.Generic;
 
-    public interface IGrid
+    public interface IGrid : IGameMember
     {
         int TilesCount { get; }
 

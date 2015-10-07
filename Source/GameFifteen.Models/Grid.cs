@@ -4,6 +4,7 @@
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Text;
 
     using GameFifteen.Common;
     using GameFifteen.Models.Contracts;
@@ -12,7 +13,7 @@
     /// Memento design pattern
     /// The 'Originator' class
     /// </summary>
-    public class Grid : IGrid, IEnumerable
+    public class Grid : GameMember, IGrid, IEnumerable, IGameMember
     {
         private List<Tile> tiles;
 
@@ -20,8 +21,6 @@
         {
             this.tiles = new List<Tile>();
         }
-
-        //// public Tile EmptyTile { get; set; }
 
         public int TilesCount
         {
@@ -61,14 +60,6 @@
             return tile;
         }
 
-        /*
-        private int GetTilePosition(string tileLabel)
-        {
-            Tile tile = this.tiles.FirstOrDefault(t => t.Label == tileLabel);
-            return this.tiles.IndexOf(tile);
-        }
-        */
-
         public void SwapTiles(Tile targetTile)
         {
             int emptyTilePosition = this.GetEmptyTile().Position;
@@ -76,10 +67,6 @@
             this.tiles[targetTile.Position].Position = emptyTilePosition;
             this.tiles[emptyTilePosition].Position = targetTilePosition;
             this.tiles.Sort();
-            //// int targetTilePosition = targetTile.Position;
-            //// this.tiles[targetTile.Position].Position = this.EmptyTile.Position;
-            //// this.tiles[this.EmptyTile.Position].Position = targetTilePosition;
-            //// this.tiles.Sort();
         }
 
         public bool CanSwap(Tile tile)
@@ -135,6 +122,27 @@
             }
 
             return true;
+        }
+
+        public override string Display()
+        {
+            var sb = new StringBuilder();
+            var lines = new List<string>();
+
+            for (int i = 0, colCounter = 1; i < this.TilesCount; i++, colCounter++)
+            {
+                Tile currentTile = this.GetTileAtPosition(i);
+                sb.AppendFormat(currentTile.Display());
+
+                if (colCounter == GlobalConstants.GridSize)
+                {
+                    lines.Add(sb.ToString());
+                    sb.Clear();
+                    colCounter = 0;
+                }
+            }
+
+            return string.Join("|", lines);
         }
     }
 }

@@ -318,7 +318,7 @@
             if (memento != null)
             {
                 this.grid.RestoreMemento(memento);
-                    this.renderer.RenderPlayScreen(this.grid);
+                this.renderer.RenderPlayScreen(this.grid);
             }
             else
             {

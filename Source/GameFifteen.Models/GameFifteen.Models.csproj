@@ -39,8 +39,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\IGameMember.cs" />
     <Compile Include="Contracts\IGrid.cs" />
     <Compile Include="Contracts\IPlayer.cs" />
+    <Compile Include="GameMember.cs" />
     <Compile Include="Grid.cs" />
     <Compile Include="Memento.cs" />
     <Compile Include="Player.cs" />

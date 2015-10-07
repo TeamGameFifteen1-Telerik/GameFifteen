@@ -1,11 +1,12 @@
 ﻿namespace GameFifteen.Models
 {
+    using GameFifteen.Models.Contracts;
     using System;
 
     /// <summary>
     /// Prototype design pattern
     /// </summary>
-    public class Tile : TilePrototype, IComparable, ICloneable
+    public class Tile : TilePrototype, IComparable, ICloneable, IGameMember
     {
         private string label;
         private int position;
@@ -77,6 +78,17 @@
         public object Clone()
         {
             return new Tile(this.Label, this.Position, this.Type);
+        }
+
+        public override string Display()
+        {
+            string stringFormat = this.Label.Length < 2
+                    ? this.Label == string.Empty
+                    ? "   "
+                    : " {0} "
+                    : "{0} ";
+
+            return string.Format(stringFormat, this.Label);
         }
     }
 }

@@ -53,6 +53,8 @@
     <Compile Include="Config\Bindings.cs" />
     <Compile Include="ConsoleInterface.cs" />
     <Compile Include="ConsoleRenderer.cs" />
+    <Compile Include="Styles\Decorator.cs" />
+    <Compile Include="Styles\GridWithBorder.cs" />
     <Compile Include="Styles\GridBorderStyle.cs" />
     <Compile Include="Contracts\IStyle.cs" />
     <Compile Include="Contracts\IStyleFactory.cs" />
