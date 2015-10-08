@@ -132,7 +132,10 @@
             for (int i = 0, colCounter = 1; i < this.TilesCount; i++, colCounter++)
             {
                 Tile currentTile = this.GetTileAtPosition(i);
-                sb.AppendFormat(currentTile.Display());
+                int emptyFillerLength = this.TilesCount.ToString().Length - currentTile.Display().Length;
+                string emptyFiller = new string(' ', emptyFillerLength);
+
+                sb.AppendFormat("{0}{1} ", emptyFiller, currentTile.Display());
 
                 if (colCounter == GlobalConstants.GridSize)
                 {

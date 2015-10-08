@@ -2,14 +2,13 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
 
     using GameFifteen.Models.Contracts;
 
     /// <summary>
     /// Class for saving and listing top scorers.
     /// </summary>
-    public sealed class Scoreboard
+    public sealed class Scoreboard : GameMember, IGameMember
     {
         private const int TopPlayersCount = 4;
 
@@ -73,6 +72,18 @@
             }
 
             return topPlayers;
+        }
+
+        public override string Display()
+        {
+            var lines = new List<string>();
+            for (int i = 0; i < this.TopPlayers.Count; i++)
+            {
+                var currentPlayer = this.TopPlayers[i];
+                lines.Add(currentPlayer.Display());
+            }
+
+            return string.Join("|", lines);
         }
     }
 }

@@ -8,7 +8,7 @@
     /// <summary>
     /// Main Player class that save its name and moves and can be compared and cloned
     /// </summary>
-    public class Player : IPlayer, IComparable, ICloneable
+    public class Player : GameMember, IGameMember, IPlayer, IComparable, ICloneable
     {
         private string name;
         private int moves;
@@ -27,7 +27,7 @@
 
         public string Name
         {
-            get 
+            get
             {
                 return this.name;
             }
@@ -47,7 +47,7 @@
         {
             get
             {
-                return this.moves; 
+                return this.moves;
             }
 
             set
@@ -68,6 +68,12 @@
             var clone = new Player(this.Name);
             clone.Moves = this.Moves;
             return clone;
+        }
+
+        public override string Display()
+        {
+            var result = string.Format("{0}{1}{2} {3}", this.Name, " -> ", this.Moves, this.Moves == 1 ? "move" : "moves");
+            return result;
         }
     }
 }

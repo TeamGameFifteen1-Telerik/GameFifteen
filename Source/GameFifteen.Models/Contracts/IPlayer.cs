@@ -2,7 +2,7 @@
 
 namespace GameFifteen.Models.Contracts
 {
-    public interface IPlayer : ICloneable
+    public interface IPlayer : ICloneable, IGameMember
     {
         string Name { get; set; }
 

@@ -82,13 +82,9 @@
 
         public override string Display()
         {
-            string stringFormat = this.Label.Length < 2
-                    ? this.Label == string.Empty
-                    ? "   "
-                    : " {0} "
-                    : "{0} ";
-
-            return string.Format(stringFormat, this.Label);
+            return this.Label == String.Empty 
+                ? " "
+                : this.Label;
         }
     }
 }

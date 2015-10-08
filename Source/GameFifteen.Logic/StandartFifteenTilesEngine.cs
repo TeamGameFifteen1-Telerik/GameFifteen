@@ -75,6 +75,11 @@
             }
             catch (Exception ex)
             {
+                if (ex.InnerException != null)
+                {
+                    this.renderer.RenderMessage(ex.InnerException.Message);
+                }
+
                 this.renderer.RenderMessage(ex.Message);
             }
         }
@@ -89,7 +94,15 @@
             string methodName = "Execute" + command.ToString() + "Command";
             var methodInfo = this.GetType().GetMethod(methodName, BindingFlags.NonPublic
                 | BindingFlags.Instance);
-            methodInfo.Invoke(this, null);
+
+            try
+            {
+                methodInfo.Invoke(this, null);
+            }
+            catch (InvalidOperationException ex)
+            {
+                this.renderer.RenderMessage(ex.Message);                
+            }
         }
 
         private void Run()

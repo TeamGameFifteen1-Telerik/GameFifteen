@@ -205,13 +205,15 @@
             else
             {
                 int position = 1;
-                foreach (Player player in scoreboard.TopPlayers)
+                var scoreboardLines = scoreboard.Display().Split('|');
+
+                foreach (string line in scoreboardLines)
                 {
+                    var playerLine = line.Split(new string[] { "->" }, StringSplitOptions.None);
                     this.PrintOnPosition(x, y, position.ToString() + ". ", GameMessagesColor);
-                    this.PrintOnPosition(Console.CursorLeft, y, player.Name, UserMessagesColor);
+                    this.PrintOnPosition(Console.CursorLeft, y, playerLine[0], UserMessagesColor);
                     this.PrintOnPosition(Console.CursorLeft, y, " -> ", GameMessagesColor);
-                    this.PrintOnPosition(Console.CursorLeft, y, player.Moves.ToString(), UserMessagesColor);
-                    this.PrintOnPosition(Console.CursorLeft, y++, " moves", GameMessagesColor);
+                    this.PrintOnPosition(Console.CursorLeft, y++, playerLine[1], UserMessagesColor);
                     position++;
                 }
             }
@@ -230,7 +232,7 @@
             int y = InitialGridY;
 
             this.ClearConsole();
-            this.PrintOnPosition(InitialWelcomeMessageX, InitialWelcomeMessageX, GameMessages.Welcome, ExplanationsColor);
+            this.PrintOnPosition(InitialWelcomeMessageX, InitialWelcomeMessageY, GameMessages.Welcome, ExplanationsColor);
             this.RenderGrid(x, y, grid);
         }
 
