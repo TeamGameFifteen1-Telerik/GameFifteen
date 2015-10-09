@@ -79,8 +79,10 @@
                 {
                     this.renderer.RenderMessage(ex.InnerException.Message);
                 }
-
-                this.renderer.RenderMessage(ex.Message);
+                else
+                {
+                    this.renderer.RenderMessage(ex.Message);
+                }
             }
         }
 

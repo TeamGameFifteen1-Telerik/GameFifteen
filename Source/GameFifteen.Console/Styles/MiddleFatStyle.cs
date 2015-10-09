@@ -24,7 +24,7 @@
         /// </summary>
         public MiddleFatStyle()
         {
-            this.type = BorderStyleType.MiddleFat;
+            this.type = BorderStyleType.Middlefat;
         }
 
         /// <summary>

@@ -23,7 +23,7 @@
         /// <summary>
         /// Type that using symbols presenting a thin line than 'fat' line.
         /// </summary>
-        MiddleFat,
+        Middlefat,
 
         /// <summary>
         /// Type that using default symbols for border style.
@@ -38,6 +38,6 @@
         /// <summary>
         /// Type that using a asterisk symbol for border style.
         /// </summary>
-        Asteriks
+        Asterisk
     }
 }

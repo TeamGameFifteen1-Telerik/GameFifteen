@@ -25,13 +25,13 @@
                     return new DottedStyle();
                 case BorderStyleType.Fat:
                     return new FatStyle();
-                case BorderStyleType.MiddleFat:
+                case BorderStyleType.Middlefat:
                     return new MiddleFatStyle();
                 case BorderStyleType.Double:
                     return new DoubleStyle();
                 case BorderStyleType.Default:
                     return new NormalStyle();
-                case BorderStyleType.Asteriks:
+                case BorderStyleType.Asterisk:
                     return new AsteriskStyle();
                 default:
                     throw new ArgumentException("There's no border of that type.");

@@ -20,7 +20,7 @@
         /// </summary>
         public AsteriskStyle()
         {
-            this.type = BorderStyleType.Asteriks;
+            this.type = BorderStyleType.Asterisk;
         }
 
         /// <summary>
