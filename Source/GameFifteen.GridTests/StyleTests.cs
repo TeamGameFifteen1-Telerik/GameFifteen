@@ -19,8 +19,8 @@
 
         private readonly BorderStyleType[] styleTypes = new BorderStyleType[] 
         { 
-            BorderStyleType.Dotted, BorderStyleType.Double, BorderStyleType.Fat, BorderStyleType.MiddleFat, 
-            BorderStyleType.Default,  BorderStyleType.Solid, BorderStyleType.Asteriks
+            BorderStyleType.Dotted, BorderStyleType.Double, BorderStyleType.Fat, BorderStyleType.Middlefat, 
+            BorderStyleType.Default,  BorderStyleType.Solid, BorderStyleType.Asterisk
         };
 
         private GridBorderStyle gridStyle;
@@ -42,7 +42,7 @@
             string allBorders = this.gridStyle.Bottom + this.gridStyle.Top + this.gridStyle.Left + this.gridStyle.Right;
             bool result = allBorders.All(ch => ch == '*' || ch == ' ');
             Assert.AreEqual(true, result);
-            Assert.AreEqual(BorderStyleType.Asteriks, this.gridStyle.Type);
+            Assert.AreEqual(BorderStyleType.Asterisk, this.gridStyle.Type);
         }
 
         [TestMethod]
@@ -92,7 +92,7 @@
             string allBorders = this.gridStyle.Bottom + this.gridStyle.Top + this.gridStyle.Left + this.gridStyle.Right;
             bool result = allBorders.All(ch => "▄▀▐▌ ".Contains(ch));
             Assert.AreEqual(true, result);
-            Assert.AreEqual(BorderStyleType.MiddleFat, this.gridStyle.Type);
+            Assert.AreEqual(BorderStyleType.Middlefat, this.gridStyle.Type);
         }
 
         [TestMethod]
