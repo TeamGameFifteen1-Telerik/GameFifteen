@@ -13,7 +13,7 @@
     public class ConsoleInterfaceTests
     {
         [TestMethod]
-        public void TestMethod2()
+        public void TestGetUserInputToReturnCorrectValue()
         {
             StreamReader reader = new StreamReader("..//..//testCommands.txt");
             Console.SetIn(reader);
