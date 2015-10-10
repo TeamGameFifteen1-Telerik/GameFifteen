@@ -7,6 +7,6 @@
     /// </summary>
     public abstract class GameMember : IGameMember
     {
-        public abstract string Display();
+        public abstract string GetTextRepresentation();
     }
 }

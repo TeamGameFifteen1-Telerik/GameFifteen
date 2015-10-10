@@ -97,6 +97,10 @@
             }
         }
 
+        /// <summary>
+        /// Saves grid state.
+        /// </summary>
+        /// <returns></returns>
         public Memento SaveMemento()
         {
             var tiles = this.tiles.Clone<Tile>().ToList();
@@ -104,12 +108,20 @@
             return new Memento(tiles);
         }
 
+        /// <summary>
+        /// Restores saved grid state.
+        /// </summary>
+        /// <param name="memento"></param>
         public void RestoreMemento(Memento memento)
         {
             this.tiles = memento.Tiles.Clone<Tile>().ToList();
         }
 
-        public override string Display()
+        /// <summary>
+        /// Gets a text representation for the grid.
+        /// </summary>
+        /// <returns>The grid as a string</returns>
+        public override string GetTextRepresentation()
         {
             var sb = new StringBuilder();
             var lines = new List<string>();
@@ -117,10 +129,10 @@
             for (int i = 0, colCounter = 1; i < this.TilesCount; i++, colCounter++)
             {
                 Tile currentTile = this.GetTileAtPosition(i);
-                int emptyFillerLength = (this.TilesCount - 1).ToString().Length - currentTile.Display().Length;
+                int emptyFillerLength = (this.TilesCount - 1).ToString().Length - currentTile.GetTextRepresentation().Length;
                 string emptyFiller = new string(' ', emptyFillerLength);
 
-                sb.AppendFormat("{0}{1} ", emptyFiller, currentTile.Display());
+                sb.AppendFormat("{0}{1} ", emptyFiller, currentTile.GetTextRepresentation());
 
                 if (colCounter == GlobalConstants.GridSize)
                 {

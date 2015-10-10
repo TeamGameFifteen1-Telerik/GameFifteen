@@ -3,104 +3,193 @@ Refactoring Documentation for Project “Game Fifteen"
 
 1.  Redesigned the project structure: **Team “Game-Fifteen-1”**
 	- Renamed the solution to *GameFiteen*.
-	- Created separate projects to separate the logic: *GameFifteen.Common*, *GameFifteen.Console*, *GameFifteen.Logic*, *GameFifteen.Models*.
+	- Created separate projects to separate the logic: 
+		- *GameFifteen.Common*, 
+		- *GameFifteen.Console*, 
+		- *GameFifteen.Logic*, 
+		- *GameFifteen.Models*.
 	- Renamed classes: 
-		- *Gameplay* to *Engine*
+		- *Gameplay* to *StandartFifteenTilesEngine*
 		- *MatrixGenerator* to *Grid*
 		- *Program* to *GameFifteenMain*
 	- Moved classes:
-		-  *Engine*, *Command* to project *GameFifteen.Logic*
+		-  *StandartFifteenTilesEngine*, *Command* to project *GameFifteen.Logic*
 		-  *Player*, *Tile*, *Grid*, *Scoreboard* to *GameFifteen.Models*
 		-  *GameFifteenMain* to *GameFifteen.Console*
-	- *Command* class turned into *Command* enum. Method *CommandType()* moved from class *Command* to *Engine*
+	- *Command* class turned into *Command* enum. Method ```CommandType()``` redesigned.
 	- Class *Grid* and class *Scoreboard* are no longer static.
 2.  Introduced new classes:
-	- *ConsoleRenderer* in project *GameFifteen.Console*
-		- Method *PrintScoreboard()* moved from *Scoreboard* to *ConsoleRenderer*
-		- Method *PrintMatrix()* moved from *Grid* to *ConsoleRenderer*
-	- *ConsoleInterface* in project *GameFifteen.Console*
-	- *GlobalConstants* in project *GameFifteen.Common*	
-		- Global constants moved to *GlobalConstants* class.
+	- *GameFifteen.Common*:
+		- *GlobalConstants*	
+			- Holds global game constants.
+			- Global constants moved to *GlobalConstants* class.
+		- *GameMessages*
+			- Stores common game messages.
+		- *IEnumerableExtensions*
+			- Holds extension methods for IEnumerable collection.
+	- *GameFifteen.Logic*:
+		- *Engine*
+			- An abstract class, implements *IEngine* and holds a reference to *IGameInitializater*
+		- *StandardFifteenTilesEngine*
+			- Takes IRenderer, IUserInterface, IGameInitializater, IPlayer, IGrid objects as parameters
+			- Game logic implementation.
+				- Initializes and starts a new game.
+				- Processes user commands.			
+			- *Strategy* design pattern: IRenderer, IUserInterface objects
+			- *Bridge* design pattern: IGameInitializer object.
+		- *GridMemory*
+			- To store saved game mementos (*Memento* design pattern - Caretaker)
+		- *StandartGameInitializer*
+			- Hold the logic to initialize a new Grid.
+	- *GameFifteen.Models*:
+		- *GameMember*
+			- Abstract game member class
+		- *Memento*
+			- A class to save game state when the player saves their game.
+			- Also used to save game state after each move for ```game``` command.
+		- *TilePrototype*
+			- Abstract class for cloning tiles.
+			- *Prototype* design pattern.
+	- *GameFifteen.Console*
+		- *ConsoleRenderer*
+			- Method ```PrintScoreboard()``` moved from *Scoreboard* to *ConsoleRenderer* and renamed to ```RenderScoreboard()```. Redesigned.
+			- Method ```PrintMatrix()``` moved from *Grid* to *ConsoleRenderer* and renamed to ```RenderGrid()```. Redesigned.
+			- Added new method ```RenderMessage()``` to render a single message.
+			- Added new method ```RenderInitialScreen()``` to render initial game screen.
+			- Added new method ```RenderGameOptions()``` to render game options.
+			- Added new method ```RenderPlayScreen()``` to render play screen.
+			- Added Helper methods:
+				- ```PrintOnPosition()```
+				- ```SetInitialConsoleSize()```
+				- ```SaveCursorCurrentPosition()```
+				- ```ResetCursorToPreviousPosition()```
+				- ```ResetConsoleColor()```
+				- ```ClearConsolePart()```
+				- ```ClearConsole()```
+			- Added new method ```AddStyle()``` for ```style``` command.
+		- *GameImages*
+			- Holds ascii strings to display on the console.
+		- *RenderConstants*
+			- Holds constants used by the *ConsoleRenderer*.
+		- *ConsoleInterface*
+			- Method ```GetUserInput()``` to get user input from the console.
+			- Method ```GetCommandFromInput()``` to get the user's input and return a Command enum member.
+			- Method ```ExitGame()``` for game exit.
+		- *GameFifteenStarter*
+			- *Facade*
+			- *Singleton*
+			- Method NewGame() to start a new game. Gets all dependencies using Ninject and runs the game engine.
+		- *Bindings*
+			- Configuration class to configure dependencies via Ninject. *Object pool*.
+		- **Style**
+			- *GridBorderStyle*
+				- An abstract class for a grid border.
+			- *AsteriskStyle*, *DottedStyle*, *DoubleStyle*, *FatStyle*, *MiddleFatStyle*, *SolidStyle*
+				- Different grid border styles.
+			- *BorderStyleFactory*
+				- *Simple factory* to create different border styles.
+			- *Decorator*
+				- Abstract class used to decorate game members.
+			- *GridWithBorder*
+				- Concrete decorator class - adds border to a grid.
+		
 3.  Redesigned project logic:
 	- Class *Grid*:
-		- Introduced new properties *EmptyTile* and *IsSorted*
+		- Introduced new properties ```TilesCount``` and ```IsSorted```
 		- Introduced new field *tiles* to hold all tiles
 		- Refactored methods:
-			- *GenerateMatrix()* (renamed to *Initialize()*) - removed new List of tiles initialization, made method void, renamed variables;
-			- *ShuffleMatrix()* (renamed to *Shuffle()*) - moved random initialization to the static constructor, removed new matrix initialization, made method void, renamed variables;
-			- *MoveFreeTile()* (renamed to *MoveEmptyTileRandomly()*) - extracted logic to separate methods (*SwapTiles()* and (*GetNeighbours()*); 
-			- *GenerateNeighbourTilesList()* (renamed to *GetNeighbours()*) - now returns a full list of valid neighbours; 
-			- *DetermineFreeTile()* (renamed to *GetEmptyTile()*) - removed unneeded variable initialization, uses new field *tiles*; 
-			- *AreValidNeighbourTiles()* (renamed to *ValidateNeighbour()*) - conditions assigned to variables to make code more readable.
-		- Extracted methods *GetTilePosition()*, *GetTileAtPosition()*, *GetTileFromLable()*, *CheckIfSorted()*, *SwapTiles()*			
-	- Class *Engine*
-		- Removed methods *GetFreeTilePosition()*, *AreValidNeighbourTiles()*, *TilePositionValidation()*, *GetDestinationTilePosition()* - logic moved to class *Grid*
-		- Refactored method *IsMatrixSolved()*
-		- Method *MoveTiles()* moved from class *Engine* to class *Grid* and refactored (variables renamed, methods extracted)
+			- ```GenerateMatrix()``` (renamed to ```InitializeGrif()```) - removed new List of tiles initialization, made method void, renamed variables. Moved to *StandartGameInitializer*.
+			- ```ShuffleMatrix()``` (renamed to ```ShuffleGrid()```) - moved random initialization to the static constructor, removed new matrix initialization, made method void, renamed variables. Moved to *StandartGameInitializer*.
+			- ```MoveFreeTile()``` (renamed to ```MoveEmptyTileRandomly()```) - extracted logic to separate methods (```SwapTiles()``` and (```GetNeighbours()```). Moved to *StandartGameInitializer*.
+			- ```GenerateNeighbourTilesList()``` (renamed to ```GetNeighbours()```) - now returns a full list of valid neighbours. Moved to *StandartGameInitializer*.
+			- ```DetermineFreeTile()``` (renamed to *GetEmptyTile()*) - removed unneeded variable initialization, uses new field *tiles*; 
+			- ```AreValidNeighbourTiles()``` (renamed to *CanSwap()*) - conditions assigned to variables to make code more readable.
+		- Extracted methods *GetTileAtPosition()*, *GetTileFromLable()*, *CheckIfSorted()*, *SwapTiles()*
+		- Added new methods:
+			- ```AddTile()``` to add tiles
+			- ```GetEnumerator()``` to iterate over the grid.
+			- ```SaveMemento()``` to save grid state at certain point.
+			- ```RestoreMemento()``` to restore saved  grid state.
+			- ```GetTextRepresentation()``` to get grid as text.
+	- Class *Tile*
+		- Added new methods to ```CloneMemberwise()``` and ```Clone()``` to clone a tile.
+		- Added new method ```GetTextRepresentation()``` to get tile as text.
+	- Class *Scoreboard*
+		- Lazy initialization
+		- Players list is now initialized in the constructor
+		- Moved ```PrintScoreboard()``` to ConsoleRenderer.
+		- Removed method ```DeleteAllExceptTopPlayers()```.
+		- Added new method ```AddPlayer()``` to  add new player to players list.
+		- Added new method ```Clear()``` to clear Scoreboard
+		- Added new method ```GetTextRepresentation()``` to get scoreboard as text.
+		- Added property ```TopPlayers``` to get all top players
+	- Class *Player*
+		- Added validations for player's name
+		- Added new method ```GetTextRepresentation() to get player as text.
+		- Added default name "Guest" if player doesn't enter name.		
+	- Class *StandartFifteenTilesEngine*
+		- Removed methods ```GetFreeTilePosition()```, ```AreValidNeighbourTiles()```, ```TilePositionValidation()```, ```GetDestinationTilePosition()``` - logic moved to class *Grid* and *StandartGameInitializer*
+		- Refactored method ```IsMatrixSolved()```
+			- Extracted method ```AskForAnotherGame()``` to ask user for a new game.
+			- Extracted method ```SaveScore()``` to save user's score.
+			- Method ```IsGameOver()``` to check if game is over.
+			- Method ```GameOver()``` to handle game end.
+		- Method ```MoveTiles()``` moved from class *StandartFifteenTilesEngine* to class *StandartGameInitializer* and refactored (variables renamed, methods extracted)
+		- Added method ```ExecuteCommand()``` to handle commands.
+		- Added separate methods for different commands: ```ExecuteMenuCommand()```, ```ExecuteStartCommand()```, ```ExecuteGameCommand()```, ```ExecuteHowCommand()```, ```ExecuteTopCommand()```, ```ExecuteRestartCommand()```, ```ExecuteMoveCommand()```, ```ExecuteStyleCommand()```, ```ExecuteSaveCommand()```, ```ExecuteLoadCommand()```, ```ExecuteSolveCommand()```, ```ExecuteExitCommand()``` to handle commands.
+		- Added method ```UserAgrees()``` to get user's agreement for some commands.
+		- Added methods ```IsValidMove()``` and ```IsValidTileLabel()``` to validate ```move``` command.
+		- Added method ```SaveCurrentGameState()``` to save current game state.
+		- Added method ```Initialize()``` to initialize the initial game screen.
+		- Added method ```Run()``` to initialize the play screen.	
 	- Class *GameFifteenMain*:
-		- Logic from method *Menu* moved to method Run in class *Engine*
+		- Logic from method *Menu* moved to method Run in class *StandartFifteenTilesEngine*
+		- Gets an instance of GameFifteenStarter and runs ```NewGame()```	
 	- Added interfaces:
-		- *IRenderer* to use in class *Engine*
-		- *IUserInterface* for user input, to use in class *Engine*
-4.	Implemented Pattens
-	- Creation
+		- *GameFifteen.Logic*
+			- *IRenderer* to use in class *StandartFifteenTilesEngine*
+			- *IUserInterface* for user input, to use in class *StandartFifteenTilesEngine*
+			- *IEngine*
+			- *IGameInitializater*
+		- *GameFifteen.Models*
+			- *IGameMember*
+			- *IGrid*
+			- *IPlayer*
+		- *GameFifteen.Console*
+			- *IStyle* - for styles on the grid
+			- *IStyleFactory*
+	- Added enumerations
+		- *TileType*
+		- *Command*
+		- *BorderStyleType*
+4.	Implemented Patterns
+	- Creational
 		- Singleton [link](https://github.com/TeamGameFifteen1-Telerik/GameFifteen/blob/master/Source/GameFifteen.Models/Scoreboard.cs), GameFifteenStarter
 		- Prototype [link](https://github.com/TeamGameFifteen1-Telerik/GameFifteen/blob/master/Source/GameFifteen.Models/Tile.cs#L69)
 		- Simple Factory - GridStyleFactory Enum.
 		- Object Pool - Werehouse Bindings.cs
 	- Structural
-		- Facaade - GameFifteenStarter.cs and GameFifteenMain.cs
+		- Facade - GameFifteenStarter.cs and GameFifteenMain.cs
 		- Decorator concrete decorator GridWithBorder.cs,  abstract decorator Decorator.cs 
 		- Bridge between IGameInitializer and IEngine (engine.cs)
-	- Behaivor
+	- Behavioral
 		- Memento [link](https://github.com/TeamGameFifteen1-Telerik/GameFifteen/blob/master/Source/GameFifteen.Models/Grid.cs#L105)
 		- Strategy - StandartFifteenTilesEngine.ctor() IRenderer renderer, IUserInterface userInterface
 		- Iterator - Grid.cs  IEnumerator GetEnumerator(), Foreach implements iterator 
-		
-		S - GameFifteenMain
-		O - EveryWhere , add style
-		L - Styles
-		I - Logic.Contracts 
-		D - (Ninject) loosely-coupled, highly-cohesive https://en.wikipedia.org/wiki/Dependency_injection#Advantages
-		
-		__if game logic changes to more tiles and grid size is bigger it still works.__
-		
-Sample Refactoring Documentation for Project “Game 15”                                                                                                                          
-------------------------------------------------------
-
-1.  Redesigned the project structure: Team “…”
-	-   Renamed the project to `Game-15`.
-	-   Renamed the main class `Program` to `GameFifteen`.
-	-   Extracted each class in a separate file with a good name: `GameFifteen.cs`, `Board.cs`, `Point.cs`.
-	-   …
-2.  Reformatted the source code:
-	-   Removed all unneeded empty lines, e.g. in the method `PlayGame()`.
-	-   Inserted empty lines between the methods.
-	-   Split the lines containing several statements into several simple lines, e.g.:
-	
-	Before:
-	
-		if (input\[i\] != ' ') break;
-		
-	After:
-
-		if (input\[i\] != ' ')
-		{
-			break;
-		}
-	
-	-   Formatted the curly braces **{** and **}** according to the best practices for the C\# language.
-	-   Put **{** and **}** after all conditionals and loops (when missing).
-	-   Character casing: variables and fields made **camelCase**; types and methods made **PascalCase**.
-	-   Formatted all other elements of the source code according to the best practices introduced in the course “[High-Quality Programming Code](http://telerikacademy.com/Courses/Courses/Details/244)”.
-	-   …
-3.  Renamed variables:
-	-   In class `Fifteen`: `number` to `numberOfMoves`.
-	-   In `Main(string\[\] args)`: `g` to `gameFifteen`.
-4.  Introduced constants:
-	-   `GAME\_BOARD\_SIZE = 4`
-	-   `SCORE\_BOARD\_SIZE = 5`. 
-5.  Extracted the method `GenerateRandomGame()` from the method `Main()`.
-6.  Introduced class `ScoreBoard` and moved all related functionality in it.
-7.  Moved method `GenerateRandomNumber(int start, int end)` to separate class `RandomUtils`.
-8.  …
+5. Added unit tests
+6. Code documented. Documentation exported to chm file.
+7. New functionalities:
+	- ```save``` and ```load``` game commands
+	- ```style``` command to style the gird.
+	- ```solve``` command for instant solve.
+	- ```how``` command for game options.
+	- ```game``` command to return to game screen
+8. HQC principles
+	- *SOLID*:
+		- *S*: small methods and classes, each with one concrete purpose
+		- *O*: easy to add different engine / game initializer / renderer, different type of grid or player without modifying. Also extend it with styles. Example: GridBorderStyle - easy to add a new style.
+		- *L*: Example: Styles - GridBorderStyle class can be substituted by every style class
+		- *I*: Small interfaces. Example: Logic.Contracts 
+		- *D*: Classes take dependencies in their constructors. No initializations inside. Using Ninject to handle dependencies, loosely-coupled, highly-cohesive [DI advantages on wikipedia](https://en.wikipedia.org/wiki/Dependency_injection#Advantages)
+	- *DRY*: repeating logic extracted to methods so they can be reused.
+	- *Abstraction* - passing interfaces instead of implementations. Different projects handle different parts of the game. Easy to introduce custom game logic (for example more tiles). Easy to add a different Client. 

@@ -9,6 +9,6 @@
     {
         public abstract Tile CloneMemberwise();
 
-        public abstract override string Display();
+        public abstract override string GetTextRepresentation();
     }
 }

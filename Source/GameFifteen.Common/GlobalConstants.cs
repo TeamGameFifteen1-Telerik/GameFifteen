@@ -14,5 +14,6 @@
         public const string DestinationTileValue = "DestinationTileValue";
         public const string GridBorderStyle = "GridBorderStyle";
 
+        public const string ScoreboardFilePath = @"../";
     }
 }

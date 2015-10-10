@@ -19,9 +19,9 @@
 
         protected IGameMember GameMember { get; private set; }
 
-        public override string Display()
+        public override string GetTextRepresentation()
         {
-            return this.GameMember.Display();
+            return this.GameMember.GetTextRepresentation();
         }
     }
 }

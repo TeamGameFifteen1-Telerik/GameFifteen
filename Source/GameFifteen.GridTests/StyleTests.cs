@@ -167,7 +167,7 @@
             {
                 var currentBorderStyleForTesting = styles[i];
                 gridBorder = new GridWithBorder(grid, currentBorderStyleForTesting);
-                string result = gridBorder.Display();
+                string result = gridBorder.GetTextRepresentation();
                 Assert.AreEqual(true, result.Contains(currentBorderStyleForTesting.Top) &&
                                 result.Contains(currentBorderStyleForTesting.Bottom) &&
                                 result.Contains(currentBorderStyleForTesting.Right) &&
