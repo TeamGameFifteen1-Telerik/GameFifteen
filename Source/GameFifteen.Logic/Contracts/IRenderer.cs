@@ -38,9 +38,7 @@
         /// <summary>
         /// Prints the initial screen with game logo.
         /// </summary>
-        /// <param name="menuStartPositionX">Horizontal menu position.</param>
-        /// <param name="menuStartPositionY">Vertical menu position.</param>
-        void RenderInitialScreen(int menuStartPositionX = GlobalConstants.MenuStartPositionX, int menuStartPositionY = GlobalConstants.MenuStartPositionY);
+        void RenderInitialScreen();
 
         void RenderGameOptions();
     }
