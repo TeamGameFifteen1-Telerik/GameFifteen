@@ -5,6 +5,7 @@ using GameFifteen.Logic.Contracts;
 using GameFifteen.Models.Contracts;
 using GameFifteen.Logic;
 using GameFifteen.Models;
+using GameFifteen.Console;
 
 namespace GameFifteen.LogicTests
 {
@@ -31,6 +32,29 @@ namespace GameFifteen.LogicTests
             fakeGameInit.Object.InitilizeGrid(grid);
             fakeGameInit.Verify(i => i.InitilizeGrid(grid), Times.AtLeastOnce());
         }
-        
+
+       [TestMethod]
+        public void TestWheatherTilesAreAddedCorrectly()
+       {
+           var fGrid = new Mock<IGrid>();
+            var tile = new Tile("1",1,TileType.Number);
+            fGrid.Setup(g => g.AddTile(tile));
+            fGrid.Object.AddTile(tile);
+            fGrid.Verify(g => g.AddTile(tile), Times.AtLeastOnce());
+            fGrid.Setup(g => g.TilesCount).Returns(1);
+            Assert.AreEqual(1, fGrid.Object.TilesCount);
+
+            
+       }
+
+       [TestMethod]
+        public void TestWheatherTileAtPositionMethodReturnsCorrectValues()
+       {
+           var fGrid = new Mock<IGrid>();
+           var tile = new Tile("1", 1, TileType.Number);
+           fGrid.Setup(g => g.GetTileAtPosition(1)).Returns(new Tile("1", 1, TileType.Number));
+           var exp = fGrid.Object.GetTileAtPosition(1);
+           Assert.AreEqual(tile.Position, exp.Position);
+       }
     }
 }
