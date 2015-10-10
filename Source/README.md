@@ -44,14 +44,26 @@ Refactoring Documentation for Project “Game Fifteen"
 		- *IUserInterface* for user input, to use in class *Engine*
 4.	Implemented Pattens
 	- Creation
-		- Singleton [link](https://github.com/TeamGameFifteen1-Telerik/GameFifteen/blob/master/Source/GameFifteen.Models/Scoreboard.cs)
+		- Singleton [link](https://github.com/TeamGameFifteen1-Telerik/GameFifteen/blob/master/Source/GameFifteen.Models/Scoreboard.cs), GameFifteenStarter
 		- Prototype [link](https://github.com/TeamGameFifteen1-Telerik/GameFifteen/blob/master/Source/GameFifteen.Models/Tile.cs#L69)
-		- Factory Method
+		- Simple Factory - GridStyleFactory Enum.
+		- Object Pool - Werehouse Bindings.cs
 	- Structural
+		- Facaade - GameFifteenStarter.cs and GameFifteenMain.cs
+		- Decorator concrete decorator GridWithBorder.cs,  abstract decorator Decorator.cs 
+		- Bridge between IGameInitializer and IEngine (engine.cs)
 	- Behaivor
 		- Memento [link](https://github.com/TeamGameFifteen1-Telerik/GameFifteen/blob/master/Source/GameFifteen.Models/Grid.cs#L105)
-		- Strategy
+		- Strategy - StandartFifteenTilesEngine.ctor() IRenderer renderer, IUserInterface userInterface
+		- Iterator - Grid.cs  IEnumerator GetEnumerator(), Foreach implements iterator 
 		
+		S - GameFifteenMain
+		O - EveryWhere , add style
+		L - Styles
+		I - Logic.Contracts 
+		D - (Ninject) loosely-coupled, highly-cohesive https://en.wikipedia.org/wiki/Dependency_injection#Advantages
+		
+		__if game logic changes to more tiles and grid size is bigger it still works.__
 		
 Sample Refactoring Documentation for Project “Game 15”                                                                                                                          
 ------------------------------------------------------

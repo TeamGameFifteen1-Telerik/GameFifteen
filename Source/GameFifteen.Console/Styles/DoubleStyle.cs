@@ -13,7 +13,7 @@
     {
         private readonly char symbol = '║';
         private readonly char line = '═';
-        private readonly int length = (GlobalConstants.GridSize * 4) - 2;
+        private readonly int length = (GlobalConstants.GridSize * 4) - (GlobalConstants.GridSize - 2);
         private Enum type;
 
         /// <summary>

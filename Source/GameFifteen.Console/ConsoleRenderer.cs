@@ -44,7 +44,7 @@
         private const ConsoleColor GameMessagesColor = ConsoleColor.Yellow;
         private const ConsoleColor ExplanationsColor = ConsoleColor.Green;
 
-        private Dictionary<string, IStyle> styles;
+        private IDictionary<string, IStyle> styles;
         private IStyleFactory borderStyleFactory;
 
         private int previousX;
@@ -67,7 +67,7 @@
         /// Gets collection of styles.
         /// </summary>
         /// <value>Pair key-value collection.</value>
-        public Dictionary<string, IStyle> Styles
+        public IDictionary<string, IStyle> Styles
         {
             get
             {

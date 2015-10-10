@@ -13,7 +13,7 @@
     {
         private readonly char symbol = '-';
         private readonly char sideSymbol = '|';
-        private readonly int length = (GlobalConstants.GridSize * 3) - 1;
+        private readonly int length = (GlobalConstants.GridSize * 2) - 1;
         private Enum type;
 
         /// <summary>

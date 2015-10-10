@@ -5,7 +5,7 @@
     using GameFifteen.Console.Contracts;
 
     /// <summary>
-    /// Implements Factory Method Pattern witch provides a creation of concrete object.
+    /// Implements Simple Factory Pattern witch provides a creation of concrete object.
     /// </summary>
     public class BorderStyleFactory : IStyleFactory
     {

@@ -132,7 +132,7 @@
             for (int i = 0, colCounter = 1; i < this.TilesCount; i++, colCounter++)
             {
                 Tile currentTile = this.GetTileAtPosition(i);
-                int emptyFillerLength = this.TilesCount.ToString().Length - currentTile.Display().Length;
+                int emptyFillerLength = (this.TilesCount - 1).ToString().Length - currentTile.Display().Length;
                 string emptyFiller = new string(' ', emptyFillerLength);
 
                 sb.AppendFormat("{0}{1} ", emptyFiller, currentTile.Display());
