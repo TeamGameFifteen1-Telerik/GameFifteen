@@ -21,32 +21,7 @@
         public const string GameSaved = "Game saved.";
         public const string Welcome = "Welcome to the game “15”. Try to arrange the numbers sequentially. " + EnterHow;
         public const string Goal = "You're given a grid of 15 numbered tiles and one empty one. Try to arrange the numbers sequentially by moving numbered tiles to the empty space. To move a tile, enter its number.";
-
-        // inital screen
         public const string Enter = "Enter: ";
-        public const string GameLogo = @"
- .----------------.  .----------------.  .----------------.  .----------------. 
-| .--------------. || .--------------. || .--------------. || .--------------. |
-| |    ______    | || |      __      | || | ____    ____ | || |  _________   | |
-| |  .' ___  |   | || |     /  \     | || ||_   \  /   _|| || | |_   ___  |  | |
-| | / .'   \_|   | || |    / /\ \    | || |  |   \/   |  | || |   | |_  \_|  | |
-| | | |    ____  | || |   / ____ \   | || |  | |\  /| |  | || |   |  _|  _   | |
-| | \ `.___]  _| | || | _/ /    \ \_ | || | _| |_\/_| |_ | || |  _| |___/ |  | |
-| |  `._____.'   | || ||____|  |____|| || ||_____||_____|| || | |_________|  | |
-| |              | || |              | || |              | || |              | |
-| '--------------' || '--------------' || '--------------' || '--------------' |
- '----------------'  '----------------'  '----------------'  '----------------'
- .----------------.  .----------------. 
-| .--------------. || .--------------. |
-| |     __       | || |   _______    | |
-| |    /  |      | || |  |  _____|   | |
-| |    `| |      | || |  | |____     | |
-| |     | |      | || |  '_.____''.  | |
-| |    _| |_     | || |  | \____) |  | |
-| |   |_____|    | || |   \______.'  | |
-| |              | || |              | |
-| '--------------' || '--------------' |
- '----------------'  '----------------' ";
 
         public static readonly IDictionary<string, string> CommandsDescription = new Dictionary<string, string>
         {

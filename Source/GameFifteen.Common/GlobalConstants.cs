@@ -14,7 +14,5 @@
         public const string DestinationTileValue = "DestinationTileValue";
         public const string GridBorderStyle = "GridBorderStyle";
 
-        public const int MenuStartPositionX = 47;
-        public const int MenuStartPositionY = 15;
     }
 }
