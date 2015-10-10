@@ -59,7 +59,9 @@
     <Compile Include="ScoreBoardTests.cs" />
     <Compile Include="StyleTests.cs" />
     <Compile Include="TileTests.cs" />
-    <Compile Include="PlayerTests.cs" />
+    <Compile Include="PlayerTests.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GameFifteen.Common\GameFifteen.Common.csproj">

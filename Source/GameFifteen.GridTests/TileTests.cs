@@ -4,9 +4,15 @@
     using GameFifteen.Models;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
+    /// <summary>
+    /// Class tests Tile class functionalities.
+    /// </summary>
     [TestClass]
     public class TileTests
     {
+        /// <summary>
+        /// Method tests if Tile constructor assigns correct values of the Tile.Label property.
+        /// </summary>
         [TestMethod]
         public void TestIfTileConstructorReturnsValidStateOfLabel()
         {
@@ -16,6 +22,9 @@
             Assert.AreEqual(actual, expected);
         }
 
+        /// <summary>
+        /// Method tests if Tile constructor returns valid state of Tile.Position property.
+        /// </summary>
         [TestMethod]
         public void TestIfTileConstructorReturnsValidStateOfPosition()
         {
@@ -25,6 +34,9 @@
             Assert.AreEqual(actual, expected);
         }
 
+        /// <summary>
+        /// Method tests if the .CompareTo() method returns a integer value of "-1" when two tiles are provided and the first is before the second one.
+        /// </summary>
         [TestMethod]
         public void TestIfCompareToMethodReturnsNegativeValueWhenFirstTileIsBeforeSecond()
         {
@@ -35,6 +47,9 @@
             Assert.AreEqual(actual, expected);
         }
 
+        /// <summary>
+        /// Method tests if the .CompareTo() method returns a integer value of "1" when two tiles are provided and the first is after the second one.
+        /// </summary>
         [TestMethod]
         public void TestIfCompareToMethodReturnsPositiveValueWhenSecondTileIsBeforeFirst()
         {
@@ -45,8 +60,11 @@
             Assert.AreEqual(actual, expected);
         }
 
+        /// <summary>
+        /// Method tests if CompareTo() method returns an integer value of "0" when tiles are identical.
+        /// </summary>
         [TestMethod]
-        public void TestIfCompareToMethodReturnZeroWhenTiles()
+        public void TestIfCompareToMethodReturnZeroWhenTilesHaveTheSameValues()
         {
             var firstTile = new Tile("3", 3, TileType.Number);
             var secondTile = this.CloneTile(firstTile, "3", 3);
@@ -55,6 +73,14 @@
             Assert.AreEqual(actual, expected);
         }
 
+        /// <summary>
+        /// Helper method for tile comparison when two tiles are identical.
+        /// </summary>
+        /// <param name="tile">Tile to be cloned.</param>
+        /// <param name="newLabel">String Value of the Label property for the new Tile.</param>
+        /// <param name="newPosition">String Value of the Position property for the new Tile.</param>
+        /// <param name="newType">Enumeration TileType specifies the type of the new cloned Tile.Default is TileType.Number.</param>
+        /// <returns>New Tile with the specified input values.</returns>
         private Tile CloneTile(Tile tile, string newLabel, int newPosition, TileType newType = TileType.Number)
         {
             var newTile = tile.CloneMemberwise();

@@ -4,17 +4,29 @@
     using GameFifteen.Models;
     using GameFifteen.Models.Contracts;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+    /// <summary>
+    /// Class tests ScoreBoard class functionalities.
+    /// </summary>
     [TestClass]
     public class ScoreBoardTests
     {
+        /// <summary>
+        /// Method tests if a second single instance can be instantiated.
+        /// </summary>
         [TestMethod]
         public void TestingScoreBoardImplementationToReturnOnlyOneInstance()
         {
-            var expected = Scoreboard.Instance.GetHashCode();
-            var actual = Scoreboard.Instance.GetHashCode();
+            var firstInstance = Scoreboard.Instance;
+            var secondInstance = Scoreboard.Instance;
+            var actual = firstInstance.GetHashCode();
+            var expected = secondInstance.GetHashCode();
             Assert.AreEqual(expected, actual);
         }
         
+        /// <summary>
+        /// Method tests if the default value for the Scoreboard.TopPlayers property is zero.
+        /// </summary>
         [TestMethod]
         public void TestingScoreBoardDefaultFunctionality()
         {
@@ -23,13 +35,16 @@
             Assert.AreEqual(expected, actual);
         }
 
+        /// <summary>
+        /// Method tests if Scoreboard.AddPlayer() method successfully adds a player.
+        /// </summary>
         [TestMethod]
         public void TestingScoreBoardAddingPlayerFunctionality()
         {
             var score = Scoreboard.Instance;
             score.Clear();
             IPlayer player = new Player();
-            var anotherPlayer = new Player();
+            IPlayer anotherPlayer = new Player();
             player.Moves = 8;
             anotherPlayer.Moves = 10;
             score.AddPlayer(player);
@@ -39,16 +54,22 @@
             Assert.AreEqual(expected, actual);
         }
 
+        /// <summary>
+        /// Method tests if a player with no moves could be added. Expects ArgumentException.
+        /// </summary>
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void TestAddPlayerShouldThrowWhenPlayerMovesAreZero()
         {
             var score = Scoreboard.Instance;
             score.Clear();
-            var player = new Player();
+            IPlayer player = new Player();
             score.AddPlayer(player);
         }
 
+        /// <summary>
+        /// Method tests if players added to the scoreboard are added in the correct order. 
+        /// </summary>
         [TestMethod]
         public void TestScoreBoardShouldReturnTopPlayersInTheRightOrder()
         {
@@ -67,6 +88,9 @@
             Assert.AreEqual("Player4", topPlayers[1].Name); 
         }
 
+        /// <summary>
+        /// Method tests if Scoreboard.Clear() method clears the scoreboard successfully.
+        /// </summary>
         [TestMethod]
         public void TestClearShouldReturnEmptyScoreBoard()
         {
