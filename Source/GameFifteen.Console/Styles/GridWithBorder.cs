@@ -6,10 +6,18 @@
     using GameFifteen.Models;
     using GameFifteen.Models.Contracts;
 
+    /// <summary>
+    /// Concrete decorator (Decorator design pattern).
+    /// </summary>
     public class GridWithBorder : Decorator, IGameMember
     {
         private GridBorderStyle borderStyle;
 
+        /// <summary>
+        /// <see cref="GridWithBorder"/> constructor.
+        /// </summary>
+        /// <param name="gameMember">Game member to decorate</param>
+        /// <param name="borderStyle">Border decoration</param>
         public GridWithBorder(IGameMember gameMember, GridBorderStyle borderStyle)
             : base(gameMember)
         {

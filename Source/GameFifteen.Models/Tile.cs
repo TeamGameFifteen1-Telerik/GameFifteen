@@ -1,10 +1,11 @@
 ﻿namespace GameFifteen.Models
 {
-    using GameFifteen.Models.Contracts;
     using System;
 
+    using GameFifteen.Models.Contracts;
+
     /// <summary>
-    /// Prototype design pattern
+    /// Prototype design pattern.
     /// </summary>
     public class Tile : TilePrototype, IComparable, ICloneable, IGameMember
     {
@@ -82,7 +83,7 @@
 
         public override string Display()
         {
-            return this.Label == String.Empty 
+            return this.Label == string.Empty 
                 ? " "
                 : this.Label;
         }

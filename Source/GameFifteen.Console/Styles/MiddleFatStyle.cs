@@ -16,7 +16,7 @@
         private readonly char bottomSymbol = '▀';
         private readonly char leftSymbol = '▌';
         private readonly char rightSymbol = '▐';
-        private readonly int length = GlobalConstants.GridSize * 4 - (GlobalConstants.GridSize - 4);
+        private readonly int length = (GlobalConstants.GridSize * 4) - (GlobalConstants.GridSize - 4);
         private Enum type;
 
         /// <summary>

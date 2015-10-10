@@ -2,13 +2,18 @@
 {
     using Ninject.Modules;
 
+    using GameFifteen.Console.Contracts;
     using GameFifteen.Console.Styles;
     using GameFifteen.Logic;
     using GameFifteen.Logic.Contracts;
     using GameFifteen.Models;
     using GameFifteen.Models.Contracts;
-    using GameFifteen.Console.Contracts;
 
+    /// <summary>
+    /// Dependency injection
+    /// Binds interfaces to concrete implementations.
+    /// Using Ninject.
+    /// </summary>
     public class Bindings : NinjectModule
     {
         public override void Load()

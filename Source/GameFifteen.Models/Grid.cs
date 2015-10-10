@@ -11,12 +11,15 @@
 
     /// <summary>
     /// Memento design pattern
-    /// The 'Originator' class
+    /// The 'Originator' class.
     /// </summary>
     public class Grid : GameMember, IGrid, IEnumerable, IGameMember
     {
         private List<Tile> tiles;
 
+        /// <summary>
+        /// Grid constructor.
+        /// </summary>
         public Grid()
         {
             this.tiles = new List<Tile>();
@@ -106,24 +109,6 @@
             this.tiles = memento.Tiles.Clone<Tile>().ToList();
         }
 
-        private Tile GetEmptyTile()
-        {
-            return this.tiles.FirstOrDefault(t => t.Type == TileType.Empty);
-        }
-
-        private bool CheckIfSorted()
-        {
-            for (int i = 0; i < this.tiles.Count - 1; i++)
-            {
-                if (this.tiles[i].Label != (this.tiles[i].Position + 1).ToString())
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
         public override string Display()
         {
             var sb = new StringBuilder();
@@ -146,6 +131,24 @@
             }
 
             return string.Join("|", lines);
+        }
+
+        private Tile GetEmptyTile()
+        {
+            return this.tiles.FirstOrDefault(t => t.Type == TileType.Empty);
+        }
+
+        private bool CheckIfSorted()
+        {
+            for (int i = 0; i < this.tiles.Count - 1; i++)
+            {
+                if (this.tiles[i].Label != (this.tiles[i].Position + 1).ToString())
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }

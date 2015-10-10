@@ -7,11 +7,15 @@
     /// </summary>
     public abstract class Engine : IEngine
     {
-        protected readonly IGameInitializater gameInitializer;
+        protected readonly IGameInitializater GameInitializer;
 
+        /// <summary>
+        /// Abstract engine constructor
+        /// </summary>
+        /// <param name="gameInitializer">Game initializer</param>
         protected Engine(IGameInitializater gameInitializer)
         {
-            this.gameInitializer = gameInitializer;
+            this.GameInitializer = gameInitializer;
         }
 
         /// <summary>

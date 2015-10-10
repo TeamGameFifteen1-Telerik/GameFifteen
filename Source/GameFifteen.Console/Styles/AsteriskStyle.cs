@@ -12,7 +12,7 @@
     public class AsteriskStyle : GridBorderStyle, IStyle
     {
         private readonly char symbol = '*';
-        private readonly int length = GlobalConstants.GridSize * 4 - (GlobalConstants.GridSize - 4);
+        private readonly int length = (GlobalConstants.GridSize * 4) - (GlobalConstants.GridSize - 4);
         private Enum type;
 
         /// <summary>
