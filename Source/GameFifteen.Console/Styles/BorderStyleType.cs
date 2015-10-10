@@ -26,11 +26,6 @@
         Middlefat,
 
         /// <summary>
-        /// Type that using default symbols for border style.
-        /// </summary>
-        Default,
-
-        /// <summary>
         /// Type that using a solid single line for border style.
         /// </summary>
         Solid,
