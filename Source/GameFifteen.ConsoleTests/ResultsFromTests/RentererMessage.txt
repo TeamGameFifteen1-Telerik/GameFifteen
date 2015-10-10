@@ -1,0 +1,8 @@
+                                                                                 Enter: 
+                                                                                                                                                                  For other commands enter "how".
+                                                                                                                                                                  Please enter your name for the top scoreboard: 
+                                                                                                                                                                  You're given a grid of 15 numbered tiles and one empty one. Try to arrange the numbers sequentially by moving numbered tiles to the empty space. To move a tile, enter its number.
+                                                                                                                                                                  New game?
+                                                                                                                                                                  Welcome to the game “15”. Try to arrange the numbers sequentially. For other commands enter "how".
+                                                                                                                                                                  Are you sure you want to restart?
+                                                                                 
