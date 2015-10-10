@@ -39,6 +39,7 @@
             }
         }
 
+        /// <param name="player">IPlayer type to be added to the Scoreboard.</param>
         public void AddPlayer(IPlayer player)
         {
             if (player == null)
@@ -59,6 +60,7 @@
             this.players.Clear();
         }
 
+        /// <param name="count">Count of the top players to be displayed</param>
         private List<IPlayer> GetTopPlayers(int count)
         {
             this.players.Sort();
