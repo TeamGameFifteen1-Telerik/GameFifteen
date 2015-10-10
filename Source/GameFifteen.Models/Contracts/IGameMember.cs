@@ -2,6 +2,6 @@
 {
     public interface IGameMember
     {
-        string Display();
+        string GetTextRepresentation();
     }
 }

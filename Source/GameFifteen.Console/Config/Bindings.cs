@@ -24,7 +24,7 @@
             Bind<IRenderer>().To<ConsoleRenderer>();
             Bind<IGrid>().To<Grid>();
             Bind<IPlayer>().To<Player>();
-            Bind<IEngine>().To<StandartFifteenTilesEngine>();            
+            Bind<IEngine>().To<StandartFifteenTilesEngine>();
         }
     }
 }

@@ -81,7 +81,7 @@
             return new Tile(this.Label, this.Position, this.Type);
         }
 
-        public override string Display()
+        public override string GetTextRepresentation()
         {
             return this.Label == string.Empty 
                 ? " "

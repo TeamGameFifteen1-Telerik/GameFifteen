@@ -36,18 +36,6 @@
         }
 
         /// <summary>
-        /// Gets collection of styles.
-        /// </summary>
-        /// <value>Pair key-value collection.</value>
-        public IDictionary<string, IStyle> Styles
-        {
-            get
-            {
-                return new Dictionary<string, IStyle>(this.styles);
-            }
-        }
-
-        /// <summary>
         /// Adding styles to the style collection.
         /// </summary>
         /// <exception cref="System.ArgumentNullException">When empty style are passed.</exception>
@@ -157,7 +145,7 @@
             else
             {
                 int position = 1;
-                var scoreboardLines = scoreboard.Display().Split('|');
+                var scoreboardLines = scoreboard.GetTextRepresentation().Split('|');
 
                 foreach (string line in scoreboardLines)
                 {
@@ -208,13 +196,13 @@
 
         private void RenderGrid(int x, int y, IGameMember grid)
         {
-            string[] gridLines = grid.Display().Split('|');
+            string[] gridLines = grid.GetTextRepresentation().Split('|');
 
             if (this.styles.ContainsKey(GlobalConstants.GridBorderStyle))
             {
                 var style = this.styles[GlobalConstants.GridBorderStyle] as GridBorderStyle;
                 var gridWithBorder = new GridWithBorder(grid, style);
-                gridLines = gridWithBorder.Display().Split('|');
+                gridLines = gridWithBorder.GetTextRepresentation().Split('|');
             }
 
             foreach (var line in gridLines)

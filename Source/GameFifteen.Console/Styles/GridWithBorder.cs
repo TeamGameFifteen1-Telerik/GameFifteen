@@ -24,9 +24,9 @@
             this.borderStyle = borderStyle;
         }
 
-        public override string Display()
+        public override string GetTextRepresentation()
         {
-            var gridLines = base.Display().Split('|');
+            var gridLines = base.GetTextRepresentation().Split('|');
             var gridWithBorder = new List<string>();
             var sb = new StringBuilder();
 

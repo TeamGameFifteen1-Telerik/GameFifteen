@@ -57,11 +57,27 @@
             }
         }
 
+        private void Run()
+        {
+            while (true)
+            {
+                this.SaveCurrentGameState();
+                if (this.isGameOver)
+                {
+                    this.GameOver();
+                    this.AskForAnotherGame();
+                }
+
+                Command command = this.userInterface.GetCommandFromInput();
+                this.ExecuteCommand(command);
+            }
+        }
+
         /// <summary>
         /// Execute commands.
         /// </summary>
         /// <param name="command">Command to execute.</param>
-        public void ExecuteCommand(Command command)
+        private void ExecuteCommand(Command command)
         {
             try
             {
@@ -97,22 +113,6 @@
             catch (InvalidOperationException ex)
             {
                 this.renderer.RenderMessage(ex.Message);
-            }
-        }
-
-        private void Run()
-        {
-            while (true)
-            {
-                this.SaveCurrentGameState();
-                if (this.isGameOver)
-                {
-                    this.GameOver();
-                    this.AskForAnotherGame();
-                }
-
-                Command command = this.userInterface.GetCommandFromInput();
-                this.ExecuteCommand(command);
             }
         }
 

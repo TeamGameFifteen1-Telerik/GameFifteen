@@ -45,11 +45,10 @@
         public void InitilizeGrid(IGrid grid)
         {
             var emptyTile = new Tile(string.Empty, GlobalConstants.TotalTilesCount - 1, TileType.Empty);          
-            //// grid.EmptyTile = emptyTile;
-
+  
             for (int i = 0; i < GlobalConstants.TotalTilesCount - 1; i++)
             {
-                Tile tile = emptyTile.CloneMemberwise();    //// new Tile(tileLabel, i, TileType.Number);
+                Tile tile = emptyTile.CloneMemberwise();
                 tile.Label = (i + 1).ToString();
                 tile.Position = i;
                 tile.Type = TileType.Number;
@@ -77,8 +76,12 @@
             grid.SwapTiles(targetTile);
         }
 
-        // gets the empty tile neighbours
-        private List<Tile> GetNeighbours(IGrid grid)
+        /// <summary>
+        /// Gets the empty tile neighbours
+        /// </summary>
+        /// <param name="grid">IGrid object</param>
+        /// <returns>A list of neighbours</returns>
+        private IList<Tile> GetNeighbours(IGrid grid)
         {
             List<Tile> neighbourTiles = new List<Tile>();
 

@@ -70,7 +70,7 @@
             return clone;
         }
 
-        public override string Display()
+        public override string GetTextRepresentation()
         {
             var result = string.Format("{0}{1}{2} {3}", this.Name, " -> ", this.Moves, this.Moves == 1 ? "move" : "moves");
             return result;
