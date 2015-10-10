@@ -1,0 +1,4 @@
+style=dotted
+style=solid
+style=fat
+style=double
