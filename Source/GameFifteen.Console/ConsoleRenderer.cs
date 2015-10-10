@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Text;
 
     using GameFifteen.Common;
     using GameFifteen.Console.Contracts;
@@ -9,7 +10,6 @@
     using GameFifteen.Logic.Contracts;
     using GameFifteen.Models;
     using GameFifteen.Models.Contracts;
-    using System.Text;
 
     /// <summary>
     /// Provides drawing functions for grid.
@@ -19,7 +19,7 @@
         private const int ConsoleWindowWidth = 81;
         private const int ConsoleWindowHeight = 25;
 
-        private const int InitialGridX = ConsoleWindowWidth / 2 - GlobalConstants.GridSize * 2;
+        private const int InitialGridX = (ConsoleWindowWidth / 2) - (GlobalConstants.GridSize * 2);
         private const int InitialGridY = 3;
 
         private const int InitialGameOptionsX = 0;
@@ -28,11 +28,11 @@
         private const int InitialWelcomeMessageX = 0;
         private const int InitialWelcomeMessageY = 0;
 
-        private const int InitialGameOptionsCommandsX = ConsoleWindowWidth / 2 - 20;
+        private const int InitialGameOptionsCommandsX = (ConsoleWindowWidth / 2) - 20;
 
         private const int GameMessagesY = 11;
 
-        private const int InitialScoreboardX = ConsoleWindowWidth / 2 - GlobalConstants.GridSize * 2;
+        private const int InitialScoreboardX = (ConsoleWindowWidth / 2) - (GlobalConstants.GridSize * 2);
         private const int InitialScoreboardY = 0;
 
         private const string Goal = "Goal: ";
@@ -116,8 +116,6 @@
             this.ResetConsoleColor();
             this.ResetCursorToPreviousPosition(this.previousX, this.previousY);
             this.ClearConsolePart(this.previousX, this.previousY, ConsoleWindowWidth - this.previousX, 1);
-
-            //Console.WriteLine(message);
         }
 
         /// <summary>
@@ -165,24 +163,6 @@
 
             this.PrintOnPosition(x, ++y, GameMessages.EnterCommand, GameMessagesColor);
             this.ResetConsoleColor();
-            this.SaveCursorCurrentPosition();
-        }
-
-        private void RenderGameMenu(int menuStartPositionX = GlobalConstants.MenuStartPositionX, int menuStartPositionY = GlobalConstants.MenuStartPositionY)
-        {
-            this.PrintOnPosition(menuStartPositionX, menuStartPositionY, GameMessages.Enter, GameMessagesColor);
-
-            int position = 0;
-            foreach (var option in GameMessages.MenuOptions)
-            {
-                this.PrintOnPosition(menuStartPositionX, menuStartPositionY + position + 1, option.Key, UserMessagesColor);
-                this.PrintOnPosition(menuStartPositionX + 5, menuStartPositionY + position + 1, " to ", GameMessagesColor);
-
-                this.PrintOnPosition(menuStartPositionX + 10, menuStartPositionY + position + 1, option.Value, ExplanationsColor);
-                position++;
-            }
-
-            this.PrintOnPosition(menuStartPositionX, menuStartPositionY + GameMessages.MenuOptions.Count + 3, string.Empty, UserMessagesColor);
             this.SaveCursorCurrentPosition();
         }
 
@@ -234,6 +214,24 @@
             this.ClearConsole();
             this.PrintOnPosition(InitialWelcomeMessageX, InitialWelcomeMessageY, GameMessages.Welcome, ExplanationsColor);
             this.RenderGrid(x, y, grid);
+        }
+
+        private void RenderGameMenu(int menuStartPositionX = GlobalConstants.MenuStartPositionX, int menuStartPositionY = GlobalConstants.MenuStartPositionY)
+        {
+            this.PrintOnPosition(menuStartPositionX, menuStartPositionY, GameMessages.Enter, GameMessagesColor);
+
+            int position = 0;
+            foreach (var option in GameMessages.MenuOptions)
+            {
+                this.PrintOnPosition(menuStartPositionX, menuStartPositionY + position + 1, option.Key, UserMessagesColor);
+                this.PrintOnPosition(menuStartPositionX + 5, menuStartPositionY + position + 1, " to ", GameMessagesColor);
+
+                this.PrintOnPosition(menuStartPositionX + 10, menuStartPositionY + position + 1, option.Value, ExplanationsColor);
+                position++;
+            }
+
+            this.PrintOnPosition(menuStartPositionX, menuStartPositionY + GameMessages.MenuOptions.Count + 3, string.Empty, UserMessagesColor);
+            this.SaveCursorCurrentPosition();
         }
 
         private void RenderGrid(int x, int y, IGameMember grid)

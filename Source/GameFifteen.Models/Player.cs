@@ -6,7 +6,7 @@
     using GameFifteen.Models.Contracts;
 
     /// <summary>
-    /// Main Player class that save its name and moves and can be compared and cloned
+    /// Main Player class that save its name and moves and can be compared and cloned.
     /// </summary>
     public class Player : GameMember, IGameMember, IPlayer, IComparable, ICloneable
     {

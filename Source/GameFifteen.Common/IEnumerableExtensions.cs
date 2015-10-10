@@ -5,7 +5,7 @@
     using System.Linq;
 
     /// <summary>
-    /// Making IEnumerble objects clonable
+    /// Making IEnumerable objects clonable.
     /// </summary>
     public static class IEnumerableExtensions
     {

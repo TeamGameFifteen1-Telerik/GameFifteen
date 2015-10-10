@@ -4,7 +4,7 @@
 
     /// <summary>
     /// Memento design pattern
-    /// The 'Memento' class
+    /// The 'Memento' class.
     /// </summary>
     public class Memento
     {

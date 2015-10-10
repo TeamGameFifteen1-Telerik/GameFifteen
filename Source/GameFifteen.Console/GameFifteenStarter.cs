@@ -13,6 +13,9 @@
     {
         private static GameFifteenStarter instance;
 
+        /// <summary>
+        /// Private <see cref="GameFifteenStarter"/> constructor - Singleton
+        /// </summary>
         private GameFifteenStarter()
         {
         }

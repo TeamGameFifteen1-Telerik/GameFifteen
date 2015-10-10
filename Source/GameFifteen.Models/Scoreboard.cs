@@ -13,8 +13,7 @@
         private const int TopPlayersCount = 4;
 
         //// lazy singleton
-        private static readonly Lazy<Scoreboard> scoreboard =
-            new Lazy<Scoreboard>(() => new Scoreboard());
+        private static readonly Lazy<Scoreboard> LazyInstance = new Lazy<Scoreboard>(() => new Scoreboard());
 
         private List<IPlayer> players;
 
@@ -27,7 +26,7 @@
         {
             get
             {
-                return scoreboard.Value;
+                return LazyInstance.Value;
             }
         }
 
@@ -60,6 +59,18 @@
             this.players.Clear();
         }
 
+        public override string Display()
+        {
+            var lines = new List<string>();
+            for (int i = 0; i < this.TopPlayers.Count; i++)
+            {
+                var currentPlayer = this.TopPlayers[i];
+                lines.Add(currentPlayer.Display());
+            }
+
+            return string.Join("|", lines);
+        }
+
         /// <param name="count">Count of the top players to be displayed</param>
         private List<IPlayer> GetTopPlayers(int count)
         {
@@ -74,18 +85,6 @@
             }
 
             return topPlayers;
-        }
-
-        public override string Display()
-        {
-            var lines = new List<string>();
-            for (int i = 0; i < this.TopPlayers.Count; i++)
-            {
-                var currentPlayer = this.TopPlayers[i];
-                lines.Add(currentPlayer.Display());
-            }
-
-            return string.Join("|", lines);
         }
     }
 }

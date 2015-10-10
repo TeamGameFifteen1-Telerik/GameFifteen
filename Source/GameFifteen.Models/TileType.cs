@@ -1,7 +1,7 @@
 ﻿namespace GameFifteen.Models
 {
     /// <summary>
-    /// Tile type enumeration
+    /// Tile type enumeration.
     /// </summary>
     public enum TileType
     {

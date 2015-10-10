@@ -3,7 +3,7 @@
     using GameFifteen.Models.Contracts;
 
     /// <summary>
-    /// Prototype design pattern
+    /// Prototype design pattern.
     /// </summary>
     public abstract class TilePrototype : GameMember, IGameMember
     {

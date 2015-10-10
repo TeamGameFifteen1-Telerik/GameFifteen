@@ -24,7 +24,6 @@
         private GridMemory gridMemory;
         private bool isGameOver;
         private bool isGameStarted;
-        // private IDictionary<Command, Action> commands;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StandartFifteenTilesEngine"/> class.
@@ -43,7 +42,6 @@
             this.scoreBoard = Scoreboard.Instance;
             this.grid = grid;
             this.gridMemory = new GridMemory();
-            //this.commands = this.FillCommands();
         }
 
         /// <summary>
@@ -68,10 +66,6 @@
             try
             {
                 this.ExecuteSpecificCommand(command);
-                //if (this.commands.ContainsKey(command))
-                //{
-                //    this.commands[command]();
-                //}
             }
             catch (Exception ex)
             {
@@ -88,14 +82,13 @@
 
         private void ExecuteSpecificCommand(Command command)
         {
-            if (command == Command.Invalid)
+            if (command == Command.Invalid || (!this.isGameStarted && command == Command.Move))
             {
                 throw new ArgumentException("Invalid Command!");
             }
 
             string methodName = "Execute" + command.ToString() + "Command";
-            var methodInfo = this.GetType().GetMethod(methodName, BindingFlags.NonPublic
-                | BindingFlags.Instance);
+            var methodInfo = this.GetType().GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance);
 
             try
             {
@@ -103,7 +96,7 @@
             }
             catch (InvalidOperationException ex)
             {
-                this.renderer.RenderMessage(ex.Message);                
+                this.renderer.RenderMessage(ex.Message);
             }
         }
 
@@ -123,36 +116,6 @@
             }
         }
 
-        //private IDictionary<Command, Action> FillCommands()
-        //{
-        //    this.commands = new Dictionary<Command, Action>();
-        //    Action ExecuteStartCommand = this.ExecuteStartCommand;
-        //    Action ExecuteRestartCommand = this.ExecuteRestartCommand;
-        //    Action ExecuteTopCommand = this.ExecuteTopCommand;
-        //    Action ExecuteExitCommand = this.ExecuteExitCommand;
-        //    Action ExecuteLoadCommand = this.ExecuteLoadCommand;
-        //    Action ExecuteMoveCommand = this.ExecuteMoveCommand;
-        //    Action ExecuteSaveCommand = this.ExecuteSaveCommand;
-        //    Action ExecuteStyleCommand = this.ExecuteStyleCommand;
-        //    Action ExecuteSolveGridCommand = this.ExecuteSolveCommand;
-        //    Action ExecuteHowCommand = this.ExecuteHowCommand;
-        //    Action ExecuteInvalidCommand = () => { throw new ArgumentException("Invalid Command!"); };
-
-        //    this.commands.Add(Command.Start, this.ExecuteStartCommand);
-        //    this.commands.Add(Command.Restart, ExecuteRestartCommand);
-        //    this.commands.Add(Command.Top, ExecuteTopCommand);
-        //    this.commands.Add(Command.Exit, ExecuteExitCommand);
-        //    this.commands.Add(Command.Save, ExecuteSaveCommand);
-        //    this.commands.Add(Command.Load, ExecuteLoadCommand);
-        //    this.commands.Add(Command.Move, ExecuteMoveCommand);
-        //    this.commands.Add(Command.Style, ExecuteStyleCommand);
-        //    this.commands.Add(Command.Solve, ExecuteSolveGridCommand);
-        //    this.commands.Add(Command.How, ExecuteHowCommand);
-        //    this.commands.Add(Command.Invalid, ExecuteInvalidCommand);
-
-        //    return this.commands;
-        //}
-
         private void ExecuteMenuCommand()
         {
             this.renderer.RenderInitialScreen();
@@ -160,10 +123,8 @@
 
         private void ExecuteStartCommand()
         {
-            this.gameInitializer.Initialize(this.grid);
-            //this.renderer.RenderMessage(GameMessages.Welcome);
+            this.GameInitializer.Initialize(this.grid);
             this.renderer.RenderPlayScreen(this.grid);
-            //this.player = new Player();
             this.player.Moves = 0;
             this.isGameStarted = true;
             this.Run();
@@ -346,7 +307,7 @@
             if (this.isGameStarted)
             {
                 this.grid.Clear();
-                this.gameInitializer.InitilizeGrid(this.grid);
+                this.GameInitializer.InitilizeGrid(this.grid);
                 this.renderer.RenderPlayScreen(this.grid);
                 this.player.Moves++;
                 this.GameOver();
