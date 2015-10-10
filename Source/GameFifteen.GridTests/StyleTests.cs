@@ -7,6 +7,8 @@
     using GameFifteen.Console.Contracts;
     using GameFifteen.Console.Styles;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using GameFifteen.Models.Contracts;
+    using GameFifteen.Models;
 
     [TestClass]
     public class StyleTests
@@ -154,6 +156,23 @@
         {
             IStyleFactory styleFactory = new BorderStyleFactory();
             IStyle gridBorderStyle = styleFactory.Get((BorderStyleType)213);
+        }
+
+        [TestMethod]
+        public void TestGridWithBorderToReturnCorrectResult()
+        {
+            IGameMember grid = new Grid();
+            GridWithBorder gridBorder;
+            for (int i = 0; i < styles.Length; i++)
+            {
+                var currentBorderStyleForTesting = styles[i];
+                gridBorder = new GridWithBorder(grid, currentBorderStyleForTesting);
+                string result = gridBorder.Display();
+                Assert.AreEqual(true, result.Contains(currentBorderStyleForTesting.Top) &&
+                                result.Contains(currentBorderStyleForTesting.Bottom) &&
+                                result.Contains(currentBorderStyleForTesting.Right) &&
+                                result.Contains(currentBorderStyleForTesting.Left));
+            }
         }
     }
 }
