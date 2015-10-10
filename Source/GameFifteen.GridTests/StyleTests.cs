@@ -13,14 +13,14 @@
     {
         private readonly GridBorderStyle[] styles = new GridBorderStyle[] 
            { 
-                new DottedStyle(), new DoubleStyle(), new FatStyle(), new MiddleFatStyle(), 
-                new NormalStyle(), new SolidStyle(), new AsteriskStyle()
+                new DottedStyle(), new DoubleStyle(), new FatStyle(), 
+                new MiddleFatStyle(), new SolidStyle(), new AsteriskStyle()
            };
 
         private readonly BorderStyleType[] styleTypes = new BorderStyleType[] 
         { 
-            BorderStyleType.Dotted, BorderStyleType.Double, BorderStyleType.Fat, BorderStyleType.Middlefat, 
-            BorderStyleType.Default,  BorderStyleType.Solid, BorderStyleType.Asterisk
+            BorderStyleType.Dotted, BorderStyleType.Double, BorderStyleType.Fat, 
+            BorderStyleType.Middlefat,  BorderStyleType.Solid, BorderStyleType.Asterisk
         };
 
         private GridBorderStyle gridStyle;
@@ -66,16 +66,6 @@
         }
 
         [TestMethod]
-        public void TestDefaultStyle()
-        {
-            this.gridStyle = new NormalStyle();
-            string allBorders = this.gridStyle.Bottom + this.gridStyle.Top + this.gridStyle.Left + this.gridStyle.Right;
-            bool result = allBorders.All(ch => "|- ".Contains(ch));
-            Assert.AreEqual(true, result);
-            Assert.AreEqual(BorderStyleType.Default, this.gridStyle.Type);
-        }
-
-        [TestMethod]
         public void TestFatStyle()
         {
             this.gridStyle = new FatStyle();
@@ -103,9 +93,9 @@
             bool result;
             for (int i = 0; i < this.styles.Length; i++)
             {
-                result = this.styles[i].Bottom.Length >= minLength && this.styles[i].Bottom.Length <= maxLength;
+                result = minLength <= this.styles[i].Bottom.Length && this.styles[i].Bottom.Length <= maxLength;
                 Assert.AreEqual(true, result);
-                result = this.styles[i].Top.Length >= minLength && this.styles[i].Bottom.Length <= maxLength;
+                result = minLength <= this.styles[i].Top.Length && this.styles[i].Top.Length <= maxLength;
                 Assert.AreEqual(true, result);
             }
         }
