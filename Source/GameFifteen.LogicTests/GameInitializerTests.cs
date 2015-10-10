@@ -29,5 +29,14 @@
             mockedInitializer.Object.InitilizeGrid(fakeGrid.Object);
             mockedInitializer.Verify(m => m.InitilizeGrid(fakeGrid.Object), Times.Exactly(1));
         }
+
+        [TestMethod]
+        public void TileEngineInitializeMethodShouldBeInvokedOnce()
+        {
+            var mEngine = new Mock<IEngine>();
+            mEngine.Setup(x => x.Initialize());
+            mEngine.Object.Initialize();
+            mEngine.Verify(x => x.Initialize(), Times.Exactly(1));
+        }
     }
 }
