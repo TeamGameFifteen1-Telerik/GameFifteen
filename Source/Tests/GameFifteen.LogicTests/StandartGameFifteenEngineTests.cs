@@ -8,11 +8,10 @@ namespace GameFifteen.LogicTests
     using GameFifteen.Logic;
     using GameFifteen.Logic.Contracts;
     using GameFifteen.Models.Contracts;
+    using GameFifteen.Models;
 
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
-    using GameFifteen.ConsoleTests;
-    using GameFifteen.Models;
 
     [TestClass]
     public class StandartGameFifteenEngineTests

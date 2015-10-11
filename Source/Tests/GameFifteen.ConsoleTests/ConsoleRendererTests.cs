@@ -6,17 +6,18 @@ namespace GameFifteen.ConsoleTests
     using System.Collections.Generic;
     using System.Linq;
 
+    using GameFifteen.Common;
+    using GameFifteen.Console;
+    using GameFifteen.Console.Styles;
+    using GameFifteen.Models;
+    using GameFifteen.Models.Contracts;
+    using GameFifteen.Tests.Common;
+
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
 
-    using GameFifteen.Console;
-    using GameFifteen.Console.Styles;
-    using GameFifteen.Common;
-    using GameFifteen.Models;
-    using GameFifteen.Models.Contracts;
-
     [TestClass]
-    public class TestConsoleRenderer
+    public class ConsoleRendererTests
     {
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException), "You need to add at least one style.")]

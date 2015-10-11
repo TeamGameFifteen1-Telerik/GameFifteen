@@ -58,8 +58,6 @@
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="GameStarterTests.cs" />
-    <Compile Include="HelperReader.cs" />
-    <Compile Include="HelperWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestConsoleRenderer.cs" />
   </ItemGroup>
@@ -79,6 +77,10 @@
     <ProjectReference Include="..\..\GameFifteen.Models\GameFifteen.Models.csproj">
       <Project>{cc14d269-a931-461e-922a-277228cffa28}</Project>
       <Name>GameFifteen.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GameFifteen.Tests.Common\GameFifteen.Tests.Common.csproj">
+      <Project>{92418655-6286-4165-adee-79b9e4276e2f}</Project>
+      <Name>GameFifteen.Tests.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -4,12 +4,14 @@ namespace GameFifteen.ConsoleTests
 {
     using System;
     using System.IO;
-    using System.Linq;
     using System.Collections.Generic;
+
     using GameFifteen.Common;
     using GameFifteen.Console;
     using GameFifteen.Logic;
     using GameFifteen.Logic.Contracts;
+    using GameFifteen.Tests.Common;
+
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
 

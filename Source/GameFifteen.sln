@@ -24,6 +24,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameFifteen.LogicTests", "T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameFifteen.ModelsTests", "Tests\GameFifteen.ModelsTests\GameFifteen.ModelsTests.csproj", "{0E42F1CE-47C6-4CBE-9029-3C3A15D7BBC9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameFifteen.Tests.Common", "Tests\GameFifteen.Tests.Common\GameFifteen.Tests.Common.csproj", "{92418655-6286-4165-ADEE-79B9E4276E2F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -104,6 +106,16 @@ Global
 		{0E42F1CE-47C6-4CBE-9029-3C3A15D7BBC9}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{0E42F1CE-47C6-4CBE-9029-3C3A15D7BBC9}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{0E42F1CE-47C6-4CBE-9029-3C3A15D7BBC9}.Release|x86.ActiveCfg = Release|Any CPU
+		{92418655-6286-4165-ADEE-79B9E4276E2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92418655-6286-4165-ADEE-79B9E4276E2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92418655-6286-4165-ADEE-79B9E4276E2F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{92418655-6286-4165-ADEE-79B9E4276E2F}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{92418655-6286-4165-ADEE-79B9E4276E2F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{92418655-6286-4165-ADEE-79B9E4276E2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92418655-6286-4165-ADEE-79B9E4276E2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92418655-6286-4165-ADEE-79B9E4276E2F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{92418655-6286-4165-ADEE-79B9E4276E2F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{92418655-6286-4165-ADEE-79B9E4276E2F}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -112,5 +124,6 @@ Global
 		{ABAD05FB-7F01-407B-8550-C082DC269778} = {7C8F42F2-4BCC-40A3-9411-35316C2D4CA8}
 		{267F9C04-9E1C-4E86-898E-7EBDD8A1EC07} = {7C8F42F2-4BCC-40A3-9411-35316C2D4CA8}
 		{0E42F1CE-47C6-4CBE-9029-3C3A15D7BBC9} = {7C8F42F2-4BCC-40A3-9411-35316C2D4CA8}
+		{92418655-6286-4165-ADEE-79B9E4276E2F} = {7C8F42F2-4BCC-40A3-9411-35316C2D4CA8}
 	EndGlobalSection
 EndGlobal
