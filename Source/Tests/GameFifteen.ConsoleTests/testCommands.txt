@@ -1,7 +1,0 @@
-start
-solve
-pesho
-yes
-solve
-pesho
-no
