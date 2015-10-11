@@ -12,6 +12,9 @@ namespace GameFifteen.ConsoleTests
     using GameFifteen.Console;
     using GameFifteen.Console.Styles;
     using GameFifteen.Common;
+    using Moq;
+    using GameFifteen.Logic.Contracts;
+    using System.IO;
 
     [TestClass]
     public class TestConsoleRenderer
@@ -118,6 +121,78 @@ namespace GameFifteen.ConsoleTests
             rende.RenderGameOptions();
 
             mockedWrited.Verify(w => w.Write(It.Is<string>(msg => listOfAllBullshits.Contains(msg))), Times.AtLeast(listOfAllBullshits.Count));
+        }
+
+        [TestMethod]
+        public void TestRenderScoreBoardWhenNoPlayersInScoreBoard()
+        {
+            var mockedWrited = new Mock<HelperWriter>();
+            Console.SetOut(mockedWrited.Object);
+
+            ConsoleRenderer rende = new ConsoleRenderer(new BorderStyleFactory());
+            Scoreboard scoreBoard = Scoreboard.Instance;
+
+            rende.RenderScoreboard(scoreBoard);
+
+            mockedWrited.Verify(w => w.Write(It.Is<string>(str => str == "No top players yet.")), Times.AtLeastOnce);
+        }
+
+        [TestMethod]
+        public void TestRenderScoreboardToPrintCorrectPlayers()
+        {
+            var mockedWrited = new Mock<HelperWriter>();
+            Console.SetOut(mockedWrited.Object);
+
+            ConsoleRenderer rende = new ConsoleRenderer(new BorderStyleFactory());
+            Scoreboard scoreBoard = Scoreboard.Instance;
+
+            IDictionary<int, string> playerNamesWithMoves = new SortedDictionary<int, string>() 
+            {
+                {202, "john"},
+                {444,  "largeBox"},
+                {391, "gamer"},
+                {20, "hacker"},
+                {1023, "infinity"}
+            };
+
+            IPlayer player;
+
+            foreach (var item in playerNamesWithMoves.Reverse())
+            {
+                player = new Player(item.Value);
+                player.Moves = item.Key;
+                scoreBoard.AddPlayer(player);
+            }
+
+            rende.RenderScoreboard(scoreBoard);
+
+            mockedWrited.Verify(w => w.Write(It.Is<string>(str => str.Contains("->"))), Times.Exactly(scoreBoard.TopPlayers.Count));
+            mockedWrited.Verify(w => w.Write(It.Is<string>(str => 
+                playerNamesWithMoves.Values.Any(name => str.Contains(name)) ||
+                playerNamesWithMoves.Keys.Any(moves => int.TryParse(str, out moves)))),
+                Times.AtLeast(scoreBoard.TopPlayers.Count));
+        }
+
+        [TestMethod]
+        public void TestRenderPlayScreenToWorkCorrectly()
+        {
+            var mockedWrited = new Mock<HelperWriter>();
+            Console.SetOut(mockedWrited.Object);
+
+            ConsoleRenderer rende = new ConsoleRenderer(new BorderStyleFactory());
+            Scoreboard scoreBoard = Scoreboard.Instance;
+            Grid grid = new Grid();
+            int timesToBePrinted = GlobalConstants.GridSize * GlobalConstants.GridSize;
+            for (int i = 0; i < timesToBePrinted - 1; i++)
+            {
+                grid.AddTile(new Tile((i + 1).ToString(), i, TileType.Number));
+            }
+
+            grid.AddTile(new Tile(" ", 15, TileType.Empty));
+
+            rende.RenderPlayScreen(grid);
+
+            mockedWrited.Verify(w => w.Write(It.IsAny<string>()), Times.AtLeast(timesToBePrinted / GlobalConstants.GridSize));
         }
     }
 }
