@@ -16,15 +16,6 @@
     public class TestConsoleRenderer
     {
         [TestMethod]
-        public void TestThatDefaultStyleIsSolid()
-        {
-            ConsoleRenderer rende = new ConsoleRenderer(new BorderStyleFactory());
-            //IDictionary<string, IStyle> styles = rende.Styles; // :(
-            //IStyle initialStyle = styles[GlobalConstants.GridBorderStyle];
-            //Assert.AreEqual(BorderStyleType.Solid, initialStyle.Type);
-        }
-
-        [TestMethod]
         [ExpectedException(typeof(ArgumentNullException), "You need to add at least one style.")]
         public void TestAddStyleToThrowWhenNoStylesPassed()
         {
@@ -33,7 +24,7 @@
         }
 
         [TestMethod]
-        public void TestAddStyleWithManyStyles()
+        public void TestAddStyleMethodPassedManyStylesExpectToNotThrowAnException()
         {
             ConsoleRenderer rende = new ConsoleRenderer(new BorderStyleFactory());
             string[] stylesToAdd = new string[] 
@@ -46,11 +37,7 @@
                 "double"
             };
 
-            /*rende.AddStyle(stylesToAdd);
-            int counntOfStyles = rende.Styles.Count;
-            Assert.AreEqual(1, counntOfStyles);
-            string expected = stylesToAdd[stylesToAdd.Length - 1][0].ToString().ToUpper() + stylesToAdd[stylesToAdd.Length - 1].Substring(1);
-            Assert.AreEqual(expected, rende.Styles[GlobalConstants.GridBorderStyle].Type.ToString());*/
+            rende.AddStyle(stylesToAdd);
         }
 
         [TestMethod]
@@ -74,8 +61,8 @@
         [TestMethod]
         public void TestRenderMessageToProceedAllPassedText()
         {
-            string pathToFile = "../../ResultsFromTests/RentererMessage.txt";
-
+            var mockedWriter = new Mock<HelperWriter>();
+            Console.SetOut(mockedWriter.Object);
 
             List<string> messageToProcess = new List<string>()
             {
@@ -88,25 +75,10 @@
                GameMessages.RestartGameQuestion
             };
 
-            IRenderer rende = new ConsoleRenderer(new BorderStyleFactory());
-            using (StreamWriter writer = new StreamWriter(pathToFile))
-            {
-                Console.SetOut(writer);
-                messageToProcess.ForEach(msg => rende.RenderMessage(msg + "\r\n"));
-            }
+            ConsoleRenderer rende = new ConsoleRenderer(new BorderStyleFactory());
+            messageToProcess.ForEach(msg => rende.RenderMessage(msg));
 
-            StreamReader reader = new StreamReader(pathToFile);
-            List<string> receivedMessages;
-            using (reader)
-            {
-                receivedMessages = reader.ReadToEnd().Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries).Select(text => text.TrimStart()).Where(text => text != string.Empty).ToList();
-            }
-
-            Assert.AreEqual(messageToProcess.Count, receivedMessages.Count);
-            for (int i = 0; i < receivedMessages.Count; i++)
-            {
-                Assert.AreEqual(messageToProcess[i], receivedMessages[i]);
-            }
+            mockedWriter.Verify(w => w.Write(It.Is<string>(str => messageToProcess.Contains(str))), Times.Exactly(messageToProcess.Count));
         }
 
         [TestMethod]
