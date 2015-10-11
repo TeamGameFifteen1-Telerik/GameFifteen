@@ -58,6 +58,7 @@
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="GameStarterTests.cs" />
+    <Compile Include="HelperReader.cs" />
     <Compile Include="HelperWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestConsoleRenderer.cs" />
