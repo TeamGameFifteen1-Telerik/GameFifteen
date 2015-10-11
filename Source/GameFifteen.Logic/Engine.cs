@@ -1,4 +1,6 @@
-﻿namespace GameFifteen.Logic
+﻿// <copyright file="Engine.cs" company="Telerik Academy">All rights reserved.</copyright>
+// <author>Team GameFifteen-1</author>
+namespace GameFifteen.Logic
 {
     using GameFifteen.Logic.Contracts;
 
@@ -7,12 +9,15 @@
     /// </summary>
     public abstract class Engine : IEngine
     {
+        /// <summary>
+        /// <see cref="IGameInitializater"/> readonly field.
+        /// </summary>
         protected readonly IGameInitializater GameInitializer;
 
         /// <summary>
-        /// Abstract engine constructor
+        /// Initializes a new instance of the <see cref="Engine" /> class.
         /// </summary>
-        /// <param name="gameInitializer">Game initializer</param>
+        /// <param name="gameInitializer">Game initializer.</param>
         protected Engine(IGameInitializater gameInitializer)
         {
             this.GameInitializer = gameInitializer;

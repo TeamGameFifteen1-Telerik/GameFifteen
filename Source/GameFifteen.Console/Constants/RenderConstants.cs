@@ -1,9 +1,14 @@
-﻿namespace GameFifteen.Console
+﻿// <copyright file="RenderConstants.cs" company="Telerik Academy">All rights reserved.</copyright>
+// <author>Team GameFifteen-1</author>
+namespace GameFifteen.Console
 {
     using System;
 
     using GameFifteen.Common;
 
+    /// <summary>
+    /// Constants for rendering game on the console.
+    /// </summary>
     internal class RenderConstants
     {
         internal const int ConsoleWindowWidth = 81;

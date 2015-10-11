@@ -1,4 +1,6 @@
-﻿namespace GameFifteen.Console
+﻿// <copyright file="ConsoleRenderer.cs" company="Telerik Academy">All rights reserved.</copyright>
+// <author>Team GameFifteen-1</author>
+namespace GameFifteen.Console
 {
     using System;
     using System.Collections.Generic;
@@ -81,8 +83,6 @@
         /// <summary>
         /// Prints game screen log. 
         /// </summary>
-        /// <param name="menuStartPositionX">Horizontal position of the menu.</param>
-        /// <param name="menuStartPositionY">Vertical position of the menu.</param>
         public void RenderInitialScreen()
         {
             this.SetInitialConsoleSize();

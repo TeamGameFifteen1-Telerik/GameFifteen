@@ -1,4 +1,6 @@
-﻿namespace GameFifteen.Common
+﻿// <copyright file="GlobalConstants.cs" company="Telerik Academy">All rights reserved.</copyright>
+// <author>Team GameFifteen-1</author>
+namespace GameFifteen.Common
 {
     /// <summary>
     /// Common constants used throughout the project.

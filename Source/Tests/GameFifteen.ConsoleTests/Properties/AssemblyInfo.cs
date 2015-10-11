@@ -1,15 +1,17 @@
-﻿using System.Reflection;
+﻿// <copyright file="AssemblyInfo.cs" company="Telerik Academy">All rights reserved.</copyright>
+// <author>Team GameFifteen-1</author>
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("GameFifteen.GridTests")]
+[assembly: AssemblyTitle("GameFifteen.ConsoleTests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("GameFifteen.GridTests")]
+[assembly: AssemblyProduct("GameFifteen.ConsoleTests")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +22,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("c8736ab4-8a7b-4e1e-af3a-3f715a116324")]
+[assembly: Guid("261d92c9-4098-49d1-ba80-9e5953819f09")]
 
 // Version information for an assembly consists of the following four values:
 //

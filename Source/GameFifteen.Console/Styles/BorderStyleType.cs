@@ -1,4 +1,6 @@
-﻿namespace GameFifteen.Console.Styles
+﻿// <copyright file="BorderStyleType.cs" company="Telerik Academy">All rights reserved.</copyright>
+// <author>Team GameFifteen-1</author>
+namespace GameFifteen.Console.Styles
 {
     /// <summary>
     /// Special border type that can be used for grid.

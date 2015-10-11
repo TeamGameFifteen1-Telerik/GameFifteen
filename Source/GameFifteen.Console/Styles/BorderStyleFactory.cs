@@ -1,4 +1,6 @@
-﻿namespace GameFifteen.Console.Styles
+﻿// <copyright file="BorderStyleFactory.cs" company="Telerik Academy">All rights reserved.</copyright>
+// <author>Team GameFifteen-1</author>
+namespace GameFifteen.Console.Styles
 {
     using System;
 

@@ -1,4 +1,6 @@
-﻿namespace GameFifteen.Logic
+﻿// <copyright file="StandartGameInitializer.cs" company="Telerik Academy">All rights reserved.</copyright>
+// <author>Team GameFifteen-1</author>
+namespace GameFifteen.Logic
 {
     using System;
     using System.Collections.Generic;
@@ -13,7 +15,6 @@
     /// </summary>
     public class StandartGameInitializer : IGameInitializater
     {
-        // TODO : do something about these
         private const int MinRoundsCount = 1120;
         private const int MaxRoundsCount = 1150;
 
@@ -77,10 +78,10 @@
         }
 
         /// <summary>
-        /// Gets the empty tile neighbours
+        /// Gets the empty tile neighbors.
         /// </summary>
-        /// <param name="grid">IGrid object</param>
-        /// <returns>A list of neighbours</returns>
+        /// <param name="grid">IGrid object.</param>
+        /// <returns>A list of neighbors.</returns>
         private IList<Tile> GetNeighbours(IGrid grid)
         {
             List<Tile> neighbourTiles = new List<Tile>();

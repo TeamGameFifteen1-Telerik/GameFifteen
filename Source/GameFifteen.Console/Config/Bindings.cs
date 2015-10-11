@@ -1,4 +1,6 @@
-﻿namespace GameFifteen.Console
+﻿// <copyright file="Bindings.cs" company="Telerik Academy">All rights reserved.</copyright>
+// <author>Team GameFifteen-1</author>
+namespace GameFifteen.Console
 {
     using Ninject.Modules;
 
@@ -12,10 +14,12 @@
     /// <summary>
     /// Dependency injection
     /// Binds interfaces to concrete implementations.
-    /// Using Ninject.
     /// </summary>
     public class Bindings : NinjectModule
     {
+        /// <summary>
+        /// Binds interfaces to concrete implementations.
+        /// </summary>
         public override void Load()
         {
             Bind<IUserInterface>().To<ConsoleInterface>();

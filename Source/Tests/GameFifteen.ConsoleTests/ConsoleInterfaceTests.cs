@@ -1,4 +1,6 @@
-﻿namespace GameFifteen.ConsoleTests
+﻿// <copyright file="ConsoleInterfaceTests.cs" company="Telerik Academy">All rights reserved.</copyright>
+// <author>Team GameFifteen-1</author>
+namespace GameFifteen.ConsoleTests
 {
     using System;
     using System.IO;
@@ -52,7 +54,7 @@
             {
                 interf.GetCommandFromInput();
                 result = interf.GetArgumentValue(GlobalConstants.GridBorderStyle);
-                actual = (result as string == styleCommands[i]);
+                actual = result as string == styleCommands[i];
                 Assert.IsTrue(actual);
             }
         }
@@ -78,7 +80,7 @@
             {
                 interf.GetCommandFromInput();
                 result = interf.GetArgumentValue(GlobalConstants.DestinationTileValue);
-                actual = (result as int? == int.Parse(numberCommands[i]));
+                actual = result as int? == int.Parse(numberCommands[i]);
                 Assert.IsTrue(actual);
             }
         }
@@ -137,7 +139,6 @@
             reader.BaseStream.Seek(0, SeekOrigin.Begin);
             reader.BaseStream.Position = 0;
 
-            
             string correctCommand;
             for (int i = 0; i < numberCommands.Length; i++)
             {
@@ -146,6 +147,5 @@
                 Assert.AreEqual(command, userInterface.GetCommandFromInput());
             }
         }
-
     }
 }

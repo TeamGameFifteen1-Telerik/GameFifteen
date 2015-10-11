@@ -1,4 +1,6 @@
-﻿using System.Reflection;
+﻿// <copyright file="AssemblyInfo.cs" company="Telerik Academy">All rights reserved.</copyright>
+// <author>Team GameFifteen-1</author>
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 

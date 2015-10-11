@@ -1,9 +1,13 @@
-﻿namespace GameFifteen.GridTests
+﻿// <copyright file="PlayerTests.cs" company="Telerik Academy">All rights reserved.</copyright>
+// <author>Team GameFifteen-1</author>
+namespace GameFifteen.GridTests
 {
     using System;
-    using GameFifteen.Models;
+
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
+
+    using GameFifteen.Models;
     using GameFifteen.Models.Contracts;
 
     /// <summary>

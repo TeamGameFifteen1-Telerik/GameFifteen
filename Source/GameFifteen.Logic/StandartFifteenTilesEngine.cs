@@ -1,7 +1,8 @@
-﻿namespace GameFifteen.Logic
+﻿// <copyright file="StandartFifteenTilesEngine.cs" company="Telerik Academy">All rights reserved.</copyright>
+// <author>Team GameFifteen-1</author>
+namespace GameFifteen.Logic
 {
     using System;
-    using System.Collections.Generic;
     using System.Reflection;
 
     using GameFifteen.Common;
