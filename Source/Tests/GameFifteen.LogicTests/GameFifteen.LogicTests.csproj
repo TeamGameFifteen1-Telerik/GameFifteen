@@ -71,10 +71,6 @@
       <Project>{ee945dfb-a7c6-48b5-a3ed-9079c6fa71b4}</Project>
       <Name>GameFifteen.Console</Name>
     </ProjectReference>
-    <ProjectReference Include="..\GameFifteen.GridTests\GameFifteen.ModelTests.csproj">
-      <Project>{0e42f1ce-47c6-4cbe-9029-3c3a15d7bbc9}</Project>
-      <Name>GameFifteen.ModelTests</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\GameFifteen.Logic\GameFifteen.Logic.csproj">
       <Project>{54b11bee-1641-4b4d-8cd4-bee88ce7e9b4}</Project>
       <Name>GameFifteen.Logic</Name>

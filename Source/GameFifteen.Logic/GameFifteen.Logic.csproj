@@ -45,10 +45,9 @@
     <Compile Include="Contracts\IGameInitializater.cs" />
     <Compile Include="Contracts\IUserInterface.cs" />
     <Compile Include="Contracts\IRenderer.cs" />
-    <Compile Include="StandartFifteenTilesEngine.cs" />
+    <Compile Include="StandartGameFifteenEngine.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="StandartGameInitializer.cs" />
-    <Compile Include="GridMemory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
