@@ -189,7 +189,8 @@ Refactoring Documentation for Project “Game Fifteen"
 	- ```solve``` command for instant solve.
 	- ```how``` command for game options.
 	- ```game``` command to return to game screen
-8. HQC principles
+8. Fixed StyleCop warnings.
+9. HQC principles
 	- *SOLID*:
 		- *S*: small methods and classes, each with one concrete purpose
 		- *O*: easy to add different engine / game initializer / renderer, different type of grid or player without modifying. Also extend it with styles. Example: GridBorderStyle - easy to add a new style.

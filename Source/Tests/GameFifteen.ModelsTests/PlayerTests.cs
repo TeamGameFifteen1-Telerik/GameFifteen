@@ -51,5 +51,46 @@ namespace GameFifteen.GridTests
             var expected = "Pesho";
             Assert.AreEqual(actual, expected);
         }
+
+        [TestMethod]
+        public void TestPlayerSetName()
+        {
+            var player = new Player();
+            player.Name = "Pesho";
+
+            var actual = player.Name;
+            var expected = "Pesho";
+            Assert.AreEqual(actual, expected);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void TestPlayerSetNameShpuldThrowWhenEmptyName()
+        {
+            var player = new Player();
+            player.Name = string.Empty;
+        }
+
+        [TestMethod]
+        public void TestGetTextRepresentationWhenPlayerHasMoreThanOneMoves()
+        {
+            var player = new Player("Pesho");
+            player.Moves = 3;
+
+            var actual = player.GetTextRepresentation();
+            var expected = "Pesho -> 3 moves";
+            Assert.AreEqual(actual, expected);
+        }
+
+        [TestMethod]
+        public void TestGetTextRepresentationWhenPlayerHasOneMove()
+        {
+            var player = new Player("Pesho");
+            player.Moves = 1;
+
+            var actual = player.GetTextRepresentation();
+            var expected = "Pesho -> 1 move";
+            Assert.AreEqual(actual, expected);
+        }
     }
 }

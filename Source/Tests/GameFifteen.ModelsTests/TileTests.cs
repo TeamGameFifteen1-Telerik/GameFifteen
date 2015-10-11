@@ -92,5 +92,25 @@ namespace GameFifteen.GridTests
 
             return newTile;
         }
+
+        [TestMethod]
+        public void TestTileGetTextRepresentationOfEmptyTile()
+        {
+            var tile = new Tile(string.Empty, 0, TileType.Empty);
+
+            var actual = tile.GetTextRepresentation();
+            var expected = " ";
+            Assert.AreEqual(actual, expected);
+        }
+
+        [TestMethod]
+        public void TestTileGetTextRepresentationOfNumberedTile()
+        {
+            var tile = new Tile("1", 0, TileType.Empty);
+
+            var actual = tile.GetTextRepresentation();
+            var expected = "1";
+            Assert.AreEqual(actual, expected);
+        }
     }
 }

@@ -219,5 +219,113 @@ namespace GameFifteen.GridTests
             var expected = false;
             Assert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
+        public void TestCanSwapMethodToReturnFalseValueWhenCurrentTileCanBeSwapped()
+        {
+            var grid = new Grid();
+            for (int i = 0; i < 5; i++)
+            {
+                var tile = new Tile(i.ToString(), i, TileType.Number);
+                grid.AddTile(tile);
+            }
+
+            var emptyTile = new Tile(string.Empty, 5, TileType.Empty);
+            grid.AddTile(emptyTile);
+            var tileToTest = grid.GetTileFromLabel("4");
+            var actual = grid.CanSwap(tileToTest);
+            var expected = true;
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void TestCheckIfSortedWhenGridIsSorted()
+        {
+            var grid = new Grid();
+            var emptyTile = new Tile(string.Empty, GlobalConstants.TotalTilesCount - 1, TileType.Empty);
+
+            for (int i = 0; i < GlobalConstants.TotalTilesCount - 1; i++)
+            {
+                Tile tile = emptyTile.CloneMemberwise();
+                tile.Label = (i + 1).ToString();
+                tile.Position = i;
+                tile.Type = TileType.Number;
+                grid.AddTile(tile);
+            }
+
+            grid.AddTile(emptyTile);
+
+            bool actual = grid.IsSorted;
+            var expected = true;
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void TestCheckIfSortedWhenGridIsNotSorted()
+        {
+            var grid = new Grid();
+            var emptyTile = new Tile(string.Empty, 0, TileType.Empty);
+            grid.AddTile(emptyTile);
+
+            for (int i = GlobalConstants.TotalTilesCount - 1; i > 0; i--)
+            {
+                Tile tile = emptyTile.CloneMemberwise();
+                tile.Label = (i + 1).ToString();
+                tile.Position = i;
+                tile.Type = TileType.Number;
+                grid.AddTile(tile);
+            }
+
+            bool actual = grid.IsSorted;
+            var expected = false;
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void TestSwapTiles()
+        {
+            var grid = new Grid();
+
+            var emptyTile = new Tile(string.Empty, 0, TileType.Empty);
+            grid.AddTile(emptyTile);
+
+            Tile tile = emptyTile.CloneMemberwise();
+            tile.Label = "1";
+            tile.Position = 1;
+            tile.Type = TileType.Number;
+            grid.AddTile(tile);
+
+            grid.SwapTiles(tile);
+
+            var actual = tile.Position;
+            var expected = 0;
+ 
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void TestGetEnumerator()
+        {
+            var grid = new Grid();
+
+            var emptyTile = new Tile(string.Empty, 0, TileType.Empty);
+            grid.AddTile(emptyTile);
+
+            Tile tile = emptyTile.CloneMemberwise();
+            tile.Label = "1";
+            tile.Position = 1;
+            tile.Type = TileType.Number;
+            grid.AddTile(tile);
+
+            foreach (Tile item in grid)
+            {
+                item.Label = "test";
+            }
+
+            var actual = emptyTile.Label;
+            var expected = "test";
+
+            Assert.AreEqual(expected, actual);
+        }
     }
 }

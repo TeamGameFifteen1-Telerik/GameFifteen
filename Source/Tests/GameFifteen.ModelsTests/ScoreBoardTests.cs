@@ -69,6 +69,16 @@ namespace GameFifteen.GridTests
             score.AddPlayer(player);
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void TestAddPlayerShouldThrowWhenPlayerIsNull()
+        {
+            var score = Scoreboard.Instance;
+            score.Clear();
+            IPlayer player = null;
+            score.AddPlayer(player);
+        }
+
         /// <summary>
         /// Method tests if players added to the scoreboard are added in the correct order. 
         /// </summary>
