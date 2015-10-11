@@ -4,9 +4,9 @@ namespace GameFifteen.Console
 {
     using System.Reflection;
 
-    using Ninject;
-
     using GameFifteen.Logic.Contracts;
+
+    using Ninject;
 
     /// <summary>
     /// A normal game starter object implementing Facade design pattern.

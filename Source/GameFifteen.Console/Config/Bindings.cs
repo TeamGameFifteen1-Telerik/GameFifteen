@@ -2,14 +2,14 @@
 // <author>Team GameFifteen-1</author>
 namespace GameFifteen.Console
 {
-    using Ninject.Modules;
-
     using GameFifteen.Console.Contracts;
     using GameFifteen.Console.Styles;
     using GameFifteen.Logic;
     using GameFifteen.Logic.Contracts;
     using GameFifteen.Models;
     using GameFifteen.Models.Contracts;
+
+    using Ninject.Modules;
 
     /// <summary>
     /// Dependency injection

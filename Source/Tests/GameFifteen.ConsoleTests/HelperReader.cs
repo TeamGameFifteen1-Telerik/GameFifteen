@@ -3,7 +3,7 @@
     using System;
     using System.IO;
 
-    public class HelperReader: TextReader
+    public class HelperReader : TextReader
     {
         public HelperReader()
         {
