@@ -54,7 +54,6 @@
   </Choose>
   <ItemGroup>
     <Compile Include="GameInitializerTests.cs" />
-    <Compile Include="GameStarterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
