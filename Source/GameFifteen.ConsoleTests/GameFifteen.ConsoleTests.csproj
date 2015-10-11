@@ -84,16 +84,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="ResultsFromTests\RenderMessage.txt" />
-    <Content Include="ResultsFromTests\RentererMessage.txt" />
-    <Content Include="styleCommands.txt" />
-    <Content Include="testCommands.txt" />
-    <Content Include="testCommands\CommandMoves.txt" />
-    <Content Include="testCommands\CorrectCommands.txt" />
-    <Content Include="testCommands\UndefinedTextCommand.txt" />
-    <Content Include="testCommands\WrongStyleCommands.txt" />
-  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

@@ -1,6 +1,0 @@
-style=Sod=sd
-styles
-style solid
-style=set=solid
-set style=solid
-solidStyle
