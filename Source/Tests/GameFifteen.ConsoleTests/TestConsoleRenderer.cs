@@ -12,9 +12,8 @@ namespace GameFifteen.ConsoleTests
     using GameFifteen.Console;
     using GameFifteen.Console.Styles;
     using GameFifteen.Common;
-    using Moq;
-    using GameFifteen.Logic.Contracts;
-    using System.IO;
+    using GameFifteen.Models;
+    using GameFifteen.Models.Contracts;
 
     [TestClass]
     public class TestConsoleRenderer
