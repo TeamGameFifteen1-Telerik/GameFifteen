@@ -130,6 +130,7 @@ namespace GameFifteen.ConsoleTests
 
             ConsoleRenderer rende = new ConsoleRenderer(new BorderStyleFactory());
             Scoreboard scoreBoard = Scoreboard.Instance;
+            scoreBoard.Clear();
 
             rende.RenderScoreboard(scoreBoard);
 

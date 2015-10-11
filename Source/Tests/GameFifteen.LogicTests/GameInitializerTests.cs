@@ -4,11 +4,15 @@ namespace GameFifteen.LogicTests
 {
     using System;
     using System.Collections.Generic;
+
     using GameFifteen.Logic;
     using GameFifteen.Logic.Contracts;
     using GameFifteen.Models.Contracts;
+
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
+    using GameFifteen.Models;
+    using GameFifteen.Common;
 
     /// <summary>
     /// This class tests if the methods in GameFifteen.Logic module projects are successfully invoked.
@@ -42,16 +46,17 @@ namespace GameFifteen.LogicTests
             mockedInitializer.Verify(m => m.InitilizeGrid(fakeGrid.Object), Times.Exactly(1));
         }
 
-        /// <summary>
-        /// Method verifies that the used IEngine.Initialize() method is successfully invoked.
-        /// </summary>
         [TestMethod]
-        public void TileEngineInitializeMethodShouldBeInvokedOnce()
+        public void InitializeGridMethodShouldFillGridWithTotalTiles()
         {
-            var mockedEngine = new Mock<IEngine>();
-            mockedEngine.Setup(x => x.Initialize());
-            mockedEngine.Object.Initialize();
-            mockedEngine.Verify(x => x.Initialize(), Times.Exactly(1));
+            IGrid grid = new Grid();
+            var gameInitializer = new StandartGameInitializer();
+
+            gameInitializer.Initialize(grid);
+
+            var actual = grid.TilesCount;
+            var expected = GlobalConstants.TotalTilesCount;
+            Assert.AreEqual(expected, actual);
         }
     }
 }
