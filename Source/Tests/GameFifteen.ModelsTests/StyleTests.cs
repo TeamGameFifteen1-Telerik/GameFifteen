@@ -1,12 +1,16 @@
-﻿namespace GameFifteen.GridTests
+﻿// <copyright file="StyleTests.cs" company="Telerik Academy">All rights reserved.</copyright>
+// <author>Team GameFifteen-1</author>
+namespace GameFifteen.GridTests
 {
     using System;
     using System.Linq;
+
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
     using GameFifteen.Common;
     using GameFifteen.Console;
     using GameFifteen.Console.Contracts;
     using GameFifteen.Console.Styles;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
     using GameFifteen.Models.Contracts;
     using GameFifteen.Models;
 
@@ -163,9 +167,9 @@
         {
             IGameMember grid = new Grid();
             GridWithBorder gridBorder;
-            for (int i = 0; i < styles.Length; i++)
+            for (int i = 0; i < this.styles.Length; i++)
             {
-                var currentBorderStyleForTesting = styles[i];
+                var currentBorderStyleForTesting = this.styles[i];
                 gridBorder = new GridWithBorder(grid, currentBorderStyleForTesting);
                 string result = gridBorder.GetTextRepresentation();
                 Assert.AreEqual(true, result.Contains(currentBorderStyleForTesting.Top) &&

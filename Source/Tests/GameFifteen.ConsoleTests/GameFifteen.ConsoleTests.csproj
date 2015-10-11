@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0E42F1CE-47C6-4CBE-9029-3C3A15D7BBC9}</ProjectGuid>
+    <ProjectGuid>{ABAD05FB-7F01-407B-8550-C082DC269778}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GameFifteen.GridTests</RootNamespace>
-    <AssemblyName>GameFifteen.GridTests</AssemblyName>
+    <RootNamespace>GameFifteen.ConsoleTests</RootNamespace>
+    <AssemblyName>GameFifteen.ConsoleTests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -25,6 +25,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\GameFifteen.ConsoleTests.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -35,9 +36,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Moq, Version=4.2.1507.118, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+    <Reference Include="Moq">
       <HintPath>..\packages\Moq.4.2.1507.0118\lib\net40\Moq.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
   </ItemGroup>
@@ -54,29 +54,29 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="GridTests.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ScoreBoardTests.cs" />
-    <Compile Include="StyleTests.cs" />
-    <Compile Include="TileTests.cs" />
-    <Compile Include="PlayerTests.cs">
+    <Compile Include="ConsoleInterfaceTests.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
+    <Compile Include="GameStarterTests.cs" />
+    <Compile Include="HelperReader.cs" />
+    <Compile Include="HelperWriter.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestConsoleRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GameFifteen.Common\GameFifteen.Common.csproj">
+    <ProjectReference Include="..\..\GameFifteen.Common\GameFifteen.Common.csproj">
       <Project>{7bcbede5-63fc-4a5e-a3d7-671cc8000a78}</Project>
       <Name>GameFifteen.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\GameFifteen.Console\GameFifteen.Console.csproj">
+    <ProjectReference Include="..\..\GameFifteen.Console\GameFifteen.Console.csproj">
       <Project>{ee945dfb-a7c6-48b5-a3ed-9079c6fa71b4}</Project>
       <Name>GameFifteen.Console</Name>
     </ProjectReference>
-    <ProjectReference Include="..\GameFifteen.Logic\GameFifteen.Logic.csproj">
+    <ProjectReference Include="..\..\GameFifteen.Logic\GameFifteen.Logic.csproj">
       <Project>{54b11bee-1641-4b4d-8cd4-bee88ce7e9b4}</Project>
       <Name>GameFifteen.Logic</Name>
     </ProjectReference>
-    <ProjectReference Include="..\GameFifteen.Models\GameFifteen.Models.csproj">
+    <ProjectReference Include="..\..\GameFifteen.Models\GameFifteen.Models.csproj">
       <Project>{cc14d269-a931-461e-922a-277228cffa28}</Project>
       <Name>GameFifteen.Models</Name>
     </ProjectReference>

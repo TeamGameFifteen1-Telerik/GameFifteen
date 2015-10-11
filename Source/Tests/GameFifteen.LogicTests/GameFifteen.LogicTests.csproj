@@ -59,7 +59,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GameFifteen.Common\GameFifteen.Common.csproj">
+    <ProjectReference Include="..\..\GameFifteen.Common\GameFifteen.Common.csproj">
       <Project>{7bcbede5-63fc-4a5e-a3d7-671cc8000a78}</Project>
       <Name>GameFifteen.Common</Name>
     </ProjectReference>
@@ -67,19 +67,15 @@
       <Project>{abad05fb-7f01-407b-8550-c082dc269778}</Project>
       <Name>GameFifteen.ConsoleTests</Name>
     </ProjectReference>
-    <ProjectReference Include="..\GameFifteen.Console\GameFifteen.Console.csproj">
+    <ProjectReference Include="..\..\GameFifteen.Console\GameFifteen.Console.csproj">
       <Project>{ee945dfb-a7c6-48b5-a3ed-9079c6fa71b4}</Project>
       <Name>GameFifteen.Console</Name>
     </ProjectReference>
-    <ProjectReference Include="..\GameFifteen.GridTests\GameFifteen.ModelTests.csproj">
-      <Project>{0e42f1ce-47c6-4cbe-9029-3c3a15d7bbc9}</Project>
-      <Name>GameFifteen.ModelTests</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\GameFifteen.Logic\GameFifteen.Logic.csproj">
+    <ProjectReference Include="..\..\GameFifteen.Logic\GameFifteen.Logic.csproj">
       <Project>{54b11bee-1641-4b4d-8cd4-bee88ce7e9b4}</Project>
       <Name>GameFifteen.Logic</Name>
     </ProjectReference>
-    <ProjectReference Include="..\GameFifteen.Models\GameFifteen.Models.csproj">
+    <ProjectReference Include="..\..\GameFifteen.Models\GameFifteen.Models.csproj">
       <Project>{cc14d269-a931-461e-922a-277228cffa28}</Project>
       <Name>GameFifteen.Models</Name>
     </ProjectReference>

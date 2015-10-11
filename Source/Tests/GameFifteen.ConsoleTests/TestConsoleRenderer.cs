@@ -1,18 +1,20 @@
-﻿namespace GameFifteen.ConsoleTests
+﻿// <copyright file="TestConsoleRenderer.cs" company="Telerik Academy">All rights reserved.</copyright>
+// <author>Team GameFifteen-1</author>
+namespace GameFifteen.ConsoleTests
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
+
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Moq;
+
     using GameFifteen.Console;
     using GameFifteen.Console.Styles;
-    using GameFifteen.Console.Contracts;
     using GameFifteen.Common;
     using Moq;
     using GameFifteen.Logic.Contracts;
     using System.IO;
-    using GameFifteen.Models;
-    using GameFifteen.Models.Contracts;
 
     [TestClass]
     public class TestConsoleRenderer

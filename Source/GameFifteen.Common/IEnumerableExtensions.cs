@@ -1,4 +1,6 @@
-﻿namespace GameFifteen.Common
+﻿// <copyright file="IEnumerableExtensions.cs" company="Telerik Academy">All rights reserved.</copyright>
+// <author>Team GameFifteen-1</author>
+namespace GameFifteen.Common
 {
     using System;
     using System.Collections.Generic;
@@ -12,9 +14,9 @@
         /// <summary>
         /// Clones objects in IEnumerable collection.
         /// </summary>
-        /// <typeparam name="T">Object type</typeparam>
-        /// <param name="collection">IEnumerable collection</param>
-        /// <returns>A collection with cloned objects</returns>
+        /// <typeparam name="T">Object type.</typeparam>
+        /// <param name="collection">IEnumerable collection.</param>
+        /// <returns>A collection with cloned objects.</returns>
         public static IEnumerable<T> Clone<T>(this IEnumerable<T> collection) where T : ICloneable
         {
             return collection.Select(item => (T)item.Clone());

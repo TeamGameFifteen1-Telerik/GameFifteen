@@ -1,4 +1,6 @@
-﻿namespace GameFifteen.ConsoleTests
+﻿// <copyright file="ConsoleInterfaceTests.cs" company="Telerik Academy">All rights reserved.</copyright>
+// <author>Team GameFifteen-1</author>
+namespace GameFifteen.ConsoleTests
 {
     using System;
     using System.IO;
@@ -152,6 +154,7 @@
             mock.Setup(r => r.ReadLine()).Returns(() => commandstoPr[index]);
 
             IUserInterface userInterface = new ConsoleInterface();
+
             string correctCommand;
             for (; index < commandstoPr.Count; index++)
             {
@@ -162,6 +165,5 @@
 
             mock.Verify(r => r.ReadLine(), Times.Exactly(commandstoPr.Count));
         }
-
     }
 }

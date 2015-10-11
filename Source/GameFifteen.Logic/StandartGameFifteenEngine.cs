@@ -1,7 +1,8 @@
-﻿namespace GameFifteen.Logic
+﻿// <copyright file="StandartGameFifteenEngine.cs" company="Telerik Academy">All rights reserved.</copyright>
+// <author>Team GameFifteen-1</author>
+namespace GameFifteen.Logic
 {
     using System;
-    using System.Collections.Generic;
     using System.Reflection;
 
     using GameFifteen.Common;
@@ -14,7 +15,7 @@
     /// Strategy design pattern: IRenderer renderer, IUserInterface userInterface
     /// Bridge design pattern: IGameInitializer gameInitializer.
     /// </summary>
-    public class StandartFifteenTilesEngine : Engine, IEngine
+    public class StandartGameFifteenEngine : Engine, IEngine
     {
         private IRenderer renderer;
         private IUserInterface userInterface;
@@ -26,14 +27,14 @@
         private bool isGameStarted;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="StandartFifteenTilesEngine"/> class.
+        /// Initializes a new instance of the <see cref="StandartGameFifteenEngine"/> class.
         /// </summary>
         /// <param name="renderer">Object to print.</param>
         /// <param name="userInterface">Interacting with user.</param>
         /// <param name="gameInitializer">Initializing the game.</param>
         /// <param name="player">The player.</param>
         /// <param name="grid">Grid with tiles.</param>
-        public StandartFifteenTilesEngine(IRenderer renderer, IUserInterface userInterface, IGameInitializater gameInitializer, IPlayer player, IGrid grid)
+        public StandartGameFifteenEngine(IRenderer renderer, IUserInterface userInterface, IGameInitializater gameInitializer, IPlayer player, IGrid grid)
             : base(gameInitializer)
         {
             this.renderer = renderer;

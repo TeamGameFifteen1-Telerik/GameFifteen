@@ -1,4 +1,6 @@
-﻿namespace GameFifteen.GridTests
+﻿// <copyright file="GridTests.cs" company="Telerik Academy">All rights reserved.</copyright>
+// <author>Team GameFifteen-1</author>
+namespace GameFifteen.GridTests
 {
     using System;
     using GameFifteen.Common;

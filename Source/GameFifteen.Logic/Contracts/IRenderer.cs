@@ -1,4 +1,6 @@
-﻿namespace GameFifteen.Logic.Contracts
+﻿// <copyright file="IRenderer.cs" company="Telerik Academy">All rights reserved.</copyright>
+// <author>Team GameFifteen-1</author>
+namespace GameFifteen.Logic.Contracts
 {
     using GameFifteen.Common;
     using GameFifteen.Models;
@@ -40,6 +42,9 @@
         /// </summary>
         void RenderInitialScreen();
 
+        /// <summary>
+        /// Prints the game options.
+        /// </summary>
         void RenderGameOptions();
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace GameFifteen.Console
+﻿// <copyright file="GameImages.cs" company="Telerik Academy">All rights reserved.</copyright>
+// <author>Team GameFifteen-1</author>
+namespace GameFifteen.Console
 {
     /// <summary>
     /// Contains public constants (as strings) for game ASCII images.

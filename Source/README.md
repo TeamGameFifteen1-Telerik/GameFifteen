@@ -9,11 +9,11 @@ Refactoring Documentation for Project “Game Fifteen"
 		- *GameFifteen.Logic*, 
 		- *GameFifteen.Models*.
 	- Renamed classes: 
-		- *Gameplay* to *StandartFifteenTilesEngine*
+		- *Gameplay* to *StandartGameFifteenEngine*
 		- *MatrixGenerator* to *Grid*
 		- *Program* to *GameFifteenMain*
 	- Moved classes:
-		-  *StandartFifteenTilesEngine*, *Command* to project *GameFifteen.Logic*
+		-  *StandartGameFifteenEngine*, *Command* to project *GameFifteen.Logic*
 		-  *Player*, *Tile*, *Grid*, *Scoreboard* to *GameFifteen.Models*
 		-  *GameFifteenMain* to *GameFifteen.Console*
 	- *Command* class turned into *Command* enum. Method ```CommandType()``` redesigned.
@@ -37,8 +37,6 @@ Refactoring Documentation for Project “Game Fifteen"
 				- Processes user commands.			
 			- *Strategy* design pattern: IRenderer, IUserInterface objects
 			- *Bridge* design pattern: IGameInitializer object.
-		- *GridMemory*
-			- To store saved game mementos (*Memento* design pattern - Caretaker)
 		- *StandartGameInitializer*
 			- Hold the logic to initialize a new Grid.
 	- *GameFifteen.Models*:
@@ -47,6 +45,8 @@ Refactoring Documentation for Project “Game Fifteen"
 		- *Memento*
 			- A class to save game state when the player saves their game.
 			- Also used to save game state after each move for ```game``` command.
+		- *GridMemory*
+			- To store saved game mementos (*Memento* design pattern - Caretaker)
 		- *TilePrototype*
 			- Abstract class for cloning tiles.
 			- *Prototype* design pattern.
@@ -127,14 +127,14 @@ Refactoring Documentation for Project “Game Fifteen"
 		- Added validations for player's name
 		- Added new method ```GetTextRepresentation() to get player as text.
 		- Added default name "Guest" if player doesn't enter name.		
-	- Class *StandartFifteenTilesEngine*
+	- Class *StandartGameFifteenEngine*
 		- Removed methods ```GetFreeTilePosition()```, ```AreValidNeighbourTiles()```, ```TilePositionValidation()```, ```GetDestinationTilePosition()``` - logic moved to class *Grid* and *StandartGameInitializer*
 		- Refactored method ```IsMatrixSolved()```
 			- Extracted method ```AskForAnotherGame()``` to ask user for a new game.
 			- Extracted method ```SaveScore()``` to save user's score.
 			- Method ```IsGameOver()``` to check if game is over.
 			- Method ```GameOver()``` to handle game end.
-		- Method ```MoveTiles()``` moved from class *StandartFifteenTilesEngine* to class *StandartGameInitializer* and refactored (variables renamed, methods extracted)
+		- Method ```MoveTiles()``` moved from class *StandartGameFifteenEngine* to class *StandartGameInitializer* and refactored (variables renamed, methods extracted)
 		- Added method ```ExecuteCommand()``` to handle commands.
 		- Added separate methods for different commands: ```ExecuteMenuCommand()```, ```ExecuteStartCommand()```, ```ExecuteGameCommand()```, ```ExecuteHowCommand()```, ```ExecuteTopCommand()```, ```ExecuteRestartCommand()```, ```ExecuteMoveCommand()```, ```ExecuteStyleCommand()```, ```ExecuteSaveCommand()```, ```ExecuteLoadCommand()```, ```ExecuteSolveCommand()```, ```ExecuteExitCommand()``` to handle commands.
 		- Added method ```UserAgrees()``` to get user's agreement for some commands.
@@ -143,12 +143,12 @@ Refactoring Documentation for Project “Game Fifteen"
 		- Added method ```Initialize()``` to initialize the initial game screen.
 		- Added method ```Run()``` to initialize the play screen.	
 	- Class *GameFifteenMain*:
-		- Logic from method *Menu* moved to method Run in class *StandartFifteenTilesEngine*
+		- Logic from method *Menu* moved to method Run in class *StandartGameFifteenEngine*
 		- Gets an instance of GameFifteenStarter and runs ```NewGame()```	
 	- Added interfaces:
 		- *GameFifteen.Logic*
-			- *IRenderer* to use in class *StandartFifteenTilesEngine*
-			- *IUserInterface* for user input, to use in class *StandartFifteenTilesEngine*
+			- *IRenderer* to use in class *StandartGameFifteenEngine*
+			- *IUserInterface* for user input, to use in class *StandartGameFifteenEngine*
 			- *IEngine*
 			- *IGameInitializater*
 		- *GameFifteen.Models*
@@ -164,19 +164,24 @@ Refactoring Documentation for Project “Game Fifteen"
 		- *BorderStyleType*
 4.	Implemented Patterns
 	- Creational
-		- Singleton [link](https://github.com/TeamGameFifteen1-Telerik/GameFifteen/blob/master/Source/GameFifteen.Models/Scoreboard.cs), GameFifteenStarter
-		- Prototype [link](https://github.com/TeamGameFifteen1-Telerik/GameFifteen/blob/master/Source/GameFifteen.Models/Tile.cs#L69)
-		- Simple Factory - GridStyleFactory Enum.
-		- Object Pool - Werehouse Bindings.cs
+		- Singleton: 
+			- [Scoreboard](https://github.com/TeamGameFifteen1-Telerik/GameFifteen/blob/master/Source/GameFifteen.Models/Scoreboard.cs), - with Lazy<Scoreboard>
+			- [GameFifteenStarter](https://github.com/TeamGameFifteen1-Telerik/GameFifteen/blob/master/Source/GameFifteen.Console/GameFifteenStarter.cs)
+		- Prototype: [Tile](https://github.com/TeamGameFifteen1-Telerik/GameFifteen/blob/master/Source/GameFifteen.Models/Tile.cs#L106), [TilePrototype](https://github.com/TeamGameFifteen1-Telerik/GameFifteen/blob/master/Source/GameFifteen.Models/TilePrototype.cs)
+		- Simple Factory: [GridStyleFactory](https://github.com/TeamGameFifteen1-Telerik/GameFifteen/blob/master/Source/GameFifteen.Console/Styles/BorderStyleFactory.cs)
+		- Object Pool: [Warehouse - Bindings.cs](https://github.com/TeamGameFifteen1-Telerik/GameFifteen/blob/master/Source/GameFifteen.Console/Config/Bindings.cs);
 	- Structural
-		- Facade - GameFifteenStarter.cs and GameFifteenMain.cs
-		- Decorator concrete decorator GridWithBorder.cs,  abstract decorator Decorator.cs 
-		- Bridge between IGameInitializer and IEngine (engine.cs)
+		- Façade: [GameFifteenStarter](https://github.com/TeamGameFifteen1-Telerik/GameFifteen/blob/master/Source/GameFifteen.Console/GameFifteenStarter.cs), [GameFifteenMain](https://github.com/TeamGameFifteen1-Telerik/GameFifteen/blob/master/Source/GameFifteen.Console/GameFifteenMain.cs)
+		- Decorator: [Concrete decorator - GridWithBorder.cs](https://github.com/TeamGameFifteen1-Telerik/GameFifteen/blob/master/Source/GameFifteen.Console/Styles/GridWithBorder.cs), [Abstract decorator - Decorator.cs](https://github.com/TeamGameFifteen1-Telerik/GameFifteen/blob/master/Source/GameFifteen.Console/Styles/Decorator.cs)
+		- Bridge: between [IGameInitializer](https://github.com/TeamGameFifteen1-Telerik/GameFifteen/blob/master/Source/GameFifteen.Logic/Contracts/IGameInitializater.cs) and [Engine](https://github.com/TeamGameFifteen1-Telerik/GameFifteen/blob/master/Source/GameFifteen.Logic/Engine.cs)
 	- Behavioral
-		- Memento [link](https://github.com/TeamGameFifteen1-Telerik/GameFifteen/blob/master/Source/GameFifteen.Models/Grid.cs#L105)
-		- Strategy - StandartFifteenTilesEngine.ctor() IRenderer renderer, IUserInterface userInterface
-		- Iterator - Grid.cs  IEnumerator GetEnumerator(), Foreach implements iterator 
+		- Memento [Originator - Grid](https://github.com/TeamGameFifteen1-Telerik/GameFifteen/blob/master/Source/GameFifteen.Models/Grid.cs#L144), [Memento](https://github.com/TeamGameFifteen1-Telerik/GameFifteen/blob/master/Source/GameFifteen.Models/Memento.cs), [Caretaker - GridMemory](https://github.com/TeamGameFifteen1-Telerik/GameFifteen/blob/master/Source/GameFifteen.Models/GridMemory.cs)
+		- Strategy - [StandartGameFifteenEngine.ctor()](https://github.com/TeamGameFifteen1-Telerik/GameFifteen/blob/master/Source/GameFifteen.Logic/StandartGameFifteenEngine.cs), [IRenderer](https://github.com/TeamGameFifteen1-Telerik/GameFifteen/blob/master/Source/GameFifteen.Logic/Contracts/IRenderer.cs), [IUserInterface](https://github.com/TeamGameFifteen1-Telerik/GameFifteen/blob/master/Source/GameFifteen.Logic/Contracts/IUserInterface.cs)
+		- Iterator - [Grid](https://github.com/TeamGameFifteen1-Telerik/GameFifteen/blob/master/Source/GameFifteen.Models/Grid.cs#L132) - IEnumerator GetEnumerator(), foreach 
 5. Added unit tests
+	- Console tests
+	- Logic tests
+	- Models tests
 6. Code documented. Documentation exported to chm file.
 7. New functionalities:
 	- ```save``` and ```load``` game commands

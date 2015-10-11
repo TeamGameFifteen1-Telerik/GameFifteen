@@ -1,4 +1,6 @@
-﻿namespace GameFifteen.Console
+﻿// <copyright file="GameFifteenStarter.cs" company="Telerik Academy">All rights reserved.</copyright>
+// <author>Team GameFifteen-1</author>
+namespace GameFifteen.Console
 {
     using System.Reflection;
 
@@ -14,7 +16,8 @@
         private static GameFifteenStarter instance;
 
         /// <summary>
-        /// Private <see cref="GameFifteenStarter"/> constructor - Singleton
+        /// Prevents a default instance of the <see cref="GameFifteenStarter" /> class from being created.
+        /// Singleton.
         /// </summary>
         private GameFifteenStarter()
         {
