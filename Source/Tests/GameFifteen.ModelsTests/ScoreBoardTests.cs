@@ -21,9 +21,7 @@ namespace GameFifteen.GridTests
         {
             var firstInstance = Scoreboard.Instance;
             var secondInstance = Scoreboard.Instance;
-            var actual = firstInstance.GetHashCode();
-            var expected = secondInstance.GetHashCode();
-            Assert.AreEqual(expected, actual);
+            Assert.AreEqual(firstInstance, secondInstance);
         }
         
         /// <summary>

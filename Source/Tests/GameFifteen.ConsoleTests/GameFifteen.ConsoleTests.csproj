@@ -57,9 +57,9 @@
     <Compile Include="ConsoleInterfaceTests.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
+    <Compile Include="ConsoleRendererTests.cs" />
     <Compile Include="GameStarterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestConsoleRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\GameFifteen.Common\GameFifteen.Common.csproj">
