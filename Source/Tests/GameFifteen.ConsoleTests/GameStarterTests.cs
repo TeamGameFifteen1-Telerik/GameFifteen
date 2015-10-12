@@ -22,9 +22,7 @@ namespace GameFifteen.LogicTests
         {
             var firstInstance = GameFifteenStarter.Instance;
             var secondInstance = GameFifteenStarter.Instance;
-            var expected = firstInstance.GetHashCode();
-            var actual = secondInstance.GetHashCode();
-            Assert.AreEqual(expected, actual);
+            Assert.AreEqual(firstInstance, secondInstance);
         }
     }
 }
